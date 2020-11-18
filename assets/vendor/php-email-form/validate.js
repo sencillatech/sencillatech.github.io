@@ -97,39 +97,60 @@
     if (ferror) return false;
 
     var this_form = $(this);
+   // alert('this_form data : ' + JSON.stringify(this_form))
     var action = $(this).attr('action');
 
-    if( ! action ) {
-      this_form.find('.loading').slideUp();
-      this_form.find('.error-message').slideDown().html('The form action property is not set!');
-      return false;
-    }
+    // if( ! action ) {
+    //   this_form.find('.loading').slideUp();
+    //   this_form.find('.error-message').slideDown().html('The form action property is not set!');
+    //   return false;
+    // }
     
-    this_form.find('.sent-message').slideUp();
-    this_form.find('.error-message').slideUp();
-    this_form.find('.loading').slideDown();
+    // this_form.find('.sent-message').slideUp();
+    // this_form.find('.error-message').slideUp();
+    // this_form.find('.loading').slideDown();
 
-    if ( $(this).data('recaptcha-site-key') ) {
-      var recaptcha_site_key = $(this).data('recaptcha-site-key');
-      grecaptcha.ready(function() {
-        grecaptcha.execute(recaptcha_site_key, {action: 'php_email_form_submit'}).then(function(token) {
-          php_email_form_submit(this_form,action,this_form.serialize() + '&recaptcha-response=' + token);
-        });
-      });
-    } else {
+    // if ( $(this).data('recaptcha-site-key') ) {
+    //   var recaptcha_site_key = $(this).data('recaptcha-site-key');
+    //   grecaptcha.ready(function() {
+    //     grecaptcha.execute(recaptcha_site_key, {action: 'php_email_form_submit'}).then(function(token) {
+    //       php_email_form_submit(this_form,action,this_form.serialize() + '&recaptcha-response=' + token);
+    //     });
+    //   });
+    // } else {
       php_email_form_submit(this_form,action,this_form.serialize());
-    }
+    // }
     
-    return true;
+   // return true;
   });
 
-  function php_email_form_submit(this_form, action, data) {
+  function php_email_form_submit(this_form, action1, data1) {
+    var action = 'https://api.emailjs.com/api/v1.0/email/send';
+
+    var data = {
+      service_id: 'service_q7s754s',
+      template_id: 'template_31m611e',
+      user_id: 'user_uw55h7SwRlcxciZuxkFG2',
+      template_params: {
+          'to_name': 'Simpleitech Admin',
+          'from_name': $('#name').val(),
+          'user_subject' : $('#subject').val(),
+          'contact_email' : $('#email').val(),
+          'message': $('#message').val()
+      }
+  };
+
+  //alert('before sending the request')
+
     $.ajax({
       type: "POST",
       url: action,
-      data: data,
+      data: JSON.stringify(data),
+      contentType: 'application/json',
       timeout: 40000
     }).done( function(msg){
+
+      //alert('Your mail is sent!' + msg);
       if (msg.trim() == 'OK') {
         this_form.find('.loading').slideUp();
         this_form.find('.sent-message').slideDown();
@@ -142,7 +163,9 @@
         this_form.find('.error-message').slideDown().html(msg);
       }
     }).fail( function(data){
-      console.log(data);
+
+      //alert('Oops... ' + JSON.stringify(data));
+      console.log("from console : " + data);
       var error_msg = "Form submission failed!<br>";
       if(data.statusText || data.status) {
         error_msg += 'Status:';

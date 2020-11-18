@@ -911,7 +911,7 @@
           </div>
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form id="sendEmailForm" role="form" class="php-email-form">
               <div class="form-row">
                 <div class="col form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
@@ -927,7 +927,7 @@
                 <div class="validate"></div>
               </div>
               <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                <textarea class="form-control" name="message" rows="5" id="message" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
                 <div class="validate"></div>
               </div>
               <div class="mb-3">
@@ -936,6 +936,10 @@
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
+
+              <div id="form-messages"></div>
+
+
             </form>
           </div>
 
@@ -1052,9 +1056,125 @@
   <script src="assets/vendor/venobox/venobox.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
 
+  
+  
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <!-- add the required scripts for the email js -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  
+
+  <script type="text/javascript">
+
+    // validate the form
+    // $(function () {
+    //   $("#sendEmailForm").validate();
+    // });
+
+    // $("#sendEmailForm").on( "submit", function(e) {
+ 
+    //     var dataString = $(this).serialize();
+        // alert("Form submitted")    
+
+        // alert('datastring : ' + dataString )
+        // alert(dataString); return false;
+
+        // $.ajax({
+        //   type: "POST",
+        //   url: "bin/process.php",
+        //   data: dataString,
+        //   success: function () {
+        //     $("#contact_form").html("<div id='message'></div>");
+        //     $("#message")
+        //       .html("<h2>Contact Form Submitted!</h2>")
+        //       .append("<p>We will be in touch soon.</p>")
+        //       .hide()
+        //       .fadeIn(1500, function () {
+        //         $("#message").append(
+        //           "<img id='checkmark' src='images/check.png' />"
+        //         );
+        //       });
+        //   }
+        // });
+
+        // e.preventDefault();
+        // });
+      // });
+
+
+    // $(function() {
+    //     // Get the form.
+    //     var form = $('#sendEmailForm');
+
+    //     // Get the messages div.
+    //     var formMessages = $('#form-messages');
+
+    //     // TODO: The rest of the code will go here...
+    //     // Set up an event listener for the contact form.
+    //     $(form).submit(function(event) {
+    //         // Stop the browser from submitting the form.
+    //         event.preventDefault();
+
+    //          // avoid to execute the actual submit of the form.
+    //         var form = $(this);
+    //         var url = form.attr('action');
+
+    //         alert(form);
+    //         alert(url);
+    //           // TODO
+    //         // Serialize the form data.
+    //         var formData = $(form).serialize();
+    //     });
+
+
+    // });
+
+    // function sendEmail() {
+        
+    //     // code fragment
+    // var data = {
+    //     service_id: 'service_q7s754s',
+    //     template_id: 'template_31m611e',
+    //     user_id: 'user_uw55h7SwRlcxciZuxkFG2',
+    //     template_params: {
+    //         'to_name': 'Admin',
+    //         'from_name': 'Website page',
+    //         'message': 'sample test message'
+    //     }
+    // };
+    
+    // $.ajax('https://api.emailjs.com/api/v1.0/email/send', {
+    //     type: 'POST',
+    //     data: JSON.stringify(data),
+    //     contentType: 'application/json'
+    // }).done(function() {
+    //     alert('Your mail is sent!');
+    // }).fail(function(error) {
+    //     alert('Oops... ' + JSON.stringify(error));
+    // });
+
+
+    // };
+</script>
+<script type="text/javascript">
+    // window.onload = function() {
+    //     document.getElementById('contact-form').addEventListener('submit', function(event) {
+    //         event.preventDefault();
+    //         // generate a five digit number for the contact_number variable
+    //         this.contact_number.value = Math.random() * 100000 | 0;
+    //         // these IDs from the previous steps
+    //         emailjs.send("service_q7s754s","template_31m611e");
+
+    //         emailjs.sendForm('contact_service', 'contact_form', this)
+    //             .then(function() {
+    //                 console.log('SUCCESS!');
+    //             }, function(error) {
+    //                 console.log('FAILED...', error);
+    //             });
+    //     });
+    // }
+</script>
 </body>
 
 </html>
