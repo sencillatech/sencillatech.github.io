@@ -903,7 +903,7 @@ section {
 .services .icon-box {
   text-align: center;
   border: 1px solid #e2eefd;
-  padding: 80px 20px;
+  padding: 30px 20px;
   transition: all ease-in-out 0.3s;
   background: #fff;
 }
@@ -956,6 +956,15 @@ section {
 
 .services .icon-box:hover .icon {
   border-color: #106eea;
+}
+
+.services .tech-box {
+  background-color: #f1f6fe;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
 }
 
 /*--------------------------------------------------------------
