@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Advanced Mutual Fund & Compound Growth Calculator | SimpleiTech</title>
+  <meta name="description" content="Calculate your SIP and Lumpsum Mutual Fund returns with Step-up, Tax, and Inflation adjustments.">
+  <meta name="keywords" content="mutual fund calculator, SIP calculator, lumpsum calculator, compound growth, mutual fund returns">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicons/favicon.ico" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Calculator CSS -->
+  <link href="assets/css/calculator.css" rel="stylesheet">
+
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-55VEQSNG5F');
+  </script>
+
+  <style>
+    /* Mutual Fund specific overrides to match sencillatech theme */
+    .mf-glass-panel {
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--calc-border, #dce6f1);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 39, 93, 0.1);
+    }
+    .mf-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #00275D;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,39,93,0.3);
+    }
+    .mf-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #00275D, #007DBF);
+      border-radius: 3px;
+      outline: none;
+    }
+    .mf-tab-active {
+      background: #00275D !important;
+      color: #fff !important;
+      box-shadow: 0 2px 8px rgba(0,39,93,0.3) !important;
+    }
+    .mf-tab-inactive {
+      color: #555 !important;
+    }
+    .mf-tab-inactive:hover {
+      color: #00275D !important;
+    }
+    .mf-maturity-border {
+      border-top: 4px solid #00275D !important;
+    }
+    .mf-cagr-bar {
+      background: rgba(0, 39, 93, 0.08) !important;
+    }
+    .mf-cagr-bar span:first-child { color: #00275D; }
+    .mf-cagr-bar span:last-child { color: #00275D; font-weight: 700; }
+    .mf-maturity-value { color: #00275D !important; }
+    .mf-returns-value { color: #007DBF !important; }
+    .mf-checkbox { accent-color: #00275D; }
+    .mf-summary-label { color: #E29E21; font-weight: 600; }
+
+    /* Responsive for the mutual fund page */
+    @media (max-width: 768px) {
+      .mf-controls-panel {
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
+    <div class="container d-flex">
+      <div class="contact-info mr-auto">
+        <i class="icofont-envelope"></i> <a href="mailto:sales@simpleitech.com">sales@simpleitech.com</a>
+        <i class="icofont-phone"></i> +91 829 650 9546
+      </div>
+      <div class="social-links">
+        <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
+        <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
+        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <div class="col-lg-4">
+        <h1 class="logo mr-auto"><a href="index.html" style="color: #00275D">Simple<span>i</span>Tech</a></h1>
+        <h6 style="padding-top: 10px;">Simplify your work with Technology.</h6>
+      </div>
+      <div class="col-lg-8">
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li class="active"><a href="index.html#our-apps">Our Apps</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Calculator Banner ======= -->
+  <div style="margin-top: 130px;">
+    <div class="calc-page-header">
+      <div class="container">
+        <h2>Advanced Mutual Fund <span>Calculator</span></h2>
+        <div class="calc-selector">
+          <select name="calculator-options" id="calculator-options">
+            <option value="fintech-calculator.html">Home Loan EMI</option>
+            <option value="personal-loan-calculator.html">Personal Loan EMI</option>
+            <option value="car-loan-calculator.html">Car Loan EMI</option>
+            <option value="mutual-fund-calculator.html" selected>Mutual Fund Calculator</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Breadcrumb ======= -->
+  <div class="calc-breadcrumb">
+    <a href="index.html">← Back to Home</a>
+  </div>
+
+  <div id="root" style="max-width:1200px; margin:0 auto; padding: 10px 20px;"></div>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3><span style="color: #00275D">Simple<span style="color:#E29E21">i</span>Tech</span></h3>
+            <p>
+              Radhakrishan, HO NO 1-S-18-1265/2, <br>
+              Near Panchalingeshwara Temple, <br>
+              Mangalore, Karnataka, <br>
+              Ladyhill - 575006 <br><br>
+              <strong>Phone:</strong> +91 829 650 9546<br>
+              <strong>Email:</strong> sales@simpleitech.com<br>
+            </p>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="index.html">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="index.html#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="index.html#services">Services</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Calculators</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="fintech-calculator.html">Home Loan EMI</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="personal-loan-calculator.html">Personal Loan EMI</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="car-loan-calculator.html">Car Loan EMI</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="mutual-fund-calculator.html">Mutual Fund</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>Connect us on below social networks.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Simpleitech</span></strong>. All Rights Reserved
+      </div>
+    </div>
+    <div class="calc-page-footer">
+      <p>&copy; <span id="currentYear"></span> Financial Tools. Built for fast and aesthetic financial planning.</p>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Calculator navigation
+    document.getElementById('calculator-options').addEventListener('change', function() {
+      window.location.href = this.value;
+    });
+  </script>
+
+  <script>
+    window.onerror = function(msg, url, lineNo, columnNo, error) {
+      document.getElementById('root').innerHTML = '<div style="color:red; padding:20px;"><b>Error:</b> ' + msg + '<br>Line: ' + lineNo + '</div>';
+      return false;
+    };
+  </script>
+
+  <script type="text/babel" data-presets="react">
+    const { useState, useMemo, useEffect, useRef } = React;
+
+    const formatCurrency = (val) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(val));
+
+    const CalculatorApp = () => {
+      const [type, setType] = useState('SIP');
+      const [amount, setAmount] = useState(10000);
+      const [returnRate, setReturnRate] = useState(12);
+      const [tenure, setTenure] = useState(10);
+
+      const [stepUpEnabled, setStepUpEnabled] = useState(false);
+      const [stepUpType, setStepUpType] = useState('percentage');
+      const [stepUpValue, setStepUpValue] = useState(10);
+
+      const [stayInvestedEnabled, setStayInvestedEnabled] = useState(false);
+      const [stayInvestedYears, setStayInvestedYears] = useState(5);
+
+      const [inflationEnabled, setInflationEnabled] = useState(false);
+      const [inflationRate, setInflationRate] = useState(6);
+
+      const [taxEnabled, setTaxEnabled] = useState(false);
+      const [taxRate, setTaxRate] = useState(12.5);
+
+      const { chartData, metrics } = useMemo(() => {
+        let totalInvested = 0;
+        let corpus = 0;
+        let currentMonthlySip = amount;
+
+        let data = [];
+        let totalYears = tenure;
+        if (stayInvestedEnabled) totalYears += stayInvestedYears;
+
+        const monthlyReturnRate = returnRate / 100 / 12;
+
+        for (let y = 1; y <= totalYears; y++) {
+          let isContributingYear = y <= tenure;
+
+          for (let m = 1; m <= 12; m++) {
+            if (isContributingYear) {
+              if (type === 'SIP') {
+                corpus += currentMonthlySip;
+                totalInvested += currentMonthlySip;
+              } else if (type === 'LUMPSUM' && y === 1 && m === 1) {
+                corpus += amount;
+                totalInvested += amount;
+              }
+            }
+            corpus = corpus * (1 + monthlyReturnRate);
+          }
+
+          if (isContributingYear && type === 'SIP' && stepUpEnabled) {
+            if (stepUpType === 'percentage') {
+              currentMonthlySip = currentMonthlySip * (1 + stepUpValue / 100);
+            } else {
+              currentMonthlySip += stepUpValue;
+            }
+          }
+
+          let yearProfit = corpus - totalInvested;
+          let yearTax = taxEnabled ? yearProfit * (taxRate / 100) : 0;
+          let yearNetProfit = yearProfit - yearTax;
+          let yearInflationLoss = 0;
+          let netPurchasingPower = corpus;
+
+          if (inflationEnabled) {
+            const discountFactor = Math.pow(1 + inflationRate / 100, y);
+            netPurchasingPower = (totalInvested + yearNetProfit) / discountFactor;
+            yearInflationLoss = (totalInvested + yearNetProfit) - netPurchasingPower;
+          }
+
+          data.push({
+            year: `Year ${y}`,
+            Invested: Math.round(totalInvested),
+            "Net Returns": Math.round(yearNetProfit),
+            Tax: Math.round(yearTax),
+            "Inflation Impact": Math.round(yearInflationLoss)
+          });
+        }
+
+        const finalProfit = corpus - totalInvested;
+        const finalTax = taxEnabled ? finalProfit * (taxRate / 100) : 0;
+        let finalNetValue = corpus - finalTax;
+        let finalPurchasingPower = finalNetValue;
+
+        if (inflationEnabled) {
+          const discountFactor = Math.pow(1 + inflationRate / 100, totalYears);
+          finalPurchasingPower = finalNetValue / discountFactor;
+        }
+
+        const cagr = ((Math.pow(finalNetValue / (totalInvested || 1), 1 / (totalYears || 1))) - 1) * 100;
+
+        return {
+          chartData: data,
+          metrics: {
+            invested: totalInvested,
+            profit: finalProfit,
+            tax: finalTax,
+            netValue: finalNetValue,
+            purchasingPower: finalPurchasingPower,
+            cagr: cagr
+          }
+        };
+      }, [type, amount, returnRate, tenure, stepUpEnabled, stepUpType, stepUpValue, stayInvestedEnabled, stayInvestedYears, inflationEnabled, inflationRate, taxEnabled, taxRate]);
+
+      const chartRef = useRef(null);
+      const chartInstance = useRef(null);
+
+      useEffect(() => {
+        if (!chartRef.current) return;
+        if (chartInstance.current) {
+          chartInstance.current.destroy();
+        }
+
+        const ctx = chartRef.current.getContext('2d');
+        chartInstance.current = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: chartData.map(d => d.year),
+            datasets: [
+              {
+                label: 'Total Invested',
+                data: chartData.map(d => d.Invested),
+                borderColor: '#00275D',
+                backgroundColor: 'rgba(0, 39, 93, 0.15)',
+                fill: true,
+                tension: 0.4
+              },
+              {
+                label: 'Estimated Returns',
+                data: chartData.map(d => d["Net Returns"]),
+                borderColor: '#007DBF',
+                backgroundColor: 'rgba(0, 125, 191, 0.15)',
+                fill: true,
+                tension: 0.4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+              y: {
+                stacked: true,
+                ticks: { callback: (value) => '₹' + (value/100000).toFixed(1) + 'L' }
+              }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        if (taxEnabled) {
+          chartInstance.current.data.datasets.push({
+            label: 'Tax Liability',
+            data: chartData.map(d => d.Tax),
+            borderColor: '#dc3545',
+            backgroundColor: 'rgba(220, 53, 69, 0.5)',
+            fill: true,
+            tension: 0.4
+          });
+        }
+        if (inflationEnabled) {
+          chartInstance.current.data.datasets.push({
+            label: 'Inflation Impact',
+            data: chartData.map(d => d["Inflation Impact"]),
+            borderColor: '#E29E21',
+            backgroundColor: 'rgba(226, 158, 33, 0.4)',
+            borderDash: [5, 5],
+            fill: true,
+            tension: 0.4
+          });
+        }
+        chartInstance.current.update();
+      }, [chartData, taxEnabled, inflationEnabled]);
+
+      const InputGroup = ({ label, value, onChange, min, max, step = 1, suffix = '' }) => (
+        <div style={{marginBottom: '20px'}}>
+          <div style={{display:'flex', justifyContent:'space-between', marginBottom:'6px'}}>
+            <label style={{fontSize:'0.9rem', fontWeight:600, color:'#333', fontFamily:'Open Sans, sans-serif'}}>{label}</label>
+            <span style={{color:'#00275D', fontWeight:700, fontFamily:'Roboto, sans-serif'}}>{suffix === '₹' ? formatCurrency(value) : value + suffix}</span>
+          </div>
+          <input
+            type="range"
+            min={min} max={max} step={step}
+            value={value}
+            onChange={(e) => onChange(parseFloat(e.target.value))}
+            className="mf-slider"
+          />
+        </div>
+      );
+
+      return (
+        <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'20px', padding:'10px 0'}}>
+          <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(320px, 1fr))', gap:'20px'}}>
+
+            {/* Left Column - Controls */}
+            <div className="mf-controls-panel">
+              <div className="mf-glass-panel" style={{padding:'24px'}}>
+                <h3 style={{fontSize:'1.2rem', fontWeight:700, color:'#00275D', marginBottom:'20px', paddingBottom:'14px', borderBottom:'2px solid #dce6f1', fontFamily:'Roboto, sans-serif'}}>Investment Strategy</h3>
+
+                <div style={{display:'flex', background:'#f0f2f5', padding:'4px', borderRadius:'8px', marginBottom:'20px'}}>
+                  <button
+                    className={type === 'SIP' ? 'mf-tab-active' : 'mf-tab-inactive'}
+                    style={{flex:1, padding:'8px 0', fontSize:'0.9rem', fontWeight:600, borderRadius:'6px', border:'none', cursor:'pointer', transition:'all 0.2s', fontFamily:'Open Sans, sans-serif', background: type === 'SIP' ? '#00275D' : 'transparent'}}
+                    onClick={() => setType('SIP')}>Monthly SIP</button>
+                  <button
+                    className={type === 'LUMPSUM' ? 'mf-tab-active' : 'mf-tab-inactive'}
+                    style={{flex:1, padding:'8px 0', fontSize:'0.9rem', fontWeight:600, borderRadius:'6px', border:'none', cursor:'pointer', transition:'all 0.2s', fontFamily:'Open Sans, sans-serif', background: type === 'LUMPSUM' ? '#00275D' : 'transparent'}}
+                    onClick={() => setType('LUMPSUM')}>One-time Lumpsum</button>
+                </div>
+
+                <InputGroup label={type === 'SIP' ? "Monthly Investment" : "Total Investment"} value={amount} onChange={setAmount} min={500} max={1000000} step={500} suffix="₹" />
+                <InputGroup label="Expected Annual Return (%)" value={returnRate} onChange={setReturnRate} min={1} max={30} step={0.1} suffix="%" />
+                <InputGroup label="Investment Tenure (Years)" value={tenure} onChange={setTenure} min={1} max={40} suffix=" Yr" />
+
+                <div style={{marginTop:'24px'}}>
+                  <h4 style={{fontSize:'1rem', fontWeight:700, color:'#00275D', marginBottom:'14px', fontFamily:'Roboto, sans-serif'}}>Advanced Tools</h4>
+
+                  {type === 'SIP' && (
+                    <div style={{background:'#f6f9fe', padding:'14px', borderRadius:'10px', marginBottom:'12px', border:'1px solid #dce6f1'}}>
+                      <label style={{display:'flex', alignItems:'center', gap:'10px', cursor:'pointer', marginBottom:'8px'}}>
+                        <input type="checkbox" checked={stepUpEnabled} onChange={(e) => setStepUpEnabled(e.target.checked)} className="mf-checkbox" style={{width:'18px', height:'18px'}} />
+                        <span style={{fontSize:'0.9rem', fontWeight:500, color:'#333'}}>Annual Step-up SIP</span>
+                      </label>
+                      {stepUpEnabled && (
+                        <div style={{paddingLeft:'28px', display:'flex', gap:'10px'}}>
+                          <select value={stepUpType} onChange={e => setStepUpType(e.target.value)} style={{fontSize:'0.85rem', border:'1px solid #dce6f1', borderRadius:'6px', padding:'6px 10px', flex:1}}>
+                            <option value="percentage">% Increase</option>
+                            <option value="fixed">₹ Increase</option>
+                          </select>
+                          <input type="number" value={stepUpValue} onChange={e => setStepUpValue(parseFloat(e.target.value) || 0)} style={{fontSize:'0.85rem', border:'1px solid #dce6f1', borderRadius:'6px', padding:'6px 10px', width:'80px', textAlign:'right'}} />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div style={{background:'#f6f9fe', padding:'14px', borderRadius:'10px', marginBottom:'12px', border:'1px solid #dce6f1'}}>
+                    <label style={{display:'flex', alignItems:'center', gap:'10px', cursor:'pointer', marginBottom:'8px'}}>
+                      <input type="checkbox" checked={stayInvestedEnabled} onChange={(e) => setStayInvestedEnabled(e.target.checked)} className="mf-checkbox" style={{width:'18px', height:'18px'}} />
+                      <span style={{fontSize:'0.9rem', fontWeight:500, color:'#333'}}>Stay Invested Post-Tenure</span>
+                    </label>
+                    {stayInvestedEnabled && (
+                      <div style={{paddingLeft:'28px'}}>
+                        <InputGroup label="Additional Years" value={stayInvestedYears} onChange={setStayInvestedYears} min={1} max={30} suffix=" Yr" />
+                      </div>
+                    )}
+                  </div>
+
+                  <div style={{background:'#f6f9fe', padding:'14px', borderRadius:'10px', marginBottom:'12px', border:'1px solid #dce6f1'}}>
+                    <label style={{display:'flex', alignItems:'center', gap:'10px', cursor:'pointer'}}>
+                      <input type="checkbox" checked={inflationEnabled} onChange={(e) => setInflationEnabled(e.target.checked)} className="mf-checkbox" style={{width:'18px', height:'18px'}} />
+                      <span style={{fontSize:'0.9rem', fontWeight:500, color:'#333'}}>Adjust for Inflation ({inflationRate}%)</span>
+                    </label>
+                  </div>
+
+                  <div style={{background:'#f6f9fe', padding:'14px', borderRadius:'10px', border:'1px solid #dce6f1'}}>
+                    <label style={{display:'flex', alignItems:'center', gap:'10px', cursor:'pointer'}}>
+                      <input type="checkbox" checked={taxEnabled} onChange={(e) => setTaxEnabled(e.target.checked)} className="mf-checkbox" style={{width:'18px', height:'18px'}} />
+                      <span style={{fontSize:'0.9rem', fontWeight:500, color:'#333'}}>Apply Tax on Profits ({taxRate}%)</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Results */}
+            <div style={{display:'flex', flexDirection:'column', gap:'16px'}}>
+
+              {/* Summary Cards */}
+              <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(140px, 1fr))', gap:'12px'}}>
+                <div className="mf-glass-panel" style={{padding:'16px'}}>
+                  <p style={{fontSize:'0.8rem', color:'#64748b', fontWeight:500, marginBottom:'4px'}}>Total Invested</p>
+                  <h3 style={{fontSize:'1.3rem', fontWeight:700, color:'#333', margin:0}}>{formatCurrency(metrics.invested)}</h3>
+                </div>
+                <div className="mf-glass-panel" style={{padding:'16px'}}>
+                  <p style={{fontSize:'0.8rem', color:'#64748b', fontWeight:500, marginBottom:'4px'}}>Total Returns {taxEnabled && '(Post-Tax)'}</p>
+                  <h3 className="mf-returns-value" style={{fontSize:'1.3rem', fontWeight:700, margin:0}}>{formatCurrency(metrics.netValue - metrics.invested)}</h3>
+                </div>
+                <div className="mf-glass-panel mf-maturity-border" style={{padding:'16px'}}>
+                  <p style={{fontSize:'0.8rem', color:'#64748b', fontWeight:500, marginBottom:'4px'}}>Final Maturity Value</p>
+                  <h3 className="mf-maturity-value" style={{fontSize:'1.5rem', fontWeight:800, margin:0}}>{formatCurrency(metrics.netValue)}</h3>
+                </div>
+              </div>
+
+              {inflationEnabled && (
+                <div className="mf-glass-panel" style={{padding:'14px', background:'rgba(226,158,33,0.08)', border:'1px solid rgba(226,158,33,0.3)', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:'8px'}}>
+                  <div>
+                    <p style={{fontSize:'0.85rem', fontWeight:600, color:'#8B6914', margin:0}}>Purchasing Power Today</p>
+                    <p style={{fontSize:'0.75rem', color:'#a67c00', margin:'4px 0 0'}}>Value adjusted for {inflationRate}% inflation.</p>
+                  </div>
+                  <h4 style={{fontSize:'1.2rem', fontWeight:700, color:'#8B6914', margin:0}}>{formatCurrency(metrics.purchasingPower)}</h4>
+                </div>
+              )}
+
+              {/* Chart */}
+              <div className="mf-glass-panel" style={{padding:'24px', flex:1, minHeight:'350px', display:'flex', flexDirection:'column'}}>
+                <h3 style={{fontSize:'1.1rem', fontWeight:700, color:'#00275D', marginBottom:'16px', fontFamily:'Roboto, sans-serif'}}>Wealth Accumulation Breakdown</h3>
+                <div style={{flex:1, width:'100%', position:'relative', minHeight:'280px'}}>
+                  <canvas ref={chartRef}></canvas>
+                </div>
+
+                <div className="mf-cagr-bar" style={{marginTop:'16px', display:'flex', justifyContent:'space-between', padding:'10px 14px', borderRadius:'10px'}}>
+                  <span style={{fontSize:'0.85rem', fontWeight:500}}>Effective CAGR</span>
+                  <span style={{fontSize:'0.95rem'}}>{metrics.cagr.toFixed(2)}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<CalculatorApp />);
+  </script>
+</body>
+
+</html>

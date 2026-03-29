@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Home Loan EMI Calculator with Prepayment | SimpleiTech</title>
-  <meta name="description" content="Calculate your Home Loan EMI, total interest, and amortization schedule. Features include partial prepayments, taxes, insurance, and fees.">
-  <meta name="keywords" content="home loan, home loan EMI, home loan emi with prepayment, prepayment, loan calculator, home loan calculator">
+  <title>Car Loan EMI Calculator | SimpleiTech</title>
+  <meta name="description" content="Calculate your Car Loan EMI, total interest, and amortization schedule with our easy-to-use car loan calculator.">
+  <meta name="keywords" content="car loan, car loan EMI, loan calculator, car loan calculator, EMI calculator">
 
   <!-- Favicons -->
   <link href="assets/img/favicons/favicon.ico" rel="icon">
@@ -82,12 +82,12 @@
   <div style="margin-top: 130px;">
     <div class="calc-page-header">
       <div class="container">
-        <h2>Home Loan <span>EMI Calculator</span> with Prepayment</h2>
+        <h2>Car Loan <span>EMI Calculator</span></h2>
         <div class="calc-selector">
           <select name="calculator-options" id="calculator-options">
-            <option value="home-loan" selected>Home Loan EMI</option>
+            <option value="home-loan">Home Loan EMI</option>
             <option value="personal-loan">Personal Loan EMI</option>
-            <option value="car-loan">Car Loan EMI</option>
+            <option value="car-loan" selected>Car Loan EMI</option>
             <option value="mutual-fund">Mutual Fund Calculator</option>
           </select>
         </div>
@@ -104,67 +104,16 @@
   <main class="calc-main-content">
     <section class="calc-box">
       <div class="calc-input-group">
-        <label for="homeValue">Home Value (₹)</label>
-        <input type="number" id="homeValue" value="5000000" min="0" step="100000">
-      </div>
-      <div class="calc-input-group">
-        <label for="margin">Margin / Down Payment (%)</label>
-        <input type="number" id="margin" value="20" min="0" max="100" step="1">
-        <input type="range" id="marginRange" min="0" max="100" value="20" class="calc-slider">
-      </div>
-      <div class="calc-input-group">
         <label for="loanAmount">Loan Amount (₹)</label>
-        <input type="number" id="loanAmount" value="4000000" min="0" step="100000" readonly>
+        <input type="number" id="loanAmount" value="800000" min="0" step="10000">
       </div>
       <div class="calc-input-group">
         <label for="interestRate">Interest Rate (%)</label>
-        <input type="number" id="interestRate" value="8.5" min="0" max="25" step="0.1">
-        <input type="range" id="interestRateRange" min="4" max="25" value="8.5" step="0.1" class="calc-slider">
+        <input type="number" id="interestRate" value="9.5" min="0" max="25" step="0.1">
       </div>
       <div class="calc-input-group">
         <label for="loanTenureYears">Loan Tenure (Years)</label>
-        <input type="number" id="loanTenureYears" value="20" min="1" max="30" step="1">
-        <input type="range" id="loanTenureRange" min="1" max="30" value="20" class="calc-slider">
-      </div>
-
-      <!-- Optional Fees and Charges -->
-      <details>
-        <summary>Fees, Insurance & Taxes (Optional)</summary>
-        <div class="calc-options-grid">
-          <div class="calc-input-group">
-            <label for="loanInsurance">Loan Insurance (₹)</label>
-            <input type="number" id="loanInsurance" value="0" min="0" step="5000">
-          </div>
-          <div class="calc-input-group">
-            <label for="processingFee">Processing Fees (%)</label>
-            <input type="number" id="processingFee" value="0.5" min="0" step="0.1">
-          </div>
-        </div>
-      </details>
-
-      <hr>
-
-      <div class="calc-prepayment">
-        <h3>Partial Prepayments</h3>
-        <div class="calc-prepayment-row">
-          <div class="calc-input-group">
-            <label for="prepaymentAmount">Prepayment Amount (₹)</label>
-            <input type="number" id="prepaymentAmount" value="0" min="0" step="10000">
-          </div>
-          <div class="calc-input-group">
-            <label for="prepaymentFrequency">Frequency</label>
-            <select id="prepaymentFrequency">
-              <option value="none">None</option>
-              <option value="monthly">Monthly</option>
-              <option value="yearly">Yearly</option>
-              <option value="one-time">One-Time</option>
-            </select>
-          </div>
-          <div class="calc-input-group">
-            <label for="prepaymentStartMonth">Start From Month</label>
-            <input type="number" id="prepaymentStartMonth" value="1" min="1">
-          </div>
-        </div>
+        <input type="number" id="loanTenureYears" value="7" min="1" max="10" step="1">
       </div>
     </section>
 
@@ -183,13 +132,13 @@
           <div class="value" id="totalPaymentVal">₹0</div>
         </div>
       </div>
-
-      <div class="calc-box">
-        <div class="calc-chart-wrapper">
-          <canvas id="pieChart"></canvas>
-        </div>
-      </div>
     </aside>
+
+    <div class="calc-box calc-full-width">
+      <div class="calc-chart-wrapper">
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
 
     <!-- Amortization Bar Chart Section -->
     <section class="calc-bar-chart-section calc-box calc-full-width">
@@ -209,14 +158,11 @@
               <th>Month</th>
               <th>Principal Paid (₹)</th>
               <th>Interest Paid (₹)</th>
-              <th>Prepayment (₹)</th>
               <th>Total Payment (₹)</th>
               <th>Balance (₹)</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Table rows generated by JS -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </section>
@@ -273,9 +219,9 @@
       </div>
     </div>
     <div class="calc-page-footer">
-      <p>&copy; <span id="currentYear"></span> Home Loan EMI Calculator. Built for fast and aesthetic financial planning.</p>
+      <p>&copy; <span id="currentYear"></span> Car Loan EMI Calculator.</p>
     </div>
-  </footer><!-- End Footer -->
+  </footer>
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
@@ -289,7 +235,7 @@
   <script src="assets/js/main.js"></script>
 
   <!-- Calculator JS -->
-  <script src="assets/js/home-loan.js"></script>
+  <script src="assets/js/car-loan.js"></script>
 </body>
 
 </html>
