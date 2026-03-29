@@ -1821,3 +1821,7 @@ section {
   } */
 
   /* linear-gradient(#25d366,#25d366)10px 84%/10px 15px no-repeat, */
+
+.app-tile:hover {
+  cursor: pointer;
+}
