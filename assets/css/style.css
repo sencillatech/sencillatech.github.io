@@ -1822,6 +1822,41 @@ section {
 
   /* linear-gradient(#25d366,#25d366)10px 84%/10px 15px no-repeat, */
 
+/*--------------------------------------------------------------
+# Our Apps Section Custom Styling
+--------------------------------------------------------------*/
+#our-apps.services .icon-box {
+  border-color: #e2eefd;
+}
+#our-apps.services .icon-box .icon {
+  background: #f8fbff;
+  border-color: #dce6f1;
+}
+#our-apps.services .icon-box .icon i {
+  color: #E29E21;
+}
+#our-apps.services .icon-box h4,
+#our-apps.services .icon-box h4 a {
+  color: #00275D;
+  transition: all 0.3s;
+}
+#our-apps.services .icon-box:hover {
+  box-shadow: 0px 0 25px 0 rgba(0, 39, 93, 0.15);
+  border-color: #fff;
+}
+#our-apps.services .icon-box:hover .icon i {
+  color: #00275D;
+}
+#our-apps.services .icon-box:hover .icon {
+  border-color: #00275D;
+}
+#our-apps.services .icon-box:hover h4,
+#our-apps.services .icon-box:hover h4 a {
+  color: #E29E21;
+}
+.app-tile {
+  cursor: pointer;
+}
 .app-tile:hover {
   cursor: pointer;
 }
