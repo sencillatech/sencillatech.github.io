@@ -27,6 +27,12 @@
   <!-- Calculator CSS -->
   <link href="assets/css/calculator.css" rel="stylesheet">
 
+  <!-- AdSense & Consent Banner CSS -->
+  <link href="assets/css/adsense.css" rel="stylesheet">
+  <meta name="google-adsense-account" content="ca-pub-2630317528778433">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2630317528778433"
+       crossorigin="anonymous"></script>
+
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -68,9 +74,9 @@
         <nav class="nav-menu d-none d-lg-block">
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#about">About</a></li>
+            <li><a href="about-us.html">About Us</a></li>
             <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="contact-us.html">Contact Us</a></li>
             <li class="active"><a href="index.html#our-apps">Our Apps</a></li>
           </ul>
         </nav>
@@ -189,6 +195,9 @@
           <canvas id="pieChart"></canvas>
         </div>
       </div>
+
+      <!-- Sidebar Ad Placeholder -->
+      <div id="sidebar-ad" class="sit-sidebar-ad-placeholder"></div>
     </aside>
 
     <!-- Amortization Bar Chart Section -->
@@ -198,6 +207,9 @@
         <canvas id="barChart"></canvas>
       </div>
     </section>
+
+    <!-- In-Article Ad Placeholder -->
+    <div id="in-article-ad" class="sit-in-article-ad-placeholder calc-full-width"></div>
 
     <!-- Amortization Schedule Table -->
     <section class="calc-schedule calc-box calc-full-width">
@@ -242,7 +254,9 @@
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="index.html">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="index.html#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="about-us.html">About Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="contact-us.html">Contact Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="privacy-policy.html">Privacy Policy</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="index.html#services">Services</a></li>
             </ul>
           </div>
@@ -290,6 +304,21 @@
 
   <!-- Calculator JS -->
   <script src="assets/js/home-loan.js"></script>
+
+  <!-- ======= Google AdSense Integration ======= -->
+  <script src="assets/js/adsense-config.js"></script>
+  <script src="assets/js/consent-banner.js"></script>
+  <script src="assets/js/adsense-loader.js"></script>
+  <script src="assets/js/ad-component.js"></script>
+  <script>
+    // Render manual ad placements after config is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      var sidebarAd = document.getElementById('sidebar-ad');
+      var inArticleAd = document.getElementById('in-article-ad');
+      if (sidebarAd && window.SIT_Ads) SIT_Ads.createSidebarAd(sidebarAd);
+      if (inArticleAd && window.SIT_Ads) SIT_Ads.createInArticleAd(inArticleAd);
+    });
+  </script>
 </body>
 
 </html>

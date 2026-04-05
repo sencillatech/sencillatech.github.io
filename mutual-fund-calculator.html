@@ -27,6 +27,12 @@
   <!-- Calculator CSS -->
   <link href="assets/css/calculator.css" rel="stylesheet">
 
+  <!-- AdSense & Consent Banner CSS -->
+  <link href="assets/css/adsense.css" rel="stylesheet">
+  <meta name="google-adsense-account" content="ca-pub-2630317528778433">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2630317528778433"
+       crossorigin="anonymous"></script>
+
   <!-- React & ReactDOM -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -134,9 +140,9 @@
         <nav class="nav-menu d-none d-lg-block">
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#about">About</a></li>
+            <li><a href="about-us.html">About Us</a></li>
             <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="contact-us.html">Contact Us</a></li>
             <li class="active"><a href="index.html#our-apps">Our Apps</a></li>
           </ul>
         </nav>
@@ -188,7 +194,9 @@
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="index.html">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="index.html#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="about-us.html">About Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="contact-us.html">Contact Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="privacy-policy.html">Privacy Policy</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="index.html#services">Services</a></li>
             </ul>
           </div>
@@ -574,6 +582,12 @@
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<CalculatorApp />);
   </script>
+
+  <!-- ======= Google AdSense Integration ======= -->
+  <script src="assets/js/adsense-config.js"></script>
+  <script src="assets/js/consent-banner.js"></script>
+  <script src="assets/js/adsense-loader.js"></script>
+  <script src="assets/js/ad-component.js"></script>
 </body>
 
 </html>
