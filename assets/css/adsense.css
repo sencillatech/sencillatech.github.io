@@ -1,0 +1,188 @@
+/* ============================================================
+ * AdSense & Consent Banner Styles — SimpleiTech
+ * ============================================================
+ * Keeps all ad-related styling in one file so it's easy to
+ * maintain independently from the main site CSS.
+ * ============================================================ */
+
+/* ----------------------------------------------------------
+   Cookie Consent Banner
+   ---------------------------------------------------------- */
+#cookie-consent-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  background: linear-gradient(135deg, #00275d 0%, #003d8f 100%);
+  color: #f0f4fa;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity  0.4s ease;
+  font-family: 'Open Sans', 'Roboto', sans-serif;
+}
+
+#cookie-consent-banner.ccb-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#cookie-consent-banner.ccb-hiding {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.ccb-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ccb-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.ccb-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #E29E21;
+}
+
+.ccb-text p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #d0daea;
+}
+
+.ccb-text p strong {
+  color: #ffffff;
+}
+
+.ccb-text p a {
+  color: #E29E21;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ccb-text p a:hover {
+  color: #ffc246;
+}
+
+.ccb-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ccb-btn {
+  padding: 9px 22px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s, transform 0.15s;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.ccb-btn:active {
+  transform: scale(0.96);
+}
+
+.ccb-btn-accept {
+  background: #E29E21;
+  color: #00275d;
+}
+
+.ccb-btn-accept:hover {
+  background: #f5b23c;
+}
+
+.ccb-btn-decline {
+  background: rgba(255, 255, 255, 0.12);
+  color: #c5d1e0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ccb-btn-decline:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .ccb-inner {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px 18px;
+    gap: 14px;
+  }
+  .ccb-text {
+    flex-direction: column;
+    align-items: center;
+  }
+  .ccb-actions {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ----------------------------------------------------------
+   Ad Wrapper / Placeholder Styles
+   ---------------------------------------------------------- */
+.sit-ad-wrapper {
+  display: block;
+  width: 100%;
+  min-height: 90px;           /* Reserve space to avoid CLS */
+  margin: 20px 0;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f6f8fb;
+  border: 1px dashed #dce6f1;
+  position: relative;
+}
+
+.sit-ad-wrapper ins {
+  display: block !important;
+}
+
+.sit-ad-label {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a0aec0;
+  padding: 4px 0 2px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Sidebar ad placeholder (used inside <aside> on calculator pages) */
+.sit-sidebar-ad-placeholder {
+  margin-top: 20px;
+}
+
+/* In-article ad placeholder */
+.sit-in-article-ad-placeholder {
+  margin: 30px auto;
+  max-width: 728px;
+}
+
+/* When ads are successfully loaded, remove the dashed border */
+.sit-ad-wrapper ins[data-adsbygoogle-status="done"] ~ .sit-ad-label,
+.sit-ad-wrapper:has(ins[data-adsbygoogle-status="done"]) {
+  border-color: transparent;
+  background: transparent;
+}
