@@ -654,3 +654,259 @@
         padding: 3px 6px;
     }
 }
+
+/* ============================================================
+   Info Pages (About, Contact, Privacy Policy)
+   ============================================================ */
+.calc-info-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px 40px;
+}
+
+.calc-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.calc-info-section {
+    animation: calcFadeInUp 0.5s ease both;
+}
+
+.calc-info-section:nth-child(2) { animation-delay: 0.08s; }
+.calc-info-section:nth-child(3) { animation-delay: 0.16s; }
+.calc-info-section:nth-child(4) { animation-delay: 0.24s; }
+.calc-info-section:nth-child(5) { animation-delay: 0.32s; }
+.calc-info-section:nth-child(6) { animation-delay: 0.40s; }
+.calc-info-section:nth-child(7) { animation-delay: 0.48s; }
+
+@keyframes calcFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calc-info-heading {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--calc-primary);
+    margin-bottom: 14px;
+}
+
+.calc-info-subheading {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--calc-primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.calc-info-subheading i {
+    color: var(--calc-accent);
+    font-size: 1.1rem;
+}
+
+.calc-info-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--calc-text);
+    margin-bottom: 10px;
+}
+
+/* ---- Contact Cards ---- */
+.calc-contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.calc-contact-card {
+    text-align: center;
+    padding: 28px 20px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.calc-contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 39, 93, 0.15);
+}
+
+.calc-contact-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--calc-primary), var(--calc-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    transition: transform 0.3s ease;
+}
+
+.calc-contact-card:hover .calc-contact-icon {
+    transform: scale(1.1);
+}
+
+.calc-contact-icon i {
+    font-size: 1.4rem;
+    color: #fff;
+}
+
+.calc-contact-card h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--calc-primary);
+    margin-bottom: 10px;
+}
+
+.calc-contact-card p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--calc-text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.calc-contact-link {
+    color: var(--calc-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.calc-contact-link:hover {
+    color: var(--calc-primary);
+    text-decoration: underline;
+}
+
+/* ---- About Cards ---- */
+.calc-about-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.calc-about-card {
+    text-align: center;
+    padding: 32px 24px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.calc-about-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 39, 93, 0.15);
+}
+
+.calc-about-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--calc-primary), var(--calc-accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    transition: transform 0.3s ease;
+}
+
+.calc-about-card:hover .calc-about-icon {
+    transform: scale(1.1);
+}
+
+.calc-about-icon i {
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.calc-about-card h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--calc-primary);
+    margin-bottom: 12px;
+}
+
+.calc-about-card p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--calc-text);
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* ---- Footer Policy Links (About Us, Contact, Privacy) ---- */
+.calc-footer-policy-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-top: 6px;
+}
+
+.calc-footer-policy-links a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-family: 'Open Sans', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.calc-footer-policy-links a:hover {
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.calc-footer-policy-links a i {
+    font-size: 0.9rem;
+    color: var(--calc-accent);
+    transition: color 0.2s;
+}
+
+.calc-footer-policy-links a:hover i {
+    color: #fff;
+}
+
+/* Responsive for info pages and footer policy links */
+@media (max-width: 768px) {
+    .calc-info-page {
+        padding: 20px 14px 30px;
+    }
+
+    .calc-info-heading {
+        font-size: 1.3rem;
+    }
+
+    .calc-contact-cards,
+    .calc-about-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .calc-footer-policy-links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .calc-info-text {
+        font-size: 0.88rem;
+    }
+
+    .calc-contact-card,
+    .calc-about-card {
+        padding: 20px 16px;
+    }
+}
