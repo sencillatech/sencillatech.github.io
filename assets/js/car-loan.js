@@ -110,19 +110,10 @@ function updateUI(emi, totalInterest, totalPayment, schedule, yearlyData, princi
     renderBarChart(yearlyData);
 
     tableBody.innerHTML = '';
-    const fragment = document.createDocumentFragment();
-    schedule.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${row.month}</td>
-            <td>${formatCurrency(row.principal)}</td>
-            <td>${formatCurrency(row.interest)}</td>
-            <td>${formatCurrency(row.totalPayment)}</td>
-            <td>${formatCurrency(row.balance)}</td>
-        `;
-        fragment.appendChild(tr);
-    });
-    tableBody.appendChild(fragment);
+    
+    // Render accordion-style amortization table
+    const scheduleSection = document.querySelector('.calc-schedule');
+    renderAmortizationAccordion(scheduleSection, schedule, formatCurrency, false, THEME);
 }
 
 function renderPieChart(principal, interest) {

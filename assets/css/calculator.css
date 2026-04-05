@@ -347,6 +347,234 @@
     background-color: rgba(0, 39, 93, 0.03);
 }
 
+/* ============================================================
+   Amortization Schedule Accordion
+   ============================================================ */
+
+/* -- Toolbar with View All toggle -- */
+.calc-amort-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.calc-amort-viewall-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--calc-primary);
+    font-weight: 600;
+    user-select: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1.5px solid var(--calc-border);
+    background: var(--calc-bg);
+    transition: all 0.2s;
+}
+
+.calc-amort-viewall-label:hover {
+    border-color: var(--calc-primary);
+    background: rgba(0, 39, 93, 0.04);
+}
+
+.calc-amort-viewall-checkbox {
+    accent-color: var(--calc-primary);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.calc-amort-viewall-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.calc-amort-viewall-text i {
+    font-size: 0.9rem;
+}
+
+/* -- Accordion Container -- */
+.calc-amort-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* -- Accordion Panels -- */
+.calc-amort-panel {
+    border: 1px solid var(--calc-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.25s ease;
+    background: var(--calc-surface);
+}
+
+.calc-amort-panel-open {
+    box-shadow: 0 2px 8px rgba(0, 39, 93, 0.08);
+}
+
+/* -- Panel Header -- */
+.calc-amort-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    background: var(--calc-bg);
+    user-select: none;
+    transition: background-color 0.2s;
+    gap: 12px;
+}
+
+.calc-amort-panel-header:hover {
+    background: rgba(0, 39, 93, 0.06);
+}
+
+.calc-amort-panel-open .calc-amort-panel-header {
+    background: linear-gradient(135deg, rgba(0, 39, 93, 0.06), rgba(0, 125, 191, 0.04));
+    border-bottom: 1px solid var(--calc-border);
+}
+
+.calc-amort-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.calc-amort-chevron {
+    font-size: 0.85rem;
+    color: var(--calc-primary);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.calc-amort-year-label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--calc-primary);
+}
+
+.calc-amort-month-range {
+    font-size: 0.8rem;
+    color: var(--calc-text-muted);
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.calc-amort-panel-summary {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.calc-amort-summary-item {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--calc-text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.calc-amort-summary-interest {
+    color: #b8860b;
+}
+
+/* -- Panel Body -- */
+.calc-amort-panel-body {
+    overflow-x: auto;
+}
+
+/* -- Accordion Table -- */
+.calc-amort-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.88rem;
+}
+
+.calc-amort-table th,
+.calc-amort-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--calc-border);
+}
+
+.calc-amort-table th {
+    background-color: var(--calc-bg);
+    color: var(--calc-text-muted);
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.82rem;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.calc-amort-table th:first-child,
+.calc-amort-table td:first-child {
+    text-align: left;
+    white-space: nowrap;
+}
+
+.calc-amort-table tbody tr:hover {
+    background-color: rgba(0, 39, 93, 0.03);
+}
+
+.calc-amort-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* -- Responsive -- */
+@media (max-width: 768px) {
+    .calc-amort-panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 10px 12px;
+    }
+
+    .calc-amort-panel-summary {
+        gap: 10px;
+    }
+
+    .calc-amort-summary-item {
+        font-size: 0.72rem;
+    }
+
+    .calc-amort-table {
+        font-size: 0.82rem;
+    }
+
+    .calc-amort-table th,
+    .calc-amort-table td {
+        padding: 7px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calc-amort-toolbar {
+        justify-content: center;
+    }
+
+    .calc-amort-year-label {
+        font-size: 0.92rem;
+    }
+
+    .calc-amort-month-range {
+        font-size: 0.72rem;
+    }
+}
+
 /* ---- Calculator Page Footer ---- */
 .calc-page-footer {
     text-align: center;
