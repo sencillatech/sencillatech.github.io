@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Free Online PDF Splitter | Client-Side PDF Utility | SimpleiTech</title>
+  <meta name="description" content="Split your PDF documents into multiple files with custom page ranges. Runs entirely in your browser. 100% secure, private, and free.">
+  <meta name="keywords" content="split pdf, pdf splitter, free pdf tool, split pdf page ranges, jszip, pdf-lib, browser-side pdf split">
+  <meta name="author" content="SimpleiTech">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#00275D">
+  <link rel="canonical" href="https://simpleitech.com/pdf-utility.html">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicons/favicon.ico" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Main & Calculator CSS -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/calculator.css" rel="stylesheet">
+  <link href="assets/css/pdf-utility.css" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-55VEQSNG5F');
+  </script>
+</head>
+
+<body>
+
+  <!-- ======= Powered by SimpleiTech Branding Bar ======= -->
+  <div class="calc-branding-bar" role="banner">
+    <a href="index.html" class="calc-brand-link" title="Go to SimpleiTech Home">
+      <span class="calc-brand-powered">Powered by</span>
+      <span class="calc-brand-logo">Simple<span>i</span>Tech</span>
+    </a>
+    <nav class="calc-brand-nav" aria-label="Calculator navigation">
+      <a href="fintech-calculator.html">Home Loan</a>
+      <a href="personal-loan-calculator.html">Personal Loan</a>
+      <a href="car-loan-calculator.html">Car Loan</a>
+      <a href="mutual-fund-calculator.html">Mutual Fund</a>
+      <a href="pdf-utility.html" class="active">PDF Utility</a>
+    </nav>
+  </div>
+
+  <!-- ======= Banner ======= -->
+  <div class="calc-page-header">
+    <div class="container">
+      <h1 style="font-family:'Roboto',sans-serif;font-size:1.6rem;font-weight:700;margin:0;color:#fff;">PDF <span style="color:#E29E21;">Utility</span> - Split Pages</h1>
+      <div class="calc-selector">
+        <label for="calculator-options" class="sr-only" style="display:none;">Choose App</label>
+        <select name="calculator-options" id="calculator-options" aria-label="Switch app type">
+          <option value="fintech-calculator.html">Home Loan EMI</option>
+          <option value="personal-loan-calculator.html">Personal Loan EMI</option>
+          <option value="car-loan-calculator.html">Car Loan EMI</option>
+          <option value="mutual-fund-calculator.html">Mutual Fund Calculator</option>
+          <option value="pdf-utility.html" selected>PDF Utility</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Main Content ======= -->
+  <main class="pdf-container" role="main">
+    
+    <!-- Upload Section -->
+    <section class="pdf-card" aria-label="PDF Upload Zone">
+      <div class="pdf-header-title">
+        <i class="bx bxs-file-pdf"></i>
+        <span>Upload PDF Document</span>
+      </div>
+      
+      <div class="pdf-upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept="application/pdf" style="display: none;">
+        <i class="bx bxs-cloud-upload pdf-upload-icon"></i>
+        <div class="pdf-upload-text">Drag & drop your PDF file here, or click to browse</div>
+        <div class="pdf-upload-subtext">All processing is done 100% locally in your browser. Your files are never sent to any server.</div>
+        <div>
+          <span class="pdf-upload-limit">Max suggested size: 50MB</span>
+        </div>
+      </div>
+
+      <!-- File Loading Progress Bar -->
+      <div class="pdf-progress-wrapper" id="loadingProgressWrapper">
+        <div class="pdf-progress-text">
+          <span id="progressStatusText">Reading PDF...</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="pdf-progress-bar">
+          <div class="pdf-progress-fill" id="loadingProgressBarFill"></div>
+        </div>
+      </div>
+
+      <!-- Loaded File Details -->
+      <div class="pdf-file-details" id="fileDetails" style="display: none;">
+        <div class="pdf-file-info">
+          <i class="bx bxs-file-pdf pdf-file-icon"></i>
+          <div>
+            <div class="pdf-file-name" id="pdfFileName">document.pdf</div>
+            <div class="pdf-file-meta" id="pdfFileMeta">Size: 0 KB | Pages: 0</div>
+          </div>
+        </div>
+        <button class="pdf-btn-remove" id="btnRemoveFile" title="Remove file" aria-label="Remove uploaded file">
+          <i class="bx bx-trash"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Configuration Section -->
+    <section class="pdf-card pdf-config-section" id="configSection" aria-label="Split Configuration">
+      <div class="pdf-header-title">
+        <i class="bx bx-cog"></i>
+        <span>Configure Page Splits</span>
+      </div>
+
+      <div class="pdf-config-header">
+        <div class="pdf-split-type">
+          <label for="numSplitsInput">Number of split files:</label>
+          <input type="number" id="numSplitsInput" class="pdf-input-number" value="2" min="1" max="100">
+        </div>
+        <button class="pdf-btn-secondary" id="btnResetRanges">
+          <i class="bx bx-reset"></i> Reset Ranges
+        </button>
+      </div>
+
+      <!-- Dynamically generated ranges rows -->
+      <div class="pdf-ranges-container" id="rangesContainer">
+        <!-- Rows added via Javascript -->
+      </div>
+
+      <button class="pdf-btn-add-range" id="btnAddRangeRow">
+        <i class="bx bx-plus"></i> Add Split File
+      </button>
+
+      <!-- Range Validation Feedback message -->
+      <div class="pdf-validation-msg" id="validationErrorMsg">
+        <i class="bx bx-error-circle"></i>
+        <span id="validationErrorText">Invalid page ranges configured.</span>
+      </div>
+
+      <hr style="margin: 25px 0; border-color: rgba(0,39,93,0.1);">
+
+      <button class="pdf-btn-primary" id="btnSplitPDF">
+        <i class="bx bx-cut"></i> Split PDF
+      </button>
+    </section>
+
+    <!-- Results Section -->
+    <section class="pdf-card pdf-results-section" id="resultsSection" aria-label="Split Results">
+      <div class="pdf-header-title">
+        <i class="bx bx-check-circle" style="color: #28a745;"></i>
+        <span>Split Segments Ready</span>
+      </div>
+
+      <div class="pdf-results-header">
+        <div style="font-weight: 600; color: #555;">
+          Generated <span id="resultCount">0</span> split files successfully!
+        </div>
+        <button class="pdf-btn-zip" id="btnDownloadZip">
+          <i class="bx bxs-file-archive"></i> Download All (.ZIP)
+        </button>
+      </div>
+
+      <!-- Result items -->
+      <div class="pdf-results-list" id="resultsList">
+        <!-- Rows added via Javascript -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= PDF Preview Modal ======= -->
+  <div class="pdf-modal" id="previewModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="pdf-modal-dialog">
+      <div class="pdf-modal-header">
+        <h3 id="modalTitle">PDF Segment Preview</h3>
+        <button class="pdf-modal-close" id="btnModalClose" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="pdf-modal-body">
+        <div class="pdf-canvas-container">
+          <canvas id="pdfPreviewCanvas"></canvas>
+        </div>
+      </div>
+      <div class="pdf-modal-footer">
+        <div class="pdf-nav-controls">
+          <button class="pdf-btn-secondary" id="btnPrevPage" style="padding: 5px 12px;">
+            <i class="bx bx-chevron-left"></i> Prev
+          </button>
+          <span class="pdf-page-num"><span id="previewCurrentPage">1</span> / <span id="previewTotalPages">1</span></span>
+          <button class="pdf-btn-secondary" id="btnNextPage" style="padding: 5px 12px;">
+            Next <i class="bx bx-chevron-right"></i>
+          </button>
+        </div>
+        <div>
+          <button class="pdf-btn-success" id="btnModalDownload">
+            <i class="bx bx-download"></i> Download This Part
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Standalone Footer ======= -->
+  <footer class="calc-standalone-footer" role="contentinfo">
+    <div class="calc-footer-inner">
+      <div>
+        <span class="calc-footer-brand">Simple<span>i</span>Tech</span>
+        <span class="calc-footer-copy">&nbsp;— Free Client-Side Utilities</span>
+      </div>
+      <nav class="calc-footer-links" aria-label="Footer navigation links">
+        <a href="fintech-calculator.html">Home Loan EMI</a>
+        <a href="personal-loan-calculator.html">Personal Loan EMI</a>
+        <a href="car-loan-calculator.html">Car Loan EMI</a>
+        <a href="mutual-fund-calculator.html">Mutual Fund</a>
+        <a href="pdf-utility.html">PDF Utility</a>
+      </nav>
+      <nav class="calc-footer-policy-links" aria-label="Policy links">
+        <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
+        <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
+      </nav>
+      <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- External PDF / ZIP Libraries CDNs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <!-- PDF Utility JS Logic -->
+  <script src="assets/js/pdf-utility.js"></script>
+
+  <script>
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    // App navigation handler
+    document.getElementById('calculator-options').addEventListener('change', function() {
+      window.location.href = this.value;
+    });
+  </script>
+</body>
+
+</html>
