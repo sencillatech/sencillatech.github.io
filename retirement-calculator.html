@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Retirement Calculator | Plan Savings & Withdrawals | SimpleiTech</title>
+  <meta name="description" content="Calculate your required retirement corpus, inflation-adjusted expenses, and necessary monthly savings. Simulate how long your retirement fund will last. 100% free, browser-based.">
+  <meta name="keywords" content="retirement calculator, retirement corpus planner, early retirement, FIRE calculator, financial planning, how long will money last, retirement simulator">
+  <meta name="author" content="SimpleiTech">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#00275D">
+  <link rel="canonical" href="https://simpleitech.com/retirement-calculator.html">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicons/favicon.ico" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Calculator & Retirement CSS -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/calculator.css" rel="stylesheet">
+  <link href="assets/css/retirement-calculator.css" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-55VEQSNG5F');
+  </script>
+</head>
+
+<body>
+
+  <!-- ======= Powered by SimpleiTech Branding Bar ======= -->
+  <div class="calc-branding-bar" role="banner">
+    <a href="index.html" class="calc-brand-link" title="Go to SimpleiTech Home">
+      <span class="calc-brand-powered">Powered by</span>
+      <span class="calc-brand-logo">Simple<span>i</span>Tech</span>
+    </a>
+    <nav class="calc-brand-nav" aria-label="Calculator navigation">
+      <a href="fintech-calculator.html">Home Loan</a>
+      <a href="personal-loan-calculator.html">Personal Loan</a>
+      <a href="car-loan-calculator.html">Car Loan</a>
+      <a href="mutual-fund-calculator.html">Mutual Fund</a>
+      <a href="pdf-utility.html">PDF Utility</a>
+      <a href="financial-health.html">Financial Health</a>
+      <a href="retirement-calculator.html" class="active">Retirement</a>
+    </nav>
+  </div>
+
+  <!-- ======= Banner ======= -->
+  <div class="calc-page-header">
+    <div class="container">
+      <h1 style="font-family:'Roboto',sans-serif;font-size:1.6rem;font-weight:700;margin:0;color:#fff;">Retirement <span style="color:#E29E21;">Calculator</span></h1>
+      <div class="calc-selector">
+        <label for="calculator-options" class="sr-only" style="display:none;">Choose App</label>
+        <select name="calculator-options" id="calculator-options" aria-label="Switch app type">
+          <option value="fintech-calculator.html">Home Loan EMI</option>
+          <option value="personal-loan-calculator.html">Personal Loan EMI</option>
+          <option value="car-loan-calculator.html">Car Loan EMI</option>
+          <option value="mutual-fund-calculator.html">Mutual Fund Calculator</option>
+          <option value="pdf-utility.html">PDF Utility</option>
+          <option value="financial-health.html">Financial Health</option>
+          <option value="retirement-calculator.html" selected>Retirement Calculator</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Main Content ======= -->
+  <main class="ret-main-content" role="main">
+    
+    <!-- Error Alert Container -->
+    <div class="alert alert-danger ret-full-width" id="calcErrorAlert" style="display: none; border-radius: var(--ret-radius);">
+      Error message here.
+    </div>
+
+    <!-- Left Column: Inputs -->
+    <section class="ret-box" aria-label="Retirement input fields">
+      <h3>Retirement Goal Details</h3>
+      
+      <div class="ret-input-grid">
+        <div class="ret-input-group">
+          <label for="currentAge">Current Age <span id="currentAgeVal" class="label-val">30 Yrs</span></label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix"><i class="bx bx-user"></i></span>
+            <input type="number" id="currentAge" value="30" min="1" max="99">
+          </div>
+          <input type="range" id="currentAgeRange" min="1" max="99" value="30" class="ret-slider">
+        </div>
+
+        <div class="ret-input-group">
+          <label for="retirementAge">Target Retirement Age <span id="retirementAgeVal" class="label-val">60 Yrs</span></label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix"><i class="bx bx-calendar-event"></i></span>
+            <input type="number" id="retirementAge" value="60" min="5" max="100">
+          </div>
+          <input type="range" id="retirementAgeRange" min="5" max="100" value="60" class="ret-slider">
+        </div>
+
+        <div class="ret-input-group">
+          <label for="lifeExpectancy">Life Expectancy <span id="lifeExpectancyVal" class="label-val">85 Yrs</span></label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix"><i class="bx bx-heart"></i></span>
+            <input type="number" id="lifeExpectancy" value="85" min="20" max="110">
+          </div>
+          <input type="range" id="lifeExpectancyRange" min="20" max="110" value="85" class="ret-slider">
+        </div>
+
+        <div class="ret-input-group">
+          <label for="inflation">Assumed Inflation Rate <span id="inflationVal" class="label-val">6%</span></label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix"><i class="bx bx-trending-up"></i></span>
+            <input type="number" id="inflation" value="6" min="0" max="20" step="0.5">
+          </div>
+          <input type="range" id="inflationRange" min="0" max="20" value="6" step="0.5" class="ret-slider">
+        </div>
+
+        <div class="ret-input-group">
+          <label for="preReturn">Pre-Retirement Investment Return <span id="preReturnVal" class="label-val">12%</span></label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix"><i class="bx bx-line-chart"></i></span>
+            <input type="number" id="preReturn" value="12" min="1" max="30" step="0.5">
+          </div>
+          <input type="range" id="preReturnRange" min="1" max="30" value="12" step="0.5" class="ret-slider">
+        </div>
+
+        <div class="ret-input-group">
+          <label for="postReturn">Post-Retirement Investment Return <span id="postReturnVal" class="label-val">8%</span></label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix"><i class="bx bx-line-chart-down"></i></span>
+            <input type="number" id="postReturn" value="8" min="1" max="30" step="0.5">
+          </div>
+          <input type="range" id="postReturnRange" min="1" max="30" value="8" step="0.5" class="ret-slider">
+        </div>
+      </div>
+
+      <hr style="border-top: 1.5px solid var(--ret-border); margin: 25px 0;">
+
+      <div class="ret-input-grid">
+        <div class="ret-input-group">
+          <label for="currentExpenses">Current Annual Expenses (₹)</label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix">₹</span>
+            <input type="number" id="currentExpenses" value="600000" min="0" step="50000">
+          </div>
+          <span class="health-help-text" style="font-size: 0.8rem; color: var(--ret-text-muted); margin-top: 4px;">
+            Your total yearly living expenses today.
+          </span>
+        </div>
+
+        <div class="ret-input-group">
+          <label for="currentSavings">Current Retirement Savings (₹)</label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix">₹</span>
+            <input type="number" id="currentSavings" value="500000" min="0" step="50000">
+          </div>
+          <span class="health-help-text" style="font-size: 0.8rem; color: var(--ret-text-muted); margin-top: 4px;">
+            Your existing accumulated nest egg.
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Results -->
+    <aside aria-label="Calculator planning results">
+      <div class="ret-summary-cards">
+        
+        <div class="ret-card corpus-card">
+          <h4>Required Retirement Corpus</h4>
+          <div class="value" id="outCorpusNeeded">₹0</div>
+          <span style="font-size: 0.8rem; color: var(--ret-text-muted);">Target corpus at planned retirement age.</span>
+        </div>
+
+        <div class="ret-card savings-card">
+          <h4>Monthly Savings Required</h4>
+          <div class="value" id="outMonthlySavings">₹0</div>
+          <span style="font-size: 0.8rem; color: var(--ret-text-muted);">Required contribution until retirement.</span>
+        </div>
+
+        <div class="ret-card">
+          <h4>Annual Expense at Retirement</h4>
+          <div class="value" id="outExpensesRetirement">₹0</div>
+          <span style="font-size: 0.8rem; color: var(--ret-text-muted);">Inflation-adjusted expenses at retirement.</span>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Depletion simulator: how long will money last -->
+    <section class="ret-box ret-full-width" aria-label="Withdrawal duration simulator">
+      <h3>Withdrawal Depletion Simulator</h3>
+      <p style="font-size: 0.85rem; color: var(--ret-text-muted); margin-bottom: 20px;">
+        Simulate the lifespan of your accumulated nest egg under specific withdrawal amounts and investment growth.
+      </p>
+
+      <div class="ret-input-grid" style="margin-bottom: 20px;">
+        <div class="ret-input-group">
+          <label for="simCorpus">Total Savings at Retirement (₹)</label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix">₹</span>
+            <input type="number" id="simCorpus" value="48200000" min="0" step="100000">
+          </div>
+          <span style="font-size: 0.75rem; color: var(--ret-text-muted); margin-top: 4px;">Nest egg size (defaults to needed corpus).</span>
+        </div>
+
+        <div class="ret-input-group">
+          <label for="simWithdrawal">Planned Monthly Withdrawal (₹)</label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix">₹</span>
+            <input type="number" id="simWithdrawal" value="287000" min="0" step="5000">
+          </div>
+          <span style="font-size: 0.75rem; color: var(--ret-text-muted); margin-top: 4px;">Initial withdrawal (defaults to inflation-adjusted expense / 12).</span>
+        </div>
+
+        <div class="ret-input-group">
+          <label for="simReturn">Average Post-Retirement return (%)</label>
+          <div class="ret-input-wrapper">
+            <span class="ret-input-prefix">%</span>
+            <input type="number" id="simReturn" value="8" min="0" max="30" step="0.5">
+          </div>
+        </div>
+
+        <div class="ret-input-group" style="justify-content: center; margin-bottom: 0;">
+          <div class="simulator-checkbox-row">
+            <input type="checkbox" id="simAdjustInflation" checked>
+            <label for="simAdjustInflation" style="margin: 0; cursor: pointer; font-size: 0.9rem;">Increase withdrawals with inflation annually</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulator Status Banner -->
+      <div class="simulator-status status-lasts" id="simStatusBox">
+        Your money will last indefinitely (100+ years).
+      </div>
+
+      <!-- Depletion Chart Graph -->
+      <div class="ret-chart-wrapper">
+        <canvas id="depletionChart"></canvas>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= Standalone Footer ======= -->
+  <footer class="calc-standalone-footer" role="contentinfo">
+    <div class="calc-footer-inner">
+      <div>
+        <span class="calc-footer-brand">Simple<span>i</span>Tech</span>
+        <span class="calc-footer-copy">&nbsp;— Free Financial Calculators</span>
+      </div>
+      <nav class="calc-footer-links" aria-label="Footer calculator links">
+        <a href="fintech-calculator.html">Home Loan EMI</a>
+        <a href="personal-loan-calculator.html">Personal Loan EMI</a>
+        <a href="car-loan-calculator.html">Car Loan EMI</a>
+        <a href="mutual-fund-calculator.html">Mutual Fund</a>
+        <a href="pdf-utility.html">PDF Utility</a>
+        <a href="financial-health.html">Financial Health</a>
+        <a href="retirement-calculator.html">Retirement</a>
+      </nav>
+      <nav class="calc-footer-policy-links" aria-label="Policy links">
+        <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
+        <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
+      </nav>
+      <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Retirement Calculator Logic -->
+  <script src="assets/js/retirement-calculator.js"></script>
+
+  <script>
+    // Set current year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    // Calculator dropdown nav
+    document.getElementById('calculator-options').addEventListener('change', function() {
+      window.location.href = this.value;
+    });
+  </script>
+</body>
+
+</html>
