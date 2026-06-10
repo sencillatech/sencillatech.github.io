@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Personal Financial Health Check Tool | Client-Side Audit | SimpleiTech</title>
+  <meta name="description" content="Perform a comprehensive personal financial health check. Audit your spending habits, emergency funds, debt ratios, risk profile, and download a custom report. 100% private.">
+  <meta name="keywords" content="financial health check, wealth audit, finance calculator, emergency fund checker, net worth, risk profile, personal finance report">
+  <meta name="author" content="SimpleiTech">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#00275D">
+  <link rel="canonical" href="https://simpleitech.com/financial-health.html">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicons/favicon.ico" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Main, Calculator & Financial Health CSS -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/calculator.css" rel="stylesheet">
+  <link href="assets/css/financial-health.css" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-55VEQSNG5F');
+  </script>
+</head>
+
+<body>
+
+  <!-- ======= Powered by SimpleiTech Branding Bar ======= -->
+  <div class="calc-branding-bar" role="banner">
+    <a href="index.html" class="calc-brand-link" title="Go to SimpleiTech Home">
+      <span class="calc-brand-powered">Powered by</span>
+      <span class="calc-brand-logo">Simple<span>i</span>Tech</span>
+    </a>
+    <nav class="calc-brand-nav" aria-label="Calculator navigation">
+      <a href="fintech-calculator.html">Home Loan</a>
+      <a href="personal-loan-calculator.html">Personal Loan</a>
+      <a href="car-loan-calculator.html">Car Loan</a>
+      <a href="mutual-fund-calculator.html">Mutual Fund</a>
+      <a href="pdf-utility.html">PDF Utility</a>
+      <a href="financial-health.html" class="active">Financial Health</a>
+    </nav>
+  </div>
+
+  <!-- ======= Banner ======= -->
+  <div class="calc-page-header">
+    <div class="container">
+      <h1 style="font-family:'Roboto',sans-serif;font-size:1.6rem;font-weight:700;margin:0;color:#fff;">Financial <span style="color:#E29E21;">Health</span> Check</h1>
+      <div class="calc-selector">
+        <label for="calculator-options" class="sr-only" style="display:none;">Choose App</label>
+        <select name="calculator-options" id="calculator-options" aria-label="Switch app type">
+          <option value="fintech-calculator.html">Home Loan EMI</option>
+          <option value="personal-loan-calculator.html">Personal Loan EMI</option>
+          <option value="car-loan-calculator.html">Car Loan EMI</option>
+          <option value="mutual-fund-calculator.html">Mutual Fund Calculator</option>
+          <option value="pdf-utility.html">PDF Utility</option>
+          <option value="financial-health.html" selected>Financial Health</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Main Content Area ======= -->
+  <main class="health-container" role="main">
+    <div class="health-grid">
+      
+      <!-- Left Sidebar: Tabs Selector -->
+      <aside class="health-tabs-sidebar" aria-label="Tool sections navigation">
+        <button class="health-tab-btn active" id="tab-btn-spending">
+          <span class="health-tab-title"><i class="bx bx-trending-up"></i> Spending Habit</span>
+          <span class="health-tab-status status-incomplete" id="status-spending"></span>
+        </button>
+        <button class="health-tab-btn" id="tab-btn-summary">
+          <span class="health-tab-title"><i class="bx bx-line-chart"></i> My Finance Summary</span>
+          <span class="health-tab-status status-incomplete" id="status-summary"></span>
+        </button>
+        <button class="health-tab-btn" id="tab-btn-emergency">
+          <span class="health-tab-title"><i class="bx bx-shield-quarter"></i> Emergency Fund</span>
+          <span class="health-tab-status status-incomplete" id="status-emergency"></span>
+        </button>
+        <button class="health-tab-btn" id="tab-btn-insurance">
+          <span class="health-tab-title"><i class="bx bx-first-aid"></i> Insurance</span>
+          <span class="health-tab-status status-incomplete" id="status-insurance"></span>
+        </button>
+        <button class="health-tab-btn" id="tab-btn-debt">
+          <span class="health-tab-title"><i class="bx bx-wallet"></i> Debt</span>
+          <span class="health-tab-status status-incomplete" id="status-debt"></span>
+        </button>
+        <button class="health-tab-btn" id="tab-btn-risk">
+          <span class="health-tab-title"><i class="bx bx-shuffle"></i> Risk Profile</span>
+          <span class="health-tab-status status-incomplete" id="status-risk"></span>
+        </button>
+        <button class="health-tab-btn" id="tab-btn-dashboard">
+          <span class="health-tab-title"><i class="bx bx-grid-alt"></i> Dashboard Report</span>
+          <span class="health-tab-status status-incomplete" id="status-dashboard"></span>
+        </button>
+      </aside>
+
+      <!-- Right Panel: Active Section Content -->
+      <section class="health-content-panel" aria-live="polite">
+        
+        <!-- Tab 1: Spending Habit -->
+        <div class="health-section active" id="spending-habit">
+          <div class="health-section-header">
+            <h2><i class="bx bx-trending-up"></i> Spending Habit Audit</h2>
+          </div>
+          <p class="health-help-text" style="margin-bottom: 20px;">
+            Let's analyze your savings rate. Standard best practices recommend saving & investing at least 20-30% of your total gross income to accumulate long-term wealth.
+          </p>
+
+          <div class="health-form-grid">
+            <div class="health-input-group">
+              <label for="input-income">Gross Monthly Income</label>
+              <div class="health-input-wrapper">
+                <span class="health-input-prefix">$</span>
+                <input type="number" id="input-income" min="0" placeholder="e.g. 5000">
+              </div>
+              <span class="health-help-text">Your total pre-tax monthly household income.</span>
+            </div>
+
+            <div class="health-input-group">
+              <label for="input-savings">How much do you save monthly?</label>
+              <div class="health-input-wrapper">
+                <span class="health-input-prefix">$</span>
+                <input type="number" id="input-savings" min="0" placeholder="e.g. 500">
+              </div>
+              <span class="health-help-text">Money placed in normal bank savings, deposits, cash, etc.</span>
+            </div>
+
+            <div class="health-input-group">
+              <label for="input-investments">How much do you invest monthly?</label>
+              <div class="health-input-wrapper">
+                <span class="health-input-prefix">$</span>
+                <input type="number" id="input-investments" min="0" placeholder="e.g. 1000">
+              </div>
+              <span class="health-help-text">Money directed to long-term mutual funds, stocks, pensions, etc.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: My Finance Summary -->
+        <div class="health-section" id="finance-summary">
+          <div class="health-section-header">
+            <h2><i class="bx bx-line-chart"></i> My Finance Summary</h2>
+            <div style="font-size: 0.95rem; font-weight: 600;">Net Worth: <span id="visual-net-worth" style="color:var(--health-primary);">$0</span></div>
+          </div>
+          
+          <div class="health-form-grid" style="margin-bottom: 20px;">
+            <!-- Assets column -->
+            <div>
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--health-secondary); border-bottom: 1.5px solid var(--health-border); padding-bottom: 5px; margin-bottom: 15px;">ASSETS (What you own)</h4>
+              
+              <div class="health-input-group" style="margin-bottom: 15px;">
+                <label for="input-liquid-assets">Cash & Bank Balances</label>
+                <div class="health-input-wrapper">
+                  <span class="health-input-prefix">$</span>
+                  <input type="number" id="input-liquid-assets" min="0" placeholder="e.g. 10000">
+                </div>
+              </div>
+
+              <div class="health-input-group" style="margin-bottom: 15px;">
+                <label for="input-invest-assets">Investment Assets</label>
+                <div class="health-input-wrapper">
+                  <span class="health-input-prefix">$</span>
+                  <input type="number" id="input-invest-assets" min="0" placeholder="e.g. 45000">
+                </div>
+                <span class="health-help-text">Mutual funds, equities, retirement pots, bonds.</span>
+              </div>
+
+              <div class="health-input-group" style="margin-bottom: 15px;">
+                <label for="input-property-assets">Real Estate & Properties</label>
+                <div class="health-input-wrapper">
+                  <span class="health-input-prefix">$</span>
+                  <input type="number" id="input-property-assets" min="0" placeholder="e.g. 250000">
+                </div>
+              </div>
+
+              <div class="health-input-group" style="margin-bottom: 15px;">
+                <label for="input-personal-assets">Personal Assets (Gold, Cars, etc.)</label>
+                <div class="health-input-wrapper">
+                  <span class="health-input-prefix">$</span>
+                  <input type="number" id="input-personal-assets" min="0" placeholder="e.g. 15000">
+                </div>
+              </div>
+            </div>
+
+            <!-- Liabilities column -->
+            <div>
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--health-danger); border-bottom: 1.5px solid var(--health-border); padding-bottom: 5px; margin-bottom: 15px;">LIABILITIES (What you owe)</h4>
+              
+              <div class="health-input-group" style="margin-bottom: 15px;">
+                <label for="input-mortgages">Home Mortgages</label>
+                <div class="health-input-wrapper">
+                  <span class="health-input-prefix">$</span>
+                  <input type="number" id="input-mortgages" min="0" placeholder="e.g. 180000">
+                </div>
+              </div>
+
+              <div class="health-input-group" style="margin-bottom: 15px;">
+                <label for="input-car-loans">Vehicle Loans</label>
+                <div class="health-input-wrapper">
+                  <span class="health-input-prefix">$</span>
+                  <input type="number" id="input-car-loans" min="0" placeholder="e.g. 12000">
+                </div>
+              </div>
+
+              <div class="health-input-group" style="margin-bottom: 15px;">
+                <label for="input-personal-loans">Student & Personal Loans</label>
+                <div class="health-input-wrapper">
+                  <span class="health-input-prefix">$</span>
+                  <input type="number" id="input-personal-loans" min="0" placeholder="e.g. 8000">
+                </div>
+              </div>
+
+              <div class="health-input-group" style="margin-bottom: 15px;">
+                <label for="input-credit-cards">Credit Card Balances</label>
+                <div class="health-input-wrapper">
+                  <span class="health-input-prefix">$</span>
+                  <input type="number" id="input-credit-cards" min="0" placeholder="e.g. 1500">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Allocation Visual Comparison -->
+          <div class="allocation-comparison" id="visual-asset-allocation">
+            <h4>Your Asset Allocation Proportion</h4>
+            <div class="allocation-bars">
+              <div class="allocation-bar-item">
+                <div class="allocation-bar-label">
+                  <span>Liquid Cash Assets</span>
+                  <span id="bar-liquid-val">0%</span>
+                </div>
+                <div class="allocation-progress">
+                  <div class="allocation-progress-fill" id="bar-liquid-fill" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="allocation-bar-item">
+                <div class="allocation-bar-label">
+                  <span>Long-term Investments</span>
+                  <span id="bar-invest-val">0%</span>
+                </div>
+                <div class="allocation-progress">
+                  <div class="allocation-progress-fill" id="bar-invest-fill" style="width: 0%; background-color: var(--health-primary);"></div>
+                </div>
+              </div>
+              <div class="allocation-bar-item">
+                <div class="allocation-bar-label">
+                  <span>Real Estate & Personal Assets</span>
+                  <span id="bar-property-val">0%</span>
+                </div>
+                <div class="allocation-progress">
+                  <div class="allocation-progress-fill" id="bar-property-fill" style="width: 0%; background-color: var(--health-accent);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Emergency Fund -->
+        <div class="health-section" id="emergency-fund">
+          <div class="health-section-header">
+            <h2><i class="bx bx-shield-quarter"></i> Emergency Fund Buffer</h2>
+          </div>
+          <p class="health-help-text" style="margin-bottom: 20px;">
+            An emergency fund protects you during unforeseen events (job losses, medical conditions). A standard guideline is to have 3 to 6 months worth of essential expenses saved in highly liquid, risk-free structures.
+          </p>
+
+          <div class="health-form-grid">
+            <div class="health-input-group">
+              <label for="input-emergency-fund">Current Emergency Cash Balance</label>
+              <div class="health-input-wrapper">
+                <span class="health-input-prefix">$</span>
+                <input type="number" id="input-emergency-fund" min="0" placeholder="e.g. 15000">
+              </div>
+              <span class="health-help-text">Funds held in physical cash or immediate high-yield savings.</span>
+            </div>
+
+            <div class="health-input-group">
+              <label for="input-expenses">Average Monthly Essential Expenses</label>
+              <div class="health-input-wrapper">
+                <span class="health-input-prefix">$</span>
+                <input type="number" id="input-expenses" min="0" placeholder="e.g. 3000">
+              </div>
+              <span class="health-help-text">Rent/mortgage, utilities, food, debts, transport. (Linked from Spending Habit, but adjustable)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Insurance -->
+        <div class="health-section" id="insurance">
+          <div class="health-section-header">
+            <h2><i class="bx bx-first-aid"></i> Insurance & Cover Audit</h2>
+          </div>
+          
+          <div style="margin-bottom: 25px;">
+            <h4 style="font-size: 1rem; font-weight: 700; color: var(--health-primary); margin-bottom: 15px;">Life Insurance Coverage</h4>
+            <label style="font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; display: block;">Do you have an active Life Insurance policy?</label>
+            <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <input type="radio" name="life-insurance-select" value="yes" style="accent-color: var(--health-primary);"> Yes
+              </label>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <input type="radio" name="life-insurance-select" value="no" checked style="accent-color: var(--health-primary);"> No
+              </label>
+            </div>
+
+            <div class="health-input-group" id="life-cover-group" style="display: none; width: 50%;">
+              <label for="input-life-cover">Total Life Cover Benefit (Sum Assured)</label>
+              <div class="health-input-wrapper">
+                <span class="health-input-prefix">$</span>
+                <input type="number" id="input-life-cover" min="0" placeholder="e.g. 500000">
+              </div>
+              <span class="health-help-text">Best practice recommends a sum assured of 10x-15x your annual income.</span>
+            </div>
+          </div>
+
+          <hr style="border-top: 1.5px solid var(--health-border); margin: 25px 0;">
+
+          <div>
+            <h4 style="font-size: 1rem; font-weight: 700; color: var(--health-primary); margin-bottom: 15px;">Health Insurance Coverage</h4>
+            <label style="font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; display: block;">Do you have dedicated health insurance cover (individual or family)?</label>
+            <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <input type="radio" name="health-insurance-select" value="yes" style="accent-color: var(--health-primary);"> Yes
+              </label>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <input type="radio" name="health-insurance-select" value="no" checked style="accent-color: var(--health-primary);"> No
+              </label>
+            </div>
+
+            <div class="health-input-group" id="health-cover-group" style="display: none; width: 50%;">
+              <label for="input-health-cover">Total Health Cover Limit (Sum Insured)</label>
+              <div class="health-input-wrapper">
+                <span class="health-input-prefix">$</span>
+                <input type="number" id="input-health-cover" min="0" placeholder="e.g. 50000">
+              </div>
+              <span class="health-help-text">Helps cover unexpected medical bills without disrupting long-term assets.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: Debt -->
+        <div class="health-section" id="debt">
+          <div class="health-section-header">
+            <h2><i class="bx bx-wallet"></i> Debt Burden Audit</h2>
+          </div>
+          
+          <div class="health-form-grid" style="margin-bottom: 25px;">
+            <div class="health-input-group">
+              <label for="input-monthly-emi">Total Monthly EMI / Debt Payments</label>
+              <div class="health-input-wrapper">
+                <span class="health-input-prefix">$</span>
+                <input type="number" id="input-monthly-emi" min="0" placeholder="e.g. 1200">
+              </div>
+              <span class="health-help-text">Sum of all monthly loan payments (home, car, card minimums).</span>
+            </div>
+          </div>
+
+          <hr style="border-top: 1.5px solid var(--health-border); margin: 25px 0;">
+
+          <div>
+            <h4 style="font-size: 1rem; font-weight: 700; color: var(--health-primary); margin-bottom: 10px;">High-Interest Toxic Debt</h4>
+            <label style="font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; display: block;">Do you have any active unpaid high-interest credit card rollovers or loan shark debt (interest > 12% APR)?</label>
+            <div style="display: flex; gap: 20px;">
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <input type="radio" name="debt-toxic-select" value="yes" style="accent-color: var(--health-primary);"> Yes
+              </label>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                <input type="radio" name="debt-toxic-select" value="no" checked style="accent-color: var(--health-primary);"> No
+              </label>
+            </div>
+            <span class="health-help-text" style="display: block; margin-top: 8px;">High-interest consumer debt drains disposable income and directly reduces overall health scores.</span>
+          </div>
+        </div>
+
+        <!-- Tab 6: Risk Profile -->
+        <div class="health-section" id="risk-profile">
+          <div class="health-section-header">
+            <h2><i class="bx bx-shuffle"></i> Risk Profile & Asset Suitability</h2>
+          </div>
+          <p class="health-help-text" style="margin-bottom: 20px;">
+            Understanding your risk tolerance helps determine if your current asset allocation matches your investment timeline and psychological comfort zone.
+          </p>
+
+          <!-- Question 1 -->
+          <div class="risk-question-card">
+            <h4>1. What is your current age?</h4>
+            <div class="risk-options">
+              <label class="risk-option-label">
+                <input type="radio" name="age" value="4"> Under 30 (Higher capacity for equity volatility)
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="age" value="3"> 30 - 45
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="age" value="2"> 46 - 60
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="age" value="1"> Over 60 (Prioritize asset protection and capital lock)
+              </label>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="risk-question-card">
+            <h4>2. What is your primary investment time horizon?</h4>
+            <div class="risk-options">
+              <label class="risk-option-label">
+                <input type="radio" name="horizon" value="1"> Short-term: Less than 3 years
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="horizon" value="2"> Medium-term: 3 to 7 years
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="horizon" value="4"> Long-term: More than 7 years (Equity-friendly)
+              </label>
+            </div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="risk-question-card">
+            <h4>3. How would you react if the stock market drops by 20% in a month?</h4>
+            <div class="risk-options">
+              <label class="risk-option-label">
+                <input type="radio" name="reaction" value="1"> Sell all my holdings to prevent further capital loss
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="reaction" value="2"> Do nothing and wait for market recovery
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="reaction" value="4"> Buy more assets at a discounted price
+              </label>
+            </div>
+          </div>
+
+          <!-- Question 4 -->
+          <div class="risk-question-card">
+            <h4>4. What is your primary investment goal?</h4>
+            <div class="risk-options">
+              <label class="risk-option-label">
+                <input type="radio" name="goal" value="1"> Capital preservation and security of principal
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="goal" value="2"> Balanced growth with regular interest/income
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="goal" value="4"> Aggressive compounding and long-term appreciation
+              </label>
+            </div>
+          </div>
+
+          <!-- Question 5 -->
+          <div class="risk-question-card">
+            <h4>5. How would you describe your knowledge of financial markets?</h4>
+            <div class="risk-options">
+              <label class="risk-option-label">
+                <input type="radio" name="knowledge" value="1"> Beginner: Unaware of stocks/bonds concepts
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="knowledge" value="2"> Intermediate: Understand basic mutual funds and diversification
+              </label>
+              <label class="risk-option-label">
+                <input type="radio" name="knowledge" value="4"> Advanced: Active portfolio builder, understand risk premiums
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 7: Dashboard -->
+        <div class="health-section" id="dashboard">
+          <div class="health-section-header">
+            <h2><i class="bx bx-grid-alt"></i> Financial Health Dashboard</h2>
+          </div>
+          
+          <div class="dashboard-grid">
+            <!-- Overall Score Card -->
+            <div class="dashboard-score-card">
+              <span class="dashboard-score-title">Overall Score Status</span>
+              <span class="dashboard-score-value" id="overall-score-text">0</span>
+              <span class="dashboard-score-max">out of 100</span>
+              <span class="dashboard-score-status badge-unhealthy" id="overall-score-status">Needs Attention</span>
+            </div>
+
+            <!-- Radar chart breakdown -->
+            <div class="dashboard-chart-card">
+              <div class="dashboard-chart-container">
+                <canvas id="radarChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Breakdown cards -->
+            <div class="breakdown-section">
+              <h3>Section-by-Section Health Index</h3>
+              <div class="breakdown-grid">
+                
+                <!-- Spending Habits Card -->
+                <div class="breakdown-card">
+                  <div class="breakdown-card-header">
+                    <span class="breakdown-card-title"><i class="bx bx-trending-up" style="color:var(--health-secondary);"></i> Spending</span>
+                    <span class="section-score-badge badge-unhealthy" id="breakdown-spending-badge">Critical</span>
+                  </div>
+                  <div class="breakdown-card-score" id="breakdown-spending-score">0/100</div>
+                  <div class="breakdown-card-metric"><span id="metric-spending-val">0% Savings Rate</span></div>
+                </div>
+
+                <!-- Finance Summary Card -->
+                <div class="breakdown-card">
+                  <div class="breakdown-card-header">
+                    <span class="breakdown-card-title"><i class="bx bx-line-chart" style="color:var(--health-secondary);"></i> Summary</span>
+                    <span class="section-score-badge badge-unhealthy" id="breakdown-summary-badge">Critical</span>
+                  </div>
+                  <div class="breakdown-card-score" id="breakdown-summary-score">0/100</div>
+                  <div class="breakdown-card-metric"><span id="metric-summary-val">$0 Net Worth</span></div>
+                </div>
+
+                <!-- Emergency Fund Card -->
+                <div class="breakdown-card">
+                  <div class="breakdown-card-header">
+                    <span class="breakdown-card-title"><i class="bx bx-shield-quarter" style="color:var(--health-secondary);"></i> Emergency</span>
+                    <span class="section-score-badge badge-unhealthy" id="breakdown-emergency-badge">Critical</span>
+                  </div>
+                  <div class="breakdown-card-score" id="breakdown-emergency-score">0/100</div>
+                  <div class="breakdown-card-metric"><span id="metric-emergency-val">0 Months Expenses</span></div>
+                </div>
+
+                <!-- Insurance Card -->
+                <div class="breakdown-card">
+                  <div class="breakdown-card-header">
+                    <span class="breakdown-card-title"><i class="bx bx-first-aid" style="color:var(--health-secondary);"></i> Insurance</span>
+                    <span class="section-score-badge badge-unhealthy" id="breakdown-insurance-badge">Critical</span>
+                  </div>
+                  <div class="breakdown-card-score" id="breakdown-insurance-score">0/100</div>
+                  <div class="breakdown-card-metric"><span id="metric-insurance-val">No Policies Active</span></div>
+                </div>
+
+                <!-- Debt Card -->
+                <div class="breakdown-card">
+                  <div class="breakdown-card-header">
+                    <span class="breakdown-card-title"><i class="bx bx-wallet" style="color:var(--health-secondary);"></i> Debt Burden</span>
+                    <span class="section-score-badge badge-unhealthy" id="breakdown-debt-badge">Critical</span>
+                  </div>
+                  <div class="breakdown-card-score" id="breakdown-debt-score">0/100</div>
+                  <div class="breakdown-card-metric"><span id="metric-debt-val">0% Debt Service Ratio</span></div>
+                </div>
+
+                <!-- Risk Alignment Card -->
+                <div class="breakdown-card">
+                  <div class="breakdown-card-header">
+                    <span class="breakdown-card-title"><i class="bx bx-shuffle" style="color:var(--health-secondary);"></i> Risk Fit</span>
+                    <span class="section-score-badge badge-unhealthy" id="breakdown-risk-badge">Critical</span>
+                  </div>
+                  <div class="breakdown-card-score" id="breakdown-risk-score">0/100</div>
+                  <div class="breakdown-card-metric"><span id="metric-risk-val">Unanswered Profile</span></div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Action Plan Recommendations -->
+            <div class="recommendations-section">
+              <h3><i class="bx bx-task"></i> Recommendations & Personalized Strategies</h3>
+              <div class="rec-list" id="recommendation-list">
+                <!-- Appended via Javascript dynamic rules -->
+              </div>
+            </div>
+
+            <!-- Download PDF Report Card -->
+            <div class="dashboard-actions">
+              <button class="btn-download-report" id="btnDownloadPDF" onclick="downloadPDFReport()">
+                <i class="bx bx-cloud-download"></i> Download Complete PDF Audit
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Footer Control Buttons -->
+        <div class="health-nav-buttons">
+          <button class="btn-health-prev" style="visibility: hidden;">
+            <i class="bx bx-chevron-left"></i> Previous
+          </button>
+          <button class="btn-health-next">
+            Next <i class="bx bx-chevron-right"></i>
+          </button>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- ======= Standalone Footer ======= -->
+  <footer class="calc-standalone-footer" role="contentinfo">
+    <div class="calc-footer-inner">
+      <div>
+        <span class="calc-footer-brand">Simple<span>i</span>Tech</span>
+        <span class="calc-footer-copy">&nbsp;— Free Client-Side Utilities</span>
+      </div>
+      <nav class="calc-footer-links" aria-label="Footer navigation links">
+        <a href="fintech-calculator.html">Home Loan EMI</a>
+        <a href="personal-loan-calculator.html">Personal Loan EMI</a>
+        <a href="car-loan-calculator.html">Car Loan EMI</a>
+        <a href="mutual-fund-calculator.html">Mutual Fund</a>
+        <a href="pdf-utility.html">PDF Utility</a>
+        <a href="financial-health.html" class="active">Financial Health</a>
+      </nav>
+      <nav class="calc-footer-policy-links" aria-label="Policy links">
+        <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
+        <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
+      </nav>
+      <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- External CDN Libraries for PDF & Chart Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Financial Health App Javascript Logic -->
+  <script src="assets/js/financial-health.js"></script>
+
+  <script>
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    // App navigation handler
+    document.getElementById('calculator-options').addEventListener('change', function() {
+      window.location.href = this.value;
+    });
+  </script>
+</body>
+
+</html>
