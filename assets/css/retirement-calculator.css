@@ -1,0 +1,271 @@
+/* ============================================================
+   Retirement Calculator Stylesheet
+   Colors: Navy #00275D, Gold #E29E21, Blue #007DBF
+   ============================================================ */
+
+:root {
+    --ret-primary: #00275D;
+    --ret-primary-light: #003a8c;
+    --ret-accent: #E29E21;
+    --ret-secondary: #007DBF;
+    --ret-bg: #f6f9fe;
+    --ret-surface: #ffffff;
+    --ret-border: #dce6f1;
+    --ret-text: #333333;
+    --ret-text-muted: #64748b;
+    --ret-shadow-sm: 0 1px 3px rgba(0, 39, 93, 0.08);
+    --ret-shadow-md: 0 4px 12px rgba(0, 39, 93, 0.12);
+    --ret-radius: 10px;
+}
+
+/* Two-column layout */
+.ret-main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+}
+
+/* App container */
+.ret-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Card / Box style */
+.ret-box {
+    background: var(--ret-surface);
+    border-radius: var(--ret-radius);
+    box-shadow: var(--ret-shadow-md);
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--ret-border);
+}
+
+.ret-box h3 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: var(--ret-primary);
+    font-size: 1.25rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--ret-border);
+    padding-bottom: 8px;
+}
+
+/* Form Styles */
+.ret-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.ret-input-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ret-input-group label {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--ret-text);
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ret-input-group label span.label-val {
+    color: var(--ret-secondary);
+    font-weight: 700;
+}
+
+.ret-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ret-input-prefix {
+    position: absolute;
+    left: 12px;
+    font-weight: 600;
+    color: var(--ret-text-muted);
+}
+
+.ret-input-wrapper input[type="number"] {
+    width: 100%;
+    padding: 10px 12px 10px 28px;
+    border: 1.5px solid var(--ret-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    background: var(--ret-bg);
+    color: var(--ret-text);
+    transition: all 0.25s ease;
+}
+
+.ret-input-wrapper input[type="number"]:focus {
+    outline: none;
+    border-color: var(--ret-primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 39, 93, 0.15);
+}
+
+/* Slider overrides */
+.ret-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--ret-primary), var(--ret-secondary));
+    border-radius: 3px;
+    outline: none;
+    margin-top: 8px;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+
+.ret-slider:hover {
+    opacity: 1;
+}
+
+.ret-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--ret-primary);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,39,93,0.3);
+    transition: transform 0.15s;
+    border: 2px solid #fff;
+}
+
+.ret-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+}
+
+/* Output Cards */
+.ret-summary-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.ret-card {
+    padding: 18px;
+    border-left: 4px solid var(--ret-primary);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: var(--ret-surface);
+    border-radius: var(--ret-radius);
+    box-shadow: var(--ret-shadow-sm);
+    border: 1px solid var(--ret-border);
+    border-left-width: 4px;
+}
+
+.ret-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ret-shadow-md);
+}
+
+.ret-card h4 {
+    color: var(--ret-text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0;
+    margin-bottom: 6px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.ret-card .value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ret-primary);
+    font-family: 'Roboto', sans-serif;
+}
+
+.ret-card.corpus-card {
+    border-left-color: var(--ret-accent);
+}
+.ret-card.corpus-card .value {
+    color: #b8860b;
+}
+
+.ret-card.savings-card {
+    border-left-color: var(--ret-secondary);
+}
+.ret-card.savings-card .value {
+    color: var(--ret-secondary);
+}
+
+/* Simulator Output details */
+.simulator-status {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+    border: 1.5px solid transparent;
+}
+
+.status-lasts {
+    background: rgba(46, 204, 113, 0.1);
+    color: #27ae60;
+    border-color: rgba(46, 204, 113, 0.25);
+}
+
+.status-depletes {
+    background: rgba(231, 76, 60, 0.1);
+    color: #c0392b;
+    border-color: rgba(231, 76, 60, 0.25);
+}
+
+/* Charts Wrapper */
+.ret-chart-wrapper {
+    position: relative;
+    height: 280px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Sections Grid */
+.ret-full-width {
+    grid-column: 1 / -1;
+}
+
+/* Toggle Option Layout */
+.simulator-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.simulator-checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--ret-primary);
+    cursor: pointer;
+}
+
+/* Responsive Grid Breakpoints */
+@media (max-width: 1024px) {
+    .ret-main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .ret-input-grid {
+        grid-template-columns: 1fr;
+    }
+}
