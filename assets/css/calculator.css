@@ -1138,3 +1138,13 @@
         padding: 20px 16px;
     }
 }
+
+/* Sticky Footer layout for calculator pages */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.calc-standalone-footer {
+    margin-top: auto;
+}

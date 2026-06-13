@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Your Money Power | Financial Advisor & Planner | SimpleiTech</title>
+  <meta name="description" content="Calculate your money strength, plan your budget (Needs, Wants, Savings), evaluate retirement goals, check affordability for houses and cars, and get personalized advice.">
+  <meta name="keywords" content="financial advisor calculator, money power planner, budget advisor, car affordability calculator, home eligibility planner, personal wealth check">
+  <meta name="author" content="SimpleiTech">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#00275D">
+  <link rel="canonical" href="https://simpleitech.com/money-power.html">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicons/favicon.ico" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/calculator.css" rel="stylesheet">
+  <link href="assets/css/money-power.css" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-55VEQSNG5F');
+  </script>
+</head>
+
+<body>
+
+  <!-- ======= Powered by SimpleiTech Branding Bar ======= -->
+  <div class="calc-branding-bar" role="banner">
+    <a href="index.html" class="calc-brand-link" title="Go to SimpleiTech Home">
+      <span class="calc-brand-powered">Powered by</span>
+      <span class="calc-brand-logo">Simple<span>i</span>Tech</span>
+    </a>
+    <nav class="calc-brand-nav" aria-label="Calculator navigation">
+      <a href="fintech-calculator.html">Home Loan</a>
+      <a href="personal-loan-calculator.html">Personal Loan</a>
+      <a href="car-loan-calculator.html">Car Loan</a>
+      <a href="mutual-fund-calculator.html">Mutual Fund</a>
+      <a href="pdf-utility.html">PDF Utility</a>
+      <a href="financial-health.html">Financial Health</a>
+      <a href="retirement-calculator.html">Retirement</a>
+      <a href="money-power.html" class="active">Your Money Power</a>
+    </nav>
+  </div>
+
+  <!-- ======= Page Banner ======= -->
+  <div class="calc-page-header">
+    <div class="container">
+      <h1 style="font-family:'Roboto',sans-serif;font-size:1.6rem;font-weight:700;margin:0;color:#fff;">Your <span style="color:#E29E21;">Money Power</span></h1>
+      <div class="calc-selector">
+        <label for="calculator-options" class="sr-only" style="display:none;">Choose App</label>
+        <select name="calculator-options" id="calculator-options" aria-label="Switch app type">
+          <option value="fintech-calculator.html">Home Loan EMI</option>
+          <option value="personal-loan-calculator.html">Personal Loan EMI</option>
+          <option value="car-loan-calculator.html">Car Loan EMI</option>
+          <option value="mutual-fund-calculator.html">Mutual Fund Calculator</option>
+          <option value="pdf-utility.html">PDF Utility</option>
+          <option value="financial-health.html">Financial Health</option>
+          <option value="retirement-calculator.html">Retirement Calculator</option>
+          <option value="money-power.html" selected>Your Money Power</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Main Content Area ======= -->
+  <main class="mp-main-content" role="main">
+    
+    <!-- Error banner alert -->
+    <div class="alert alert-danger mp-full-width" id="calcErrorAlert" style="display: none; border-radius: var(--mp-radius);">
+      Error message here.
+    </div>
+
+    <!-- Left Column: User Inputs -->
+    <section class="mp-box" aria-label="Financial inputs">
+      <h3><i class="bx bxs-edit"></i> Personal Financial Details</h3>
+      
+      <!-- Section A: Income Details -->
+      <h4 style="color: var(--mp-primary); margin-top: 15px; font-weight: 700; border-bottom: 1.5px dashed var(--mp-border); padding-bottom: 4px;">1. Income Details</h4>
+      <div class="mp-input-grid">
+        <div class="mp-input-group">
+          <label for="salary">Monthly Take-Home Salary (₹) <span id="salaryVal" class="label-val">₹1 L</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix">₹</span>
+            <input type="number" id="salary" value="100000" min="0" step="5000">
+          </div>
+          <input type="range" id="salaryRange" min="10000" max="1000000" value="100000" step="5000" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="otherIncome">Other Monthly Income (₹) <span id="otherIncomeVal" class="label-val">₹20 K</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix">₹</span>
+            <input type="number" id="otherIncome" value="20000" min="0" step="2000">
+          </div>
+          <input type="range" id="otherIncomeRange" min="0" max="500000" value="20000" step="2000" class="mp-slider">
+        </div>
+      </div>
+
+      <!-- Section B: Standpoint (Assets) -->
+      <h4 style="color: var(--mp-primary); margin-top: 25px; font-weight: 700; border-bottom: 1.5px dashed var(--mp-border); padding-bottom: 4px;">2. Current Standpoint (Assets)</h4>
+      <div class="mp-input-grid">
+        <div class="mp-input-group">
+          <label for="savings">Savings Account Balance (₹) <span id="savingsVal" class="label-val">₹2 L</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix">₹</span>
+            <input type="number" id="savings" value="200000" min="0" step="10000">
+          </div>
+          <input type="range" id="savingsRange" min="0" max="5000000" value="200000" step="10000" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="fds">Fixed Deposits (FD) (₹) <span id="fdsVal" class="label-val">₹3 L</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix">₹</span>
+            <input type="number" id="fds" value="300000" min="0" step="10000">
+          </div>
+          <input type="range" id="fdsRange" min="0" max="10000000" value="300000" step="10000" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="mutualFunds">Mutual Funds & Stocks (₹) <span id="mutualFundsVal" class="label-val">₹5 L</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix">₹</span>
+            <input type="number" id="mutualFunds" value="500000" min="0" step="25000">
+          </div>
+          <input type="range" id="mutualFundsRange" min="0" max="25000000" value="500000" step="25000" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="otherInvestments">Other (Gold, PPF, PF) (₹) <span id="otherInvestmentsVal" class="label-val">₹1.5 L</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix">₹</span>
+            <input type="number" id="otherInvestments" value="150000" min="0" step="10000">
+          </div>
+          <input type="range" id="otherInvestmentsRange" min="0" max="10000000" value="150000" step="10000" class="mp-slider">
+        </div>
+      </div>
+
+      <!-- Section C: Demographics & Family -->
+      <h4 style="color: var(--mp-primary); margin-top: 25px; font-weight: 700; border-bottom: 1.5px dashed var(--mp-border); padding-bottom: 4px;">3. Demographics & Family Situation</h4>
+      <div class="mp-input-grid">
+        <div class="mp-input-group">
+          <label for="age">Current Age <span id="ageVal" class="label-val">30 Yrs</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix"><i class="bx bx-user"></i></span>
+            <input type="number" id="age" value="30" min="1" max="99">
+          </div>
+          <input type="range" id="ageRange" min="18" max="99" value="30" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="retAge">Target Retirement Age <span id="retAgeVal" class="label-val">60 Yrs</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix"><i class="bx bx-calendar"></i></span>
+            <input type="number" id="retAge" value="60" min="5" max="100">
+          </div>
+          <input type="range" id="retAgeRange" min="40" max="80" value="60" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="kids">Number of Children</label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix"><i class="bx bx-child"></i></span>
+            <select id="kids" class="form-select">
+              <option value="0">No children</option>
+              <option value="1">1 child</option>
+              <option value="2" selected>2 children</option>
+              <option value="3">3 children</option>
+              <option value="4">4 children</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mp-input-group" style="justify-content: center; margin-bottom: 0;">
+          <div class="simulator-checkbox-row" style="margin: 0; padding-top: 10px;">
+            <input type="checkbox" id="parents" checked>
+            <label for="parents" style="margin: 0; cursor: pointer; font-size: 0.9rem;">Support elderly parents</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section D: Future Big Goals -->
+      <h4 style="color: var(--mp-primary); margin-top: 25px; font-weight: 700; border-bottom: 1.5px dashed var(--mp-border); padding-bottom: 4px;">4. Big Future Goals</h4>
+      <div class="mp-input-grid">
+        <div class="mp-input-group full-width">
+          <label for="retCorpus">Target Retirement Corpus (₹) <span id="retCorpusVal" class="label-val">₹5 Cr</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix">₹</span>
+            <input type="number" id="retCorpus" value="50000000" min="0" step="1000000">
+          </div>
+          <input type="range" id="retCorpusRange" min="1000000" max="250000000" value="50000000" step="1000000" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="carPrice">Target Car Price (₹) <span id="carPriceVal" class="label-val">₹10 L</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix">₹</span>
+            <input type="number" id="carPrice" value="1000000" min="0" step="50000">
+          </div>
+          <input type="range" id="carPriceRange" min="100000" max="5000000" value="1000000" step="50000" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="carTimeline">Purchase Timeline <span id="carTimelineVal" class="label-val">24 M</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix"><i class="bx bx-time"></i></span>
+            <input type="number" id="carTimeline" value="24" min="1" max="120">
+          </div>
+          <input type="range" id="carTimelineRange" min="1" max="120" value="24" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="housePrice">Target House Price (₹) <span id="housePriceVal" class="label-val">₹60 L</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix">₹</span>
+            <input type="number" id="housePrice" value="6000000" min="0" step="100000">
+          </div>
+          <input type="range" id="housePriceRange" min="500000" max="30000000" value="6000000" step="100000" class="mp-slider">
+        </div>
+
+        <div class="mp-input-group">
+          <label for="houseTimeline">Purchase Timeline <span id="houseTimelineVal" class="label-val">5 Y</span></label>
+          <div class="mp-input-wrapper">
+            <span class="mp-input-prefix"><i class="bx bx-time"></i></span>
+            <input type="number" id="houseTimeline" value="5" min="1" max="30">
+          </div>
+          <input type="range" id="houseTimelineRange" min="1" max="30" value="5" class="mp-slider">
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Results & Interactive Advisor Reports -->
+    <aside class="mp-results-column" aria-label="Advisor results and insights">
+      
+      <!-- Top Overview Metrics -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: -6px;">
+        <div class="mp-card" style="padding: 14px; text-align: center;">
+          <h5 style="color: var(--mp-text-muted); font-size: 0.78rem; text-transform: uppercase; margin: 0 0 4px 0; font-weight: 700;">Total Income</h5>
+          <div id="headTotalIncome" style="font-size: 1.35rem; font-weight: 700; color: var(--mp-primary); font-family:'Roboto',sans-serif;">₹0</div>
+        </div>
+        <div class="mp-card" style="padding: 14px; text-align: center; border-top-color: var(--mp-secondary);">
+          <h5 style="color: var(--mp-text-muted); font-size: 0.78rem; text-transform: uppercase; margin: 0 0 4px 0; font-weight: 700;">Nest Egg Size</h5>
+          <div id="headTotalAssets" style="font-size: 1.35rem; font-weight: 700; color: var(--mp-secondary); font-family:'Roboto',sans-serif;">₹0</div>
+        </div>
+      </div>
+
+      <!-- Card A: Recommended Budget Allocation -->
+      <div class="mp-card budget-card">
+        <h4><i class="bx bx-pie-chart-alt"></i> Recommended Monthly Budget</h4>
+        
+        <div class="mp-chart-wrapper">
+          <canvas id="allocationChart"></canvas>
+        </div>
+
+        <div class="mp-budget-list">
+          <div class="mp-budget-item">
+            <span class="mp-budget-label" id="needsLabel">Needs (50%)</span>
+            <span class="mp-budget-val" id="needsVal">₹0</span>
+          </div>
+          <div class="mp-budget-item">
+            <span class="mp-budget-label" id="wantsLabel">Wants (30%)</span>
+            <span class="mp-budget-val" id="wantsVal">₹0</span>
+          </div>
+          <div class="mp-budget-item">
+            <span class="mp-budget-label" id="budgetSavingsLabel">Save & Invest (20%)</span>
+            <span class="mp-budget-val" id="budgetSavingsVal">₹0</span>
+          </div>
+        </div>
+
+        <div class="advisor-text-box" id="budgetOverviewText">
+          Loading budget allocations...
+        </div>
+      </div>
+
+      <!-- Card B: Emergency Cushion Health -->
+      <div class="mp-card">
+        <h4 style="justify-content: space-between; display: flex; align-items: center; width: 100%;">
+          <span><i class="bx bx-shield-quarter"></i> Emergency Cushion</span>
+          <span id="emergencyStatus" class="mp-badge badge-success">Healthy</span>
+        </h4>
+        <div class="advisor-text-box" id="emergencyAdvisor" style="border-left-color: var(--mp-accent);">
+          Checking emergency buffer...
+        </div>
+      </div>
+
+      <!-- Card C: Retirement Planning Status -->
+      <div class="mp-card">
+        <h4 style="justify-content: space-between; display: flex; align-items: center; width: 100%;">
+          <span><i class="bx bx-run"></i> Retirement Readiness</span>
+          <span id="retStatus" class="mp-badge badge-success">On Track</span>
+        </h4>
+        <div class="advisor-text-box" id="retAdvisor">
+          Analyzing retirement savings gap...
+        </div>
+      </div>
+
+      <!-- Card D: Purchase Affordability (Car) -->
+      <div class="mp-card eligibility-card">
+        <h4 style="justify-content: space-between; display: flex; align-items: center; width: 100%;">
+          <span><i class="bx bx-car"></i> Car Goal Eligibility</span>
+          <span id="carStatus" class="mp-badge badge-success">Affordable</span>
+        </h4>
+        <div class="affordability-meter">
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="carMeter"></div>
+          </div>
+          <div class="advisor-text-box" id="carAdvisor" style="border-left-color: var(--mp-accent);">
+            Evaluating car purchase timeline...
+          </div>
+        </div>
+      </div>
+
+      <!-- Card E: Purchase Affordability (House) -->
+      <div class="mp-card eligibility-card">
+        <h4 style="justify-content: space-between; display: flex; align-items: center; width: 100%;">
+          <span><i class="bx bx-home-alt"></i> House Goal Eligibility</span>
+          <span id="houseStatus" class="mp-badge badge-success">Affordable</span>
+        </h4>
+        <div class="affordability-meter">
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="houseMeter"></div>
+          </div>
+          <div class="advisor-text-box" id="houseAdvisor">
+            Evaluating home eligibility...
+          </div>
+        </div>
+      </div>
+
+      <!-- Card F: Actionable Steps checklist -->
+      <div class="mp-card" style="border-top-color: var(--mp-accent);">
+        <h4><i class="bx bx-check-square"></i> Advisor Actionable Steps</h4>
+        <div id="advisorChecklist" style="margin-top: 10px;">
+          <!-- Recommendations will load dynamically -->
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- ======= Standalone Footer ======= -->
+  <footer class="calc-standalone-footer" role="contentinfo">
+    <div class="calc-footer-inner">
+      <div>
+        <span class="calc-footer-brand">Simple<span>i</span>Tech</span>
+        <span class="calc-footer-copy">&nbsp;— Free Financial Calculators</span>
+      </div>
+      <nav class="calc-footer-links" aria-label="Footer calculator links">
+        <a href="fintech-calculator.html">Home Loan EMI</a>
+        <a href="personal-loan-calculator.html">Personal Loan EMI</a>
+        <a href="car-loan-calculator.html">Car Loan EMI</a>
+        <a href="mutual-fund-calculator.html">Mutual Fund</a>
+        <a href="pdf-utility.html">PDF Utility</a>
+        <a href="financial-health.html">Financial Health</a>
+        <a href="retirement-calculator.html">Retirement</a>
+        <a href="money-power.html">Your Money Power</a>
+      </nav>
+      <nav class="calc-footer-policy-links" aria-label="Policy links">
+        <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
+        <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
+      </nav>
+      <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Your Money Power Logic -->
+  <script src="assets/js/money-power.js"></script>
+
+  <script>
+    // Set current year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    // Calculator dropdown nav
+    document.getElementById('calculator-options').addEventListener('change', function() {
+      window.location.href = this.value;
+    });
+  </script>
+</body>
+
+</html>

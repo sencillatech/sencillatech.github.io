@@ -1,0 +1,376 @@
+/* ============================================================
+   Your Money Power - Financial Advisor Stylesheet
+   Colors: Navy #00275D, Gold #E29E21, Blue #007DBF
+   ============================================================ */
+
+:root {
+    --mp-primary: #00275D;
+    --mp-primary-light: #003a8c;
+    --mp-accent: #E29E21;
+    --mp-secondary: #007DBF;
+    --mp-bg: #f6f9fe;
+    --mp-surface: #ffffff;
+    --mp-border: #dce6f1;
+    --mp-text: #333333;
+    --mp-text-muted: #64748b;
+    --mp-shadow-sm: 0 1px 3px rgba(0, 39, 93, 0.08);
+    --mp-shadow-md: 0 4px 12px rgba(0, 39, 93, 0.12);
+    --mp-radius: 12px;
+}
+
+/* Two-column layout */
+.mp-main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+}
+
+/* App container */
+.mp-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Card / Box style */
+.mp-box {
+    background: var(--mp-surface);
+    border-radius: var(--mp-radius);
+    box-shadow: var(--mp-shadow-md);
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--mp-border);
+}
+
+.mp-box h3 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: var(--mp-primary);
+    font-size: 1.25rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    border-bottom: 2px solid var(--mp-border);
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mp-box h3 i {
+    color: var(--mp-secondary);
+}
+
+/* Form Styles */
+.mp-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.mp-input-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mp-input-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.mp-input-group label {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--mp-text);
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mp-input-group label span.label-val {
+    color: var(--mp-secondary);
+    font-weight: 700;
+}
+
+.mp-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.mp-input-prefix {
+    position: absolute;
+    left: 12px;
+    font-weight: 600;
+    color: var(--mp-text-muted);
+}
+
+.mp-input-wrapper input[type="number"],
+.mp-input-wrapper select {
+    width: 100%;
+    padding: 10px 12px 10px 28px;
+    border: 1.5px solid var(--mp-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    background: var(--mp-bg);
+    color: var(--mp-text);
+    transition: all 0.25s ease;
+}
+
+.mp-input-wrapper select {
+    padding-left: 28px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2364748b' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 12px) center;
+}
+
+.mp-input-wrapper input[type="number"]:focus,
+.mp-input-wrapper select:focus {
+    outline: none;
+    border-color: var(--mp-primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 39, 93, 0.15);
+}
+
+/* Slider overrides */
+.mp-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--mp-primary), var(--mp-secondary));
+    border-radius: 3px;
+    outline: none;
+    margin-top: 8px;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+
+.mp-slider:hover {
+    opacity: 1;
+}
+
+.mp-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--mp-primary);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,39,93,0.3);
+    transition: transform 0.15s;
+    border: 2px solid #fff;
+}
+
+.mp-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+}
+
+/* Outputs & Cards */
+.mp-results-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mp-card {
+    background: var(--mp-surface);
+    border-radius: var(--mp-radius);
+    box-shadow: var(--mp-shadow-md);
+    padding: 20px;
+    border: 1px solid var(--mp-border);
+    border-top: 4px solid var(--mp-primary);
+}
+
+.mp-card.budget-card {
+    border-top-color: var(--mp-accent);
+}
+
+.mp-card.eligibility-card {
+    border-top-color: var(--mp-secondary);
+}
+
+.mp-card h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--mp-primary);
+    font-size: 1.1rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Budget breakdown styling */
+.mp-budget-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.mp-budget-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--mp-bg);
+    border-radius: 8px;
+    border: 1px solid var(--mp-border);
+}
+
+.mp-budget-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--mp-text);
+}
+
+.mp-budget-val {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--mp-primary);
+}
+
+/* Badges for status details */
+.mp-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
+}
+
+.badge-success {
+    background: rgba(46, 204, 113, 0.15);
+    color: #27ae60;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.badge-warning {
+    background: rgba(243, 156, 18, 0.15);
+    color: #d35400;
+    border: 1px solid rgba(243, 156, 18, 0.3);
+}
+
+.badge-danger {
+    background: rgba(231, 76, 60, 0.15);
+    color: #c0392b;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+/* Affordability indicator details */
+.affordability-meter {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.affordability-status {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.progress-bar-container {
+    height: 10px;
+    background: var(--mp-bg);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 1px solid var(--mp-border);
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+/* Advisor text details */
+.advisor-text-box {
+    background: var(--mp-bg);
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--mp-secondary);
+    font-size: 0.85rem;
+    color: var(--mp-text);
+    margin-top: 10px;
+    line-height: 1.45;
+}
+
+.advisor-text-box p {
+    margin: 0 0 6px 0;
+}
+
+.advisor-text-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* Charts Wrapper */
+.mp-chart-wrapper {
+    position: relative;
+    height: 200px;
+    width: 100%;
+    margin: 15px auto;
+}
+
+/* Full Width sections */
+.mp-full-width {
+    grid-column: 1 / -1;
+}
+
+/* Checklist cards styles */
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--mp-border);
+}
+
+.checklist-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.checklist-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--mp-primary);
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+.checklist-content {
+    font-size: 0.88rem;
+    color: var(--mp-text);
+}
+
+.checklist-content strong {
+    color: var(--mp-primary);
+    display: block;
+    margin-bottom: 2px;
+}
+
+/* Responsive Grid Breakpoints */
+@media (max-width: 1024px) {
+    .mp-main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .mp-input-grid {
+        grid-template-columns: 1fr;
+    }
+}
