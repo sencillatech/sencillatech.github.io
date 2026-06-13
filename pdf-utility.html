@@ -46,39 +46,25 @@
 
   <!-- ======= Powered by SimpleiTech Branding Bar ======= -->
   <div class="calc-branding-bar" role="banner">
-    <a href="index.html" class="calc-brand-link" title="Go to SimpleiTech Home">
-      <span class="calc-brand-powered">Powered by</span>
-      <span class="calc-brand-logo">Simple<span>i</span>Tech</span>
-    </a>
-    <nav class="calc-brand-nav" aria-label="Calculator navigation">
-      <a href="fintech-calculator.html">Home Loan</a>
-      <a href="personal-loan-calculator.html">Personal Loan</a>
-      <a href="car-loan-calculator.html">Car Loan</a>
-      <a href="mutual-fund-calculator.html">Mutual Fund</a>
-      <a href="pdf-utility.html" class="active">PDF Utility</a>
-      <a href="financial-health.html">Financial Health</a>
-      <a href="retirement-calculator.html">Retirement</a>
-      <a href="money-power.html">Your Money Power</a>
-    </nav>
-  </div>
-
-  <!-- ======= Banner ======= -->
-  <div class="calc-page-header">
-    <div class="container">
-      <h1 style="font-family:'Roboto',sans-serif;font-size:1.6rem;font-weight:700;margin:0;color:#fff;">PDF <span style="color:#E29E21;">Utility</span> - Split Pages</h1>
-      <div class="calc-selector">
-        <label for="calculator-options" class="sr-only" style="display:none;">Choose App</label>
-        <select name="calculator-options" id="calculator-options" aria-label="Switch app type">
-          <option value="fintech-calculator.html">Home Loan EMI</option>
-          <option value="personal-loan-calculator.html">Personal Loan EMI</option>
-          <option value="car-loan-calculator.html">Car Loan EMI</option>
-          <option value="mutual-fund-calculator.html">Mutual Fund Calculator</option>
-          <option value="pdf-utility.html" selected>PDF Utility</option>
-          <option value="financial-health.html">Financial Health</option>
-          <option value="retirement-calculator.html">Retirement Calculator</option>
-          <option value="money-power.html">Your Money Power</option>
-        </select>
-      </div>
+    <div class="pdf-header-nav-group">
+      <a href="index.html" class="calc-brand-link" title="Go to SimpleiTech Home">
+        <span class="calc-brand-powered" style="font-size: 0.65rem;">Powered by</span>
+        <span class="calc-brand-logo" style="font-size: 0.95rem;">Simple<span style="color:#E29E21;">i</span>Tech</span>
+      </a>
+      <span class="pdf-header-divider" style="color: rgba(255,255,255,0.3); font-weight: 300;">|</span>
+      <h1 style="font-family:'Roboto',sans-serif;font-size:1.35rem;font-weight:700;margin:0;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">PDF <span style="color:#E29E21;margin-left:5px;">Utility</span></h1>
+    </div>
+    <div class="pdf-header-selector-group">
+      <nav class="calc-brand-nav" aria-label="Calculator navigation">
+        <a href="fintech-calculator.html">Home Loan</a>
+        <a href="personal-loan-calculator.html">Personal Loan</a>
+        <a href="car-loan-calculator.html">Car Loan</a>
+        <a href="mutual-fund-calculator.html">Mutual Fund</a>
+        <a href="pdf-utility.html" class="active">PDF Utility</a>
+        <a href="financial-health.html">Financial Health</a>
+        <a href="retirement-calculator.html">Retirement</a>
+        <a href="money-power.html">Your Money Power</a>
+      </nav>
     </div>
   </div>
 
@@ -264,9 +250,12 @@
     // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     // App navigation handler
-    document.getElementById('calculator-options').addEventListener('change', function() {
-      window.location.href = this.value;
-    });
+    const calcOptions = document.getElementById('calculator-options');
+    if (calcOptions) {
+      calcOptions.addEventListener('change', function() {
+        window.location.href = this.value;
+      });
+    }
   </script>
 </body>
 
