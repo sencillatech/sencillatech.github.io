@@ -16,7 +16,7 @@
 
 window.ADSENSE_CONFIG = {
   /** Google AdSense Publisher ID (the "ca-pub-…" string). */
-  PUBLISHER_ID: 'ca-pub-XXXXXXXXXXXXXXXX',
+  PUBLISHER_ID: 'ca-pub-2630317528778433',
 
   /** Master kill-switch for ads across the site. */
   ADSENSE_ENABLED: true,
