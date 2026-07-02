@@ -40,28 +40,12 @@
             }
         });
 
-        // Initialize range sliders with value badges
-        setupSlider('numQuestions', 'numQuestionsVal', '');
-        setupSlider('numRows', 'numRowsVal', ' rows');
-        setupSlider('numDigits', 'numDigitsVal', ' digits');
-        
+        // Initialize range sliders with value badges for multiplication and division digits only
         setupSlider('multCandDigits', 'multCandDigitsVal', ' digits');
         setupSlider('multErDigits', 'multErDigitsVal', ' digits');
         
         setupSlider('divDendDigits', 'divDendDigitsVal', ' digits');
         setupSlider('divSorDigits', 'divSorDigitsVal', ' digits');
-
-        // Radio button group helper
-        document.querySelectorAll('.aba-radio-card').forEach(card => {
-            card.addEventListener('click', function () {
-                const name = this.querySelector('input').name;
-                document.querySelectorAll(`.aba-radio-card input[name="${name}"]`).forEach(input => {
-                    input.parentElement.classList.remove('active');
-                });
-                this.classList.add('active');
-                this.querySelector('input').checked = true;
-            });
-        });
 
         // Lead Modal controls
         const leadModal = document.getElementById('leadModal');
@@ -136,7 +120,7 @@
         if (type === 'addition' || type === 'subtraction' || type === 'combined') {
             const rows = parseInt(document.getElementById('numRows').value);
             const digits = parseInt(document.getElementById('numDigits').value);
-            const decimals = parseInt(document.querySelector('input[name="decimals"]:checked').value);
+            const decimals = parseInt(document.getElementById('numDecimals').value);
 
             generatorConfig.rows = rows;
             generatorConfig.digits = digits;
@@ -344,11 +328,31 @@
                 renderDivQuestions(doc, margin, pageHeight);
             }
 
+            // Query total question pages count before adding answer key page
+            const Q_total = doc.internal.getNumberOfPages();
+
             // Generate Sheet 2: Answer Key
             doc.addPage();
             renderHeader(doc, 'ABACUS ANSWER KEY');
             renderMetadata(doc, lead, true);
             renderAnswerKey(doc, margin);
+
+            // Compute total pages
+            const totalPages = doc.internal.getNumberOfPages();
+            const A_total = totalPages - Q_total;
+
+            // Post-process to write page numbers onto the top-right of all headers
+            for (let i = 1; i <= totalPages; i++) {
+                doc.setPage(i);
+                doc.setFont('Helvetica', 'normal');
+                doc.setFontSize(8.5);
+                doc.setTextColor(255, 255, 255); // White text inside navy banner
+                if (i <= Q_total) {
+                    doc.text(`Page ${i}-${Q_total}`, 195, 11, { align: 'right' });
+                } else {
+                    doc.text(`Ans Page ${i - Q_total}-${A_total}`, 195, 11, { align: 'right' });
+                }
+            }
 
             // Save PDF with unique name
             const timestamp = new Date().toISOString().slice(0, 10);
@@ -364,27 +368,27 @@
     function renderHeader(doc, titleText) {
         // Navy blue header banner
         doc.setFillColor(0, 39, 93); // #00275D
-        doc.rect(0, 0, 210, 32, 'F');
+        doc.rect(0, 0, 210, 18, 'F');
 
         // Amber line
         doc.setFillColor(226, 158, 33); // #E29E21
-        doc.rect(0, 32, 210, 2, 'F');
+        doc.rect(0, 18, 210, 1.5, 'F');
 
         // Title
         doc.setTextColor(255, 255, 255);
         doc.setFont('Helvetica', 'bold');
-        doc.setFontSize(18);
-        doc.text(titleText, 15, 18);
+        doc.setFontSize(14);
+        doc.text(titleText, 15, 11);
 
         // Subtitle Branding
-        doc.setFontSize(9);
+        doc.setFontSize(8);
         doc.setFont('Helvetica', 'normal');
         doc.setTextColor(226, 158, 33);
-        doc.text('Powered by SimpleiTech — Free Client-Side Utilities', 15, 26);
+        doc.text('Powered by SimpleiTech', 15, 15);
     }
 
     function renderMetadata(doc, lead, isAnswerKey = false) {
-        const startY = 43;
+        const startY = 27;
         
         doc.setTextColor(50, 50, 50);
         doc.setFont('Helvetica', 'bold');
@@ -428,57 +432,73 @@
             detailStr += ' (CORRECT ANSWERS)';
         }
         
-        doc.text(detailStr, 15, startY + 8);
-        doc.line(15, startY + 12, 195, startY + 12);
+        doc.text(detailStr, 15, startY + 7);
+        doc.line(15, startY + 10, 195, startY + 10);
     }
 
     // Grid rendering for Addition/Subtraction vertical questions
     function renderAddSubQuestions(doc, margin, pageHeight) {
-        const startY = 65;
+        const startY = 48;
         const colWidth = 32;
-        const rowHeight = 6.5;
-        const questionsPerSectionRow = 5;
+        const cols = 5;
         
-        let currentX = margin;
-        let currentY = startY;
+        // Dynamically scale font size and row height based on rows count
+        let fontSize = 11;
+        let rowHeight = 6.5;
+        const rowsCount = generatorConfig.rows;
+        
+        if (rowsCount <= 10) {
+            fontSize = 11;
+            rowHeight = 6.5;
+        } else if (rowsCount <= 20) {
+            fontSize = 9;
+            rowHeight = 4.5;
+        } else if (rowsCount <= 30) {
+            fontSize = 8;
+            rowHeight = 3.5;
+        } else {
+            fontSize = 6.5;
+            rowHeight = 2.7;
+        }
+        
+        let col = 0;
+        let row = 0;
+        let curPageStartY = startY;
 
         currentQuestions.forEach((q, index) => {
-            const colIndex = index % questionsPerSectionRow;
-            const rowIndex = Math.floor(index / questionsPerSectionRow);
-
-            // Compute positions
-            currentX = margin + (colIndex * colWidth) + (colIndex * 3); // some spacing
-            currentY = startY + (rowIndex * (generatorConfig.rows * rowHeight + 25));
+            // Compute positions relative to the current page
+            let currentX = margin + col * (colWidth + 3); // Spacing of 3mm
+            let currentY = curPageStartY + row * (generatorConfig.rows * rowHeight + 18);
 
             // Page overflow check
-            if (currentY + (generatorConfig.rows * rowHeight) + 15 > pageHeight - 20) {
+            if (currentY + (generatorConfig.rows * rowHeight) + 15 > pageHeight - 15) {
                 doc.addPage();
                 renderHeader(doc, 'ABACUS PRACTICE WORKSHEET (Cont.)');
-                // Adjust Y back for next page
-                const tempY = startY - 15; // Shift Y up slightly on new page since metadata is omitted
-                currentY = tempY + (rowIndex % 3) * (generatorConfig.rows * rowHeight + 25); 
+                col = 0;
+                row = 0;
+                curPageStartY = 30; // Start higher on subsequent pages since main metadata is omitted
+                currentX = margin + col * (colWidth + 3);
+                currentY = curPageStartY + row * (generatorConfig.rows * rowHeight + 18);
             }
 
             // Print Question Number
             doc.setFont('Helvetica', 'bold');
-            doc.setFontSize(10);
+            doc.setFontSize(fontSize - 1);
             doc.setTextColor(0, 39, 93);
-            doc.text(`[ ${q.questionNum} ]`, currentX + 8, currentY - 4);
+            doc.text(`[ ${q.questionNum} ]`, currentX + 8, currentY - 3);
 
             // Print Numbers
             doc.setFont('Helvetica', 'normal');
-            doc.setFontSize(11);
+            doc.setFontSize(fontSize);
             doc.setTextColor(30, 30, 30);
             
-            q.rows.forEach((row, rIdx) => {
+            q.rows.forEach((rowVal, rIdx) => {
                 const yPos = currentY + (rIdx * rowHeight);
-                let numText = row.val.toFixed(generatorConfig.decimals);
+                let numText = rowVal.val.toFixed(generatorConfig.decimals);
                 
-                // Show operation sign on the left of number
-                if (rIdx > 0 && row.sign === '-') {
-                    doc.text('-', currentX + 2, yPos);
-                } else if (rIdx > 0 && row.sign === '+') {
-                    doc.text('+', currentX + 2, yPos);
+                // Prepend sign directly to the number text for subsequent rows to keep it attached
+                if (rIdx > 0) {
+                    numText = (rowVal.sign === '-' ? '-' : '+') + numText;
                 }
                 
                 // Right align digits
@@ -486,41 +506,51 @@
             });
 
             // Draw line below numbers
-            const lineY = currentY + (generatorConfig.rows * rowHeight) - 2;
-            doc.setLineWidth(0.4);
+            const lineY = currentY + (generatorConfig.rows * rowHeight) - 1.5;
+            doc.setLineWidth(0.3);
             doc.line(currentX, lineY, currentX + colWidth, lineY);
 
             // Answer Box
-            const boxY = lineY + 2;
+            const boxY = lineY + 1.5;
+            const boxHeight = fontSize <= 8 ? 6 : 9;
             doc.setFillColor(250, 250, 250);
-            doc.rect(currentX, boxY, colWidth, 9, 'F');
+            doc.rect(currentX, boxY, colWidth, boxHeight, 'F');
             doc.setDrawColor(200, 200, 200);
-            doc.rect(currentX, boxY, colWidth, 9, 'S');
+            doc.rect(currentX, boxY, colWidth, boxHeight, 'S');
+
+            // Move to next position
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
         });
     }
 
     // Multiplication Questions Grid
     function renderMultQuestions(doc, margin, pageHeight) {
-        const startY = 65;
+        const startY = 48;
         const colWidth = 55;
         const rowHeight = 15;
         const cols = 3;
 
-        let currentX = margin;
-        let currentY = startY;
+        let col = 0;
+        let row = 0;
+        let curPageStartY = startY;
 
         currentQuestions.forEach((q, index) => {
-            const colIndex = index % cols;
-            const rowIndex = Math.floor(index / cols);
-
-            currentX = margin + (colIndex * colWidth) + (colIndex * 5);
-            currentY = startY + (rowIndex * rowHeight);
+            let currentX = margin + col * (colWidth + 5);
+            let currentY = curPageStartY + row * rowHeight;
 
             // Page overflow check
-            if (currentY + 12 > pageHeight - 20) {
+            if (currentY + 12 > pageHeight - 15) {
                 doc.addPage();
                 renderHeader(doc, 'ABACUS PRACTICE WORKSHEET (Cont.)');
-                currentY = startY;
+                col = 0;
+                row = 0;
+                curPageStartY = 30;
+                currentX = margin + col * (colWidth + 5);
+                currentY = curPageStartY + row * rowHeight;
             }
 
             doc.setFont('Helvetica', 'normal');
@@ -533,31 +563,39 @@
             // Underline space for answer
             doc.setDrawColor(180, 180, 180);
             doc.line(currentX + doc.getTextWidth(qStr) + 1, currentY + 1, currentX + colWidth - 2, currentY + 1);
+
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
         });
     }
 
     // Division Questions Grid
     function renderDivQuestions(doc, margin, pageHeight) {
-        const startY = 65;
+        const startY = 48;
         const colWidth = 55;
         const rowHeight = 15;
         const cols = 3;
 
-        let currentX = margin;
-        let currentY = startY;
+        let col = 0;
+        let row = 0;
+        let curPageStartY = startY;
 
         currentQuestions.forEach((q, index) => {
-            const colIndex = index % cols;
-            const rowIndex = Math.floor(index / cols);
-
-            currentX = margin + (colIndex * colWidth) + (colIndex * 5);
-            currentY = startY + (rowIndex * rowHeight);
+            let currentX = margin + col * (colWidth + 5);
+            let currentY = curPageStartY + row * rowHeight;
 
             // Page overflow check
-            if (currentY + 12 > pageHeight - 20) {
+            if (currentY + 12 > pageHeight - 15) {
                 doc.addPage();
                 renderHeader(doc, 'ABACUS PRACTICE WORKSHEET (Cont.)');
-                currentY = startY;
+                col = 0;
+                row = 0;
+                curPageStartY = 30;
+                currentX = margin + col * (colWidth + 5);
+                currentY = curPageStartY + row * rowHeight;
             }
 
             doc.setFont('Helvetica', 'normal');
@@ -570,25 +608,41 @@
             // Underline space for answer
             doc.setDrawColor(180, 180, 180);
             doc.line(currentX + doc.getTextWidth(qStr) + 1, currentY + 1, currentX + colWidth - 2, currentY + 1);
+
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
         });
     }
 
     // Render Answer Key grid
     function renderAnswerKey(doc, margin) {
-        const startY = 68;
+        const startY = 48;
         const colWidth = 33;
         const rowHeight = 11;
         const cols = 5;
+        const pageHeight = 297;
 
-        let currentX = margin;
-        let currentY = startY;
+        let col = 0;
+        let row = 0;
+        let curPageStartY = startY;
 
         currentQuestions.forEach((q, index) => {
-            const colIndex = index % cols;
-            const rowIndex = Math.floor(index / cols);
+            let currentX = margin + col * (colWidth + 3);
+            let currentY = curPageStartY + row * rowHeight;
 
-            currentX = margin + (colIndex * colWidth) + (colIndex * 3);
-            currentY = startY + (rowIndex * rowHeight);
+            // Page overflow check
+            if (currentY + 8 > pageHeight - 15) {
+                doc.addPage();
+                renderHeader(doc, 'ABACUS ANSWER KEY (Cont.)');
+                col = 0;
+                row = 0;
+                curPageStartY = 30;
+                currentX = margin + col * (colWidth + 3);
+                currentY = curPageStartY + row * rowHeight;
+            }
 
             doc.setFont('Helvetica', 'bold');
             doc.setFontSize(10.5);
@@ -598,6 +652,12 @@
             doc.setFont('Helvetica', 'normal');
             doc.setTextColor(30, 30, 30);
             doc.text(` ${q.answer}`, currentX + doc.getTextWidth(`Q${q.questionNum}:`) + 1, currentY);
+
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
         });
     }
 

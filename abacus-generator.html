@@ -75,22 +75,6 @@
         <a href="money-power.html">Your Money Power</a>
         <a href="abacus-generator.html" class="active">Abacus</a>
       </nav>
-      
-      <!-- Mobile Dropdown Selector -->
-      <div class="calc-selector">
-        <label for="calculator-options" style="display:none;">Choose Calculator</label>
-        <select name="calculator-options" id="calculator-options" aria-label="Switch calculator type">
-          <option value="fintech-calculator.html">Home Loan EMI</option>
-          <option value="personal-loan-calculator.html">Personal Loan EMI</option>
-          <option value="car-loan-calculator.html">Car Loan EMI</option>
-          <option value="mutual-fund-calculator.html">Mutual Fund Calculator</option>
-          <option value="pdf-utility.html">PDF Utility</option>
-          <option value="financial-health.html">Financial Health</option>
-          <option value="retirement-calculator.html">Retirement Calculator</option>
-          <option value="money-power.html">Your Money Power</option>
-          <option value="abacus-generator.html" selected>Abacus Generator</option>
-        </select>
-      </div>
     </div>
   </div>
 
@@ -119,8 +103,20 @@
 
         <!-- 2. Quantity of Questions -->
         <div class="aba-input-group">
-          <label for="numQuestions">Number of Questions <span class="aba-slider-val" id="numQuestionsVal">20</span></label>
-          <input type="range" id="numQuestions" class="aba-slider" min="5" max="100" step="5" value="20" aria-label="Number of questions to generate">
+          <label for="numQuestions">Number of Questions</label>
+          <select id="numQuestions" aria-label="Number of questions to generate">
+            <option value="5">5 Questions</option>
+            <option value="10">10 Questions</option>
+            <option value="20" selected>20 Questions</option>
+            <option value="25">25 Questions</option>
+            <option value="50">50 Questions</option>
+            <option value="100">100 Questions</option>
+            <option value="125">125 Questions</option>
+            <option value="200">200 Questions</option>
+            <option value="300">300 Questions</option>
+            <option value="500">500 Questions</option>
+            <option value="1000">1000 Questions</option>
+          </select>
         </div>
       </div>
 
@@ -129,30 +125,87 @@
         <div class="aba-config-grid">
           <!-- Rows per question -->
           <div class="aba-input-group">
-            <label for="numRows">Numbers per Column (Rows) <span class="aba-slider-val" id="numRowsVal">5 rows</span></label>
-            <input type="range" id="numRows" class="aba-slider" min="3" max="15" step="1" value="5" aria-label="Number of rows per question">
+            <label for="numRows">Numbers per Column (Rows)</label>
+            <select id="numRows" aria-label="Number of rows per question">
+              <option value="3">3 Rows</option>
+              <option value="4">4 Rows</option>
+              <option value="5" selected>5 Rows</option>
+              <option value="6">6 Rows</option>
+              <option value="7">7 Rows</option>
+              <option value="8">8 Rows</option>
+              <option value="9">9 Rows</option>
+              <option value="10">10 Rows</option>
+              <option value="11">11 Rows</option>
+              <option value="12">12 Rows</option>
+              <option value="13">13 Rows</option>
+              <option value="14">14 Rows</option>
+              <option value="15">15 Rows</option>
+              <option value="16">16 Rows</option>
+              <option value="17">17 Rows</option>
+              <option value="18">18 Rows</option>
+              <option value="19">19 Rows</option>
+              <option value="20">20 Rows</option>
+              <option value="21">21 Rows</option>
+              <option value="22">22 Rows</option>
+              <option value="23">23 Rows</option>
+              <option value="24">24 Rows</option>
+              <option value="25">25 Rows</option>
+              <option value="26">26 Rows</option>
+              <option value="27">27 Rows</option>
+              <option value="28">28 Rows</option>
+              <option value="29">29 Rows</option>
+              <option value="30">30 Rows</option>
+              <option value="31">31 Rows</option>
+              <option value="32">32 Rows</option>
+              <option value="33">33 Rows</option>
+              <option value="34">34 Rows</option>
+              <option value="35">35 Rows</option>
+              <option value="36">36 Rows</option>
+              <option value="37">37 Rows</option>
+              <option value="38">38 Rows</option>
+              <option value="39">39 Rows</option>
+              <option value="40">40 Rows</option>
+              <option value="41">41 Rows</option>
+              <option value="42">42 Rows</option>
+              <option value="43">43 Rows</option>
+              <option value="44">44 Rows</option>
+              <option value="45">45 Rows</option>
+              <option value="46">46 Rows</option>
+              <option value="47">47 Rows</option>
+              <option value="48">48 Rows</option>
+              <option value="49">49 Rows</option>
+              <option value="50">50 Rows</option>
+            </select>
           </div>
 
           <!-- Digits width -->
           <div class="aba-input-group">
-            <label for="numDigits">Number Width (Digits) <span class="aba-slider-val" id="numDigitsVal">2 digits</span></label>
-            <input type="range" id="numDigits" class="aba-slider" min="1" max="4" step="1" value="2" aria-label="Digits count per number">
+            <label for="numDigits">Number Width (Digits)</label>
+            <select id="numDigits" aria-label="Digits count per number">
+              <option value="1">1 Digit</option>
+              <option value="2" selected>2 Digits</option>
+              <option value="3">3 Digits</option>
+              <option value="4">4 Digits</option>
+              <option value="5">5 Digits</option>
+              <option value="6">6 Digits</option>
+              <option value="7">7 Digits</option>
+              <option value="8">8 Digits</option>
+              <option value="9">9 Digits</option>
+              <option value="10">10 Digits</option>
+            </select>
           </div>
 
           <!-- Decimal setup -->
           <div class="aba-input-group">
-            <label>Decimal Numbers</label>
-            <div class="aba-radio-group">
-              <label class="aba-radio-card active">
-                <input type="radio" name="decimals" value="0" checked> Integers (None)
-              </label>
-              <label class="aba-radio-card">
-                <input type="radio" name="decimals" value="1"> 1 Decimal (.0)
-              </label>
-              <label class="aba-radio-card">
-                <input type="radio" name="decimals" value="2"> 2 Decimals (.00)
-              </label>
-            </div>
+            <label for="numDecimals">Decimal Numbers</label>
+            <select id="numDecimals" aria-label="Decimal places count">
+              <option value="0" selected>None (Integers)</option>
+              <option value="1">1 Decimal (.0)</option>
+              <option value="2">2 Decimals (.00)</option>
+              <option value="3">3 Decimals (.000)</option>
+              <option value="4">4 Decimals (.0000)</option>
+              <option value="5">5 Decimals (.00000)</option>
+            </select>
           </div>
         </div>
       </div>
@@ -360,9 +413,12 @@
     // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     // App navigation handler
-    document.getElementById('calculator-options').addEventListener('change', function() {
-      window.location.href = this.value;
-    });
+    const selectorEl = document.getElementById('calculator-options');
+    if (selectorEl) {
+      selectorEl.addEventListener('change', function() {
+        window.location.href = this.value;
+      });
+    }
   </script>
 </body>
 
