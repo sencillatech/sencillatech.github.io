@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Free Abacus Practice Sheet Generator - Online Math Worksheets | SimpleiTech</title>
+  <meta name="description" content="Generate free, customizable, and unlimited Abacus math practice sheets (Addition, Subtraction, Multiplication, and Division) complete with answer keys in PDF format. Built by Abacus experts.">
+  <meta name="keywords" content="abacus sheet generator, mental math generator, abacus worksheets, free math PDF, addition subtraction, multiplication division worksheets, online abacus generator">
+  <meta name="author" content="SimpleiTech">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#00275D">
+  <link rel="canonical" href="https://simpleitech.com/abacus-generator.html">
+
+  <!-- Google AdSense Account -->
+  <meta name="google-adsense-account" content="ca-pub-2630317528778433">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2630317528778433"
+     crossorigin="anonymous"></script>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicons/favicon.ico" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Main, Calculator & Abacus CSS -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/calculator.css" rel="stylesheet">
+  <link href="assets/css/abacus-generator.css" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-55VEQSNG5F');
+  </script>
+</head>
+
+<body>
+
+  <!-- ======= Standalone Header / Branding Bar ======= -->
+  <div class="calc-branding-bar" role="banner">
+    <div class="pdf-header-nav-group">
+      <a href="index.html" class="calc-brand-link" title="Go to SimpleiTech Home">
+        <span class="calc-brand-powered" style="font-size: 0.55rem;">Powered by</span>
+        <span class="calc-brand-logo" style="font-size: 0.82rem;">Simple<span>i</span>Tech</span>
+      </a>
+      <span class="pdf-header-divider" style="color: rgba(255,255,255,0.3); font-weight: 300;">|</span>
+      <h1 style="font-family:'Roboto',sans-serif;font-size:1.45rem;font-weight:700;margin:0 0 0 12px;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">Abacus <span style="color:#E29E21;margin-left:5px;">Generator</span></h1>
+    </div>
+    
+    <div class="pdf-header-selector-group">
+      <!-- Desktop Selector -->
+      <nav class="calc-brand-nav" aria-label="Calculator navigation">
+        <a href="fintech-calculator.html">Home Loan</a>
+        <a href="personal-loan-calculator.html">Personal Loan</a>
+        <a href="car-loan-calculator.html">Car Loan</a>
+        <a href="mutual-fund-calculator.html">Mutual Fund</a>
+        <a href="pdf-utility.html">PDF Utility</a>
+        <a href="financial-health.html">Financial Health</a>
+        <a href="retirement-calculator.html">Retirement</a>
+        <a href="money-power.html">Your Money Power</a>
+        <a href="abacus-generator.html" class="active">Abacus</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ======= Main Content Area ======= -->
+  <main class="aba-container" role="main">
+
+    <!-- Config Form Panel -->
+    <section class="aba-card">
+      <div class="aba-header-title">
+        <i class="bx bx-grid-alt" style="color: #E29E21; font-size: 1.8rem;"></i>
+        <span>Abacus Sheet Generation Console</span>
+      </div>
+
+      <div class="aba-config-grid">
+        <!-- 1. Calculation Type -->
+        <div class="aba-input-group">
+          <label for="sheetType">Select Operation Type</label>
+          <select id="sheetType" aria-label="Abacus calculation type">
+            <option value="addition">Addition (+)</option>
+            <option value="subtraction">Subtraction (-)</option>
+            <option value="combined" selected>Addition & Subtraction Combined (&plusmn;)</option>
+            <option value="multiplication">Multiplication (&times;)</option>
+            <option value="division">Division (&divide;)</option>
+          </select>
+        </div>
+
+        <!-- 2. Quantity of Questions -->
+        <div class="aba-input-group">
+          <label for="numQuestions">Number of Questions</label>
+          <select id="numQuestions" aria-label="Number of questions to generate">
+            <option value="5">5 Questions</option>
+            <option value="10">10 Questions</option>
+            <option value="20" selected>20 Questions</option>
+            <option value="25">25 Questions</option>
+            <option value="50">50 Questions</option>
+            <option value="100">100 Questions</option>
+            <option value="125">125 Questions</option>
+            <option value="200">200 Questions</option>
+            <option value="300">300 Questions</option>
+            <option value="500">500 Questions</option>
+            <option value="1000">1000 Questions</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Add/Sub Combined Parameter Config -->
+      <div id="addSubConfig">
+        <div class="aba-config-grid">
+          <!-- Rows per question -->
+          <div class="aba-input-group">
+            <label for="numRows">Numbers per Column (Rows)</label>
+            <select id="numRows" aria-label="Number of rows per question">
+              <option value="3">3 Rows</option>
+              <option value="4">4 Rows</option>
+              <option value="5" selected>5 Rows</option>
+              <option value="6">6 Rows</option>
+              <option value="7">7 Rows</option>
+              <option value="8">8 Rows</option>
+              <option value="9">9 Rows</option>
+              <option value="10">10 Rows</option>
+              <option value="11">11 Rows</option>
+              <option value="12">12 Rows</option>
+              <option value="13">13 Rows</option>
+              <option value="14">14 Rows</option>
+              <option value="15">15 Rows</option>
+              <option value="16">16 Rows</option>
+              <option value="17">17 Rows</option>
+              <option value="18">18 Rows</option>
+              <option value="19">19 Rows</option>
+              <option value="20">20 Rows</option>
+              <option value="21">21 Rows</option>
+              <option value="22">22 Rows</option>
+              <option value="23">23 Rows</option>
+              <option value="24">24 Rows</option>
+              <option value="25">25 Rows</option>
+              <option value="26">26 Rows</option>
+              <option value="27">27 Rows</option>
+              <option value="28">28 Rows</option>
+              <option value="29">29 Rows</option>
+              <option value="30">30 Rows</option>
+              <option value="31">31 Rows</option>
+              <option value="32">32 Rows</option>
+              <option value="33">33 Rows</option>
+              <option value="34">34 Rows</option>
+              <option value="35">35 Rows</option>
+              <option value="36">36 Rows</option>
+              <option value="37">37 Rows</option>
+              <option value="38">38 Rows</option>
+              <option value="39">39 Rows</option>
+              <option value="40">40 Rows</option>
+              <option value="41">41 Rows</option>
+              <option value="42">42 Rows</option>
+              <option value="43">43 Rows</option>
+              <option value="44">44 Rows</option>
+              <option value="45">45 Rows</option>
+              <option value="46">46 Rows</option>
+              <option value="47">47 Rows</option>
+              <option value="48">48 Rows</option>
+              <option value="49">49 Rows</option>
+              <option value="50">50 Rows</option>
+            </select>
+          </div>
+
+          <!-- Digits width -->
+          <div class="aba-input-group">
+            <label for="numDigits">Number Width (Digits)</label>
+            <select id="numDigits" aria-label="Digits count per number">
+              <option value="1">1 Digit</option>
+              <option value="2" selected>2 Digits</option>
+              <option value="3">3 Digits</option>
+              <option value="4">4 Digits</option>
+              <option value="5">5 Digits</option>
+              <option value="6">6 Digits</option>
+              <option value="7">7 Digits</option>
+              <option value="8">8 Digits</option>
+              <option value="9">9 Digits</option>
+              <option value="10">10 Digits</option>
+            </select>
+          </div>
+
+          <!-- Decimal setup -->
+          <div class="aba-input-group">
+            <label for="numDecimals">Decimal Numbers</label>
+            <select id="numDecimals" aria-label="Decimal places count">
+              <option value="0" selected>None (Integers)</option>
+              <option value="1">1 Decimal (.0)</option>
+              <option value="2">2 Decimals (.00)</option>
+              <option value="3">3 Decimals (.000)</option>
+              <option value="4">4 Decimals (.0000)</option>
+              <option value="5">5 Decimals (.00000)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multiplication Config -->
+      <div id="multConfig" style="display: none;">
+        <div class="aba-config-grid">
+          <div class="aba-input-group">
+            <label for="multCandDigits">Multiplicand Width <span class="aba-slider-val" id="multCandDigitsVal">2 digits</span></label>
+            <input type="range" id="multCandDigits" class="aba-slider" min="1" max="4" step="1" value="2" aria-label="Multiplicand digits size">
+          </div>
+          <div class="aba-input-group">
+            <label for="multErDigits">Multiplier Width <span class="aba-slider-val" id="multErDigitsVal">1 digits</span></label>
+            <input type="range" id="multErDigits" class="aba-slider" min="1" max="3" step="1" value="1" aria-label="Multiplier digits size">
+          </div>
+        </div>
+      </div>
+
+      <!-- Division Config -->
+      <div id="divConfig" style="display: none;">
+        <div class="aba-config-grid">
+          <div class="aba-input-group">
+            <label for="divDendDigits">Dividend Width <span class="aba-slider-val" id="divDendDigitsVal">3 digits</span></label>
+            <input type="range" id="divDendDigits" class="aba-slider" min="2" max="5" step="1" value="3" aria-label="Dividend digits size">
+          </div>
+          <div class="aba-input-group">
+            <label for="divSorDigits">Divisor Width <span class="aba-slider-val" id="divSorDigitsVal">1 digits</span></label>
+            <input type="range" id="divSorDigits" class="aba-slider" min="1" max="3" step="1" value="1" aria-label="Divisor digits size">
+          </div>
+        </div>
+      </div>
+
+      <!-- Button Trigger -->
+      <button id="btnGenerate" class="aba-btn-primary" style="margin-top: 10px;">
+        <i class="bx bxs-file-pdf" style="font-size: 1.4rem;"></i> Generate & Download Math Sheet
+      </button>
+    </section>
+
+    <!-- Admin Leads Section (Controlled by URL ?admin=true parameter) -->
+    <section class="aba-card aba-admin-section" id="adminSection" style="display: none;">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2" style="margin-bottom: 20px;">
+        <h3 style="color: #dc3545; font-weight: 700; margin: 0; font-family: 'Poppins', sans-serif;"><i class="bx bxs-dashboard"></i> Leads Admin Dashboard</h3>
+        <div class="d-flex gap-2">
+          <button id="btnExportLeads" class="aba-btn-export"><i class="bx bx-download"></i> Export CSV</button>
+          <button id="btnClearLeads" class="aba-btn-danger"><i class="bx bx-trash"></i> Delete All</button>
+        </div>
+      </div>
+      <div class="aba-table-responsive">
+        <table class="aba-table" id="leadsTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Role</th>
+              <th>Captured Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="leadsTableBody">
+            <!-- Dynamically populated from JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Rich Educational Content Section to meet AdSense Guidelines -->
+    <section class="aba-card" style="margin-top: 30px; padding: 30px;">
+      <h2 style="color: #00275D; font-weight: 700; margin-bottom: 20px; font-size: 1.5rem; font-family: 'Poppins', sans-serif;"><i class="bx bx-info-circle" style="color: #E29E21;"></i> Guide to Abacus Learning & Mental Arithmetic</h2>
+      <p style="line-height: 1.6; color: #444; margin-bottom: 15px;">
+        The abacus is a centuries-old calculating tool used across Asia and Europe before the adoption of the written Hindu-Arabic numeral system. In modern cognitive development, learning to use the Soroban (Japanese Abacus) serves as an excellent accelerator for math mastery. By visualizing beads moving along columns, children build a solid understanding of place values (units, tens, hundreds, thousands) and develop strong spatial reasoning.
+      </p>
+
+      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">Key Concepts in Abacus Practice</h3>
+      
+      <ul style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: disc; margin-bottom: 20px;">
+        <li style="margin-bottom: 10px;"><strong>The Direct Method (No Friends):</strong> For beginner learners, calculations are done directly on the beads without requiring borrowing or carrying formulas. Numbers generated are restricted to simple arithmetic.</li>
+        <li style="margin-bottom: 10px;"><strong>Big Friends & Small Friends Formulas:</strong> When there are not enough beads in a column to perform an addition or subtraction, complementary number pairs are used. "Small Friends" are number pairs that sum to 5 (e.g. 1 & 4, 2 & 3), and "Big Friends" are pairs that sum to 10 (e.g. 9 & 1, 8 & 2). </li>
+        <li style="margin-bottom: 10px;"><strong>Mental Abacus (Anzan):</strong> The ultimate stage of training where students visualize the abacus in their mind and move the beads mentally. This builds extraordinary mental arithmetic speeds, matching or beating digital calculators.</li>
+      </ul>
+
+      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">How to Utilize Generated Practice Sheets</h3>
+      <p style="line-height: 1.6; color: #444; margin-bottom: 15px;">
+        Repetitive, timed worksheets are vital to establishing bead-muscle memory. Use this tool to generate custom difficulty sheets:
+      </p>
+      <ol style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: decimal; margin-bottom: 25px;">
+        <li style="margin-bottom: 8px;"><strong>Choose Options:</strong> Adjust rows and digits to match the current grade level of the student. Keep numbers small for direct bead practice, and scale up for big friend formula exercises.</li>
+        <li style="margin-bottom: 8px;"><strong>Fill in Details:</strong> Provide validation details to trigger the PDF download. The generated sheet includes professional header spaces for Student Name, Date, and Score records.</li>
+        <li style="margin-bottom: 8px;"><strong>Grading:</strong> The generator automatically appends a dedicated, separate <strong>Answer Key</strong> sheet at the end of the PDF, enabling parents and teachers to grade a 20-question sheet in under 10 seconds.</li>
+      </ol>
+
+      <h3 style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.25rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px; font-family: 'Poppins', sans-serif;">Frequently Asked Questions (FAQ)</h3>
+
+      <div style="margin-bottom: 20px;">
+        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">1. Why is there a constraint preventing negative numbers in addition/subtraction rows?</h4>
+        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+          On a physical Soroban, beads represent absolute positive values. In standard training levels, students calculate sums where the intermediate steps never drop below zero. Our generator implements advanced algorithms that continuously track the running total and mathematically restrict subtraction operations from resulting in a negative total.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">2. Do the division sheets contain decimal remainders?</h4>
+        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+          No. In school-level mental arithmetic exams, division questions must result in whole integer quotients for easy and standardized bead movements. The generator uses a reverse-product algorithm to guarantee that all generated division questions yield whole number answers with a remainder of zero.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">3. Can I generate decimal numbers for addition/subtraction?</h4>
+        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+          Yes. Advanced abacus training incorporates decimal numbers. You can choose to generate numbers with 1 or 2 decimal points. The generator will stack them vertically just like integers, keeping decimal points aligned to preserve place value columns.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">4. Are my entered details shared or stored externally?</h4>
+        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+          No. The lead verification details are logged locally inside your browser's secure `localStorage`. Your contact details are not uploaded to any remote web server or database, keeping your data confidential.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= Lead Capture Modal ======= -->
+  <div class="aba-modal" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="aba-modal-dialog">
+      <div class="aba-modal-header">
+        <h3 id="modalTitle"><i class="bx bxs-lock-alt"></i> Complete Details to Download</h3>
+        <button class="aba-modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="leadCollectionForm">
+        <div class="aba-modal-body">
+          <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Please verify your details below. Once verified, your customized PDF worksheet and answer key will download automatically.</p>
+          
+          <div class="aba-form-group">
+            <label for="leadName">Full Name</label>
+            <input type="text" id="leadName" required placeholder="e.g. John Doe" aria-required="true">
+          </div>
+
+          <div class="aba-form-group">
+            <label for="leadEmail">Email Address</label>
+            <input type="email" id="leadEmail" required placeholder="e.g. john@example.com" aria-required="true">
+          </div>
+
+          <div class="aba-form-group">
+            <label for="leadPhone">Phone Number</label>
+            <input type="tel" id="leadPhone" required placeholder="e.g. +91 9876543210" aria-required="true">
+          </div>
+
+          <div class="aba-form-group">
+            <label for="leadRole">Are you a Student or Teacher?</label>
+            <select id="leadRole" aria-label="Identify user role">
+              <option value="student">Student</option>
+              <option value="teacher" selected>Teacher / Parent</option>
+            </select>
+          </div>
+        </div>
+        <div class="aba-modal-footer">
+          <button type="button" class="aba-btn-cancel" id="cancelLeadBtn">Cancel</button>
+          <button type="submit" class="aba-btn-submit">Verify & Download</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======= Standalone Footer ======= -->
+  <footer class="calc-standalone-footer" role="contentinfo">
+    <div class="calc-footer-inner">
+      <div>
+        <span class="calc-footer-brand">Simple<span>i</span>Tech</span>
+        <span class="calc-footer-copy">&nbsp;— Free Client-Side Utilities</span>
+      </div>
+      <nav class="calc-footer-links" aria-label="Footer navigation links">
+        <a href="fintech-calculator.html">Home Loan EMI</a>
+        <a href="personal-loan-calculator.html">Personal Loan EMI</a>
+        <a href="car-loan-calculator.html">Car Loan EMI</a>
+        <a href="mutual-fund-calculator.html">Mutual Fund</a>
+        <a href="pdf-utility.html">PDF Utility</a>
+        <a href="financial-health.html">Financial Health</a>
+        <a href="retirement-calculator.html">Retirement</a>
+        <a href="money-power.html">Your Money Power</a>
+        <a href="abacus-generator.html">Abacus Generator</a>
+      </nav>
+      <nav class="calc-footer-policy-links" aria-label="Policy links">
+        <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
+        <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
+      </nav>
+      <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- External CDN Libraries for PDF Rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Abacus Generator Javascript Logic -->
+  <script src="assets/js/abacus-generator.js"></script>
+
+  <script>
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    // App navigation handler
+    const selectorEl = document.getElementById('calculator-options');
+    if (selectorEl) {
+      selectorEl.addEventListener('change', function() {
+        window.location.href = this.value;
+      });
+    }
+  </script>
+</body>
+
+</html>
