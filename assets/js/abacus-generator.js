@@ -357,7 +357,50 @@
             // Save PDF with unique name
             const timestamp = new Date().toISOString().slice(0, 10);
             const filename = `Abacus_${generatorConfig.type}_${timestamp}.pdf`;
-            doc.save(filename);
+            
+            // If preview parameter is set, render to iframe on screen for testing
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('preview') === 'true') {
+                let previewContainer = document.getElementById('pdfPreviewContainer');
+                if (!previewContainer) {
+                    previewContainer = document.createElement('div');
+                    previewContainer.id = 'pdfPreviewContainer';
+                    previewContainer.style.position = 'fixed';
+                    previewContainer.style.top = '0';
+                    previewContainer.style.left = '0';
+                    previewContainer.style.width = '100vw';
+                    previewContainer.style.height = '100vh';
+                    previewContainer.style.backgroundColor = 'rgba(0,0,0,0.8)';
+                    previewContainer.style.zIndex = '99999';
+                    previewContainer.style.display = 'flex';
+                    previewContainer.style.flexDirection = 'column';
+                    previewContainer.style.alignItems = 'center';
+                    previewContainer.style.justifyContent = 'center';
+                    
+                    const closePreview = document.createElement('button');
+                    closePreview.id = 'btnClosePreview';
+                    closePreview.textContent = 'Close Preview';
+                    closePreview.style.margin = '10px';
+                    closePreview.style.padding = '8px 16px';
+                    closePreview.style.fontSize = '16px';
+                    closePreview.onclick = () => previewContainer.style.display = 'none';
+                    previewContainer.appendChild(closePreview);
+
+                    const iframe = document.createElement('iframe');
+                    iframe.id = 'pdfPreviewIframe';
+                    iframe.style.width = '90%';
+                    iframe.style.height = '85%';
+                    iframe.style.border = 'none';
+                    iframe.style.background = '#fff';
+                    previewContainer.appendChild(iframe);
+                    document.body.appendChild(previewContainer);
+                }
+                previewContainer.style.display = 'flex';
+                const iframe = document.getElementById('pdfPreviewIframe');
+                iframe.src = doc.output('bloburl');
+            } else {
+                doc.save(filename);
+            }
             
         } catch (error) {
             console.error('Error generating PDF:', error);
@@ -439,9 +482,8 @@
     // Grid rendering for Addition/Subtraction vertical questions
     function renderAddSubQuestions(doc, margin, pageHeight) {
         const startY = 48;
-        const colWidth = 32;
-        const cols = 5;
-        
+        const availWidth = 180; // 210 - 2 * margin
+
         // Dynamically scale font size and row height based on rows count
         let fontSize = 11;
         let rowHeight = 6.5;
@@ -460,14 +502,26 @@
             fontSize = 6.5;
             rowHeight = 2.7;
         }
+
+        // Determine column width and count based on length of numbers to fit more columns where possible
+        const charWidthMm = fontSize * 0.3528 * 0.55; 
+        const maxLength = generatorConfig.digits + (generatorConfig.decimals > 0 ? (generatorConfig.decimals + 1) : 0) + 1; // +1 for sign
+        const minColWidth = 23;
+        const calculatedColWidth = Math.max(minColWidth, Math.ceil(maxLength * charWidthMm + 5)); // 5mm safety padding
         
+        const spacing = 3;
+        let cols = Math.floor((availWidth + spacing) / (calculatedColWidth + spacing));
+        cols = Math.max(4, Math.min(8, cols)); // Keep cols between 4 and 8 for clean visual representation
+
+        const colWidth = Math.floor((availWidth - (cols - 1) * spacing) / cols);
+
         let col = 0;
         let row = 0;
         let curPageStartY = startY;
 
         currentQuestions.forEach((q, index) => {
             // Compute positions relative to the current page
-            let currentX = margin + col * (colWidth + 3); // Spacing of 3mm
+            let currentX = margin + col * (colWidth + spacing);
             let currentY = curPageStartY + row * (generatorConfig.rows * rowHeight + 18);
 
             // Page overflow check
@@ -477,15 +531,19 @@
                 col = 0;
                 row = 0;
                 curPageStartY = 30; // Start higher on subsequent pages since main metadata is omitted
-                currentX = margin + col * (colWidth + 3);
+                currentX = margin + col * (colWidth + spacing);
                 currentY = curPageStartY + row * (generatorConfig.rows * rowHeight + 18);
             }
 
-            // Print Question Number
+            // Print Question Number centered in the column with proper vertical spacing
             doc.setFont('Helvetica', 'bold');
             doc.setFontSize(fontSize - 1);
             doc.setTextColor(0, 39, 93);
-            doc.text(`[ ${q.questionNum} ]`, currentX + 8, currentY - 3);
+            const qNumText = `[ ${q.questionNum} ]`;
+            const qNumWidth = doc.getTextWidth(qNumText);
+            const qNumX = currentX + (colWidth - qNumWidth) / 2;
+            const qNumY = currentY - Math.max(4.8, fontSize * 0.45);
+            doc.text(qNumText, qNumX, qNumY);
 
             // Print Numbers
             doc.setFont('Helvetica', 'normal');
@@ -530,16 +588,32 @@
     // Multiplication Questions Grid
     function renderMultQuestions(doc, margin, pageHeight) {
         const startY = 48;
-        const colWidth = 55;
+        const availWidth = 180;
         const rowHeight = 15;
-        const cols = 3;
+
+        // Estimate question text width to dynamically calculate cols/colWidth
+        const maxQNumLen = generatorConfig.count.toString().length + 2; // e.g. "20) " is 4 chars
+        const longestQTextLen = maxQNumLen + generatorConfig.candDigits + 3 + generatorConfig.erDigits + 3; // " x " is 3, " = " is 3
+        
+        doc.setFont('Helvetica', 'normal');
+        doc.setFontSize(10.5);
+        const charWidthMm = 10.5 * 0.3528 * 0.55;
+        const textWidth = longestQTextLen * charWidthMm;
+        const underlineWidth = 15; // Width of blank underline for answer
+        const calculatedColWidth = Math.max(38, textWidth + underlineWidth);
+        
+        const spacing = 4;
+        let cols = Math.floor((availWidth + spacing) / (calculatedColWidth + spacing));
+        cols = Math.max(3, Math.min(4, cols)); // Keep between 3 and 4 columns
+
+        const colWidth = Math.floor((availWidth - (cols - 1) * spacing) / cols);
 
         let col = 0;
         let row = 0;
         let curPageStartY = startY;
 
         currentQuestions.forEach((q, index) => {
-            let currentX = margin + col * (colWidth + 5);
+            let currentX = margin + col * (colWidth + spacing);
             let currentY = curPageStartY + row * rowHeight;
 
             // Page overflow check
@@ -549,7 +623,7 @@
                 col = 0;
                 row = 0;
                 curPageStartY = 30;
-                currentX = margin + col * (colWidth + 5);
+                currentX = margin + col * (colWidth + spacing);
                 currentY = curPageStartY + row * rowHeight;
             }
 
@@ -575,16 +649,32 @@
     // Division Questions Grid
     function renderDivQuestions(doc, margin, pageHeight) {
         const startY = 48;
-        const colWidth = 55;
+        const availWidth = 180;
         const rowHeight = 15;
-        const cols = 3;
+
+        // Estimate question text width to dynamically calculate cols/colWidth
+        const maxQNumLen = generatorConfig.count.toString().length + 2; // e.g. "20) " is 4 chars
+        const longestQTextLen = maxQNumLen + generatorConfig.dendDigits + 3 + generatorConfig.sorDigits + 3; // " ÷ " is 3, " = " is 3
+        
+        doc.setFont('Helvetica', 'normal');
+        doc.setFontSize(10.5);
+        const charWidthMm = 10.5 * 0.3528 * 0.55;
+        const textWidth = longestQTextLen * charWidthMm;
+        const underlineWidth = 15; // Width of blank underline for answer
+        const calculatedColWidth = Math.max(38, textWidth + underlineWidth);
+        
+        const spacing = 4;
+        let cols = Math.floor((availWidth + spacing) / (calculatedColWidth + spacing));
+        cols = Math.max(3, Math.min(4, cols)); // Keep between 3 and 4 columns
+
+        const colWidth = Math.floor((availWidth - (cols - 1) * spacing) / cols);
 
         let col = 0;
         let row = 0;
         let curPageStartY = startY;
 
         currentQuestions.forEach((q, index) => {
-            let currentX = margin + col * (colWidth + 5);
+            let currentX = margin + col * (colWidth + spacing);
             let currentY = curPageStartY + row * rowHeight;
 
             // Page overflow check
@@ -594,7 +684,7 @@
                 col = 0;
                 row = 0;
                 curPageStartY = 30;
-                currentX = margin + col * (colWidth + 5);
+                currentX = margin + col * (colWidth + spacing);
                 currentY = curPageStartY + row * rowHeight;
             }
 
@@ -620,17 +710,40 @@
     // Render Answer Key grid
     function renderAnswerKey(doc, margin) {
         const startY = 48;
-        const colWidth = 33;
+        const availWidth = 180;
         const rowHeight = 11;
-        const cols = 5;
         const pageHeight = 297;
+
+        // Calculate max answer string length
+        let maxAnsLen = 5; // fallback
+        if (generatorConfig.type === 'addition' || generatorConfig.type === 'subtraction' || generatorConfig.type === 'combined') {
+            maxAnsLen = generatorConfig.digits + 2 + (generatorConfig.decimals > 0 ? (generatorConfig.decimals + 1) : 0);
+        } else if (generatorConfig.type === 'multiplication') {
+            maxAnsLen = generatorConfig.candDigits + generatorConfig.erDigits + 1;
+        } else if (generatorConfig.type === 'division') {
+            maxAnsLen = generatorConfig.dendDigits - generatorConfig.sorDigits + 2;
+        }
+
+        const maxQNumLen = generatorConfig.count.toString().length;
+        const longestAnsTextLen = 2 + maxQNumLen + 2 + maxAnsLen; // e.g. "Q100: " + answer
+        
+        doc.setFont('Helvetica', 'bold');
+        doc.setFontSize(10.5);
+        const charWidthMm = 10.5 * 0.3528 * 0.55; // ~2.03mm
+        const calculatedColWidth = Math.max(20, longestAnsTextLen * charWidthMm + 3); // 3mm padding
+
+        const spacing = 3;
+        let cols = Math.floor((availWidth + spacing) / (calculatedColWidth + spacing));
+        cols = Math.max(5, Math.min(8, cols)); // Keep between 5 and 8 columns
+
+        const colWidth = Math.floor((availWidth - (cols - 1) * spacing) / cols);
 
         let col = 0;
         let row = 0;
         let curPageStartY = startY;
 
         currentQuestions.forEach((q, index) => {
-            let currentX = margin + col * (colWidth + 3);
+            let currentX = margin + col * (colWidth + spacing);
             let currentY = curPageStartY + row * rowHeight;
 
             // Page overflow check
@@ -640,7 +753,7 @@
                 col = 0;
                 row = 0;
                 curPageStartY = 30;
-                currentX = margin + col * (colWidth + 3);
+                currentX = margin + col * (colWidth + spacing);
                 currentY = curPageStartY + row * rowHeight;
             }
 

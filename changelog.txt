@@ -1,3 +1,10 @@
+Version: 1.2.0
+  - Optimized PDF worksheet layout to dynamically calculate columns and spacing based on digits and operations
+  - Increased addition/subtraction questions up to 8 columns in a row to minimize wasted whitespace
+  - Increased multiplication/division questions up to 4 columns in a row
+  - Optimized answer key layout to fit up to 8 columns of answers per row
+  - Added URL parameter query `?preview=true` for client-side PDF visual inspection
+  
 Version: 1.1.1
   - Updated Bootstrap to version 4.5.2
   - Updated all outdated third party vendor libraries to their latest versions
