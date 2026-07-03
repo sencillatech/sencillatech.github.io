@@ -1198,3 +1198,93 @@ body {
         gap: 4px;
     }
 }
+
+/* Page Wrapper for Right Sidebar Layout */
+.calc-page-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 30px;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    align-items: start;
+    box-sizing: border-box;
+}
+
+/* Sidebar Navigation Styling */
+.calc-sidebar-nav {
+    background: #f8fafc;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 39, 93, 0.12);
+    border: 1px solid rgba(0, 39, 93, 0.08);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 90px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.calc-sidebar-header {
+    background: #00275D;
+    color: #ffffff;
+    padding: 16px 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 3px solid #E29E21;
+}
+
+.calc-sidebar-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.calc-sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #334155;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    background: #ffffff;
+    border: 1px solid rgba(0, 39, 93, 0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.calc-sidebar-nav a:hover {
+    background: #f1f5f9;
+    color: #00275D;
+    transform: translateX(4px);
+}
+
+.calc-sidebar-nav a.active {
+    background: #00275D;
+    color: #ffffff;
+    border-color: #00275D;
+    box-shadow: 0 4px 12px rgba(0, 39, 93, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .calc-page-wrapper {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 16px 12px;
+    }
+    .calc-sidebar-nav {
+        position: static;
+        margin-top: 20px;
+    }
+}
