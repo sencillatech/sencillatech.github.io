@@ -51,6 +51,13 @@
 
   <!-- Babel for JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    Babel.registerPreset('react-classic', {
+      presets: [
+        [Babel.availablePresets['react'], { runtime: 'classic' }]
+      ]
+    });
+  </script>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -180,7 +187,13 @@
          data-ad-slot="HEADER_AD_SLOT"
          data-ad-format="horizontal"
          data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }, 100);
+      });
+    </script>
   </div>
 
   <!-- ======= Calculator Banner ======= -->
@@ -215,7 +228,13 @@
          data-ad-slot="IN_CONTENT_AD_SLOT"
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }, 100);
+      });
+    </script>
   </div>
 
   <!-- Rich Educational Content Section to meet AdSense Guidelines -->
@@ -298,7 +317,13 @@
          data-ad-slot="FOOTER_AD_SLOT"
          data-ad-format="horizontal"
          data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }, 100);
+      });
+    </script>
   </div>
 
   <!-- ======= Standalone Footer ======= -->
@@ -343,12 +368,22 @@
 
   <script>
     window.onerror = function(msg, url, lineNo, columnNo, error) {
+      // Ignore third-party script errors (e.g. from Google AdSense, Analytics, or external domains)
+      if (url && (url.indexOf('googlesyndication.com') !== -1 || url.indexOf('googletagmanager.com') !== -1 || url.indexOf('doubleclick.net') !== -1)) {
+        console.warn("Ignored third-party script error in window.onerror:", msg, "at", url);
+        return false;
+      }
+      // Also ignore automation-related script errors if any
+      if (msg && (msg.indexOf('appendChild') !== -1 || msg.indexOf('import statement') !== -1)) {
+        console.warn("Ignored automation-related script error in window.onerror:", msg);
+        return false;
+      }
       document.getElementById('root').innerHTML = '<div style="color:red; padding:20px;"><b>Error:</b> ' + msg + '<br>Line: ' + lineNo + '</div>';
       return false;
     };
   </script>
 
-  <script type="text/babel" data-presets="react">
+  <script type="text/babel" data-presets="react-classic">
     const { useState, useMemo, useEffect, useRef } = React;
 
     const formatCurrency = (val) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(val));
@@ -455,6 +490,17 @@
 
       const chartRef = useRef(null);
       const chartInstance = useRef(null);
+
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+          } catch (e) {
+            console.error("AdSense sidebar push error:", e);
+          }
+        }, 100);
+        return () => clearTimeout(timer);
+      }, []);
 
       useEffect(() => {
         if (!chartRef.current) return;
