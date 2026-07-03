@@ -28,15 +28,18 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
     el.addEventListener('input', calculateEMI);
 });
 
-document.getElementById('calculator-options').addEventListener('change', function() {
-    if (this.value === 'home-loan') {
-        window.location.href = 'fintech-calculator.html';
-    } else if (this.value === 'car-loan') {
-        window.location.href = 'car-loan-calculator.html';
-    } else if (this.value === 'mutual-fund') {
-        window.location.href = 'mutual-fund-calculator.html';
-    }
-});
+const calcOptions = document.getElementById('calculator-options');
+if (calcOptions) {
+    calcOptions.addEventListener('change', function() {
+        if (this.value === 'home-loan') {
+            window.location.href = 'fintech-calculator.html';
+        } else if (this.value === 'car-loan') {
+            window.location.href = 'car-loan-calculator.html';
+        } else if (this.value === 'mutual-fund') {
+            window.location.href = 'mutual-fund-calculator.html';
+        }
+    });
+}
 
 function calculateEMI() {
     const P = parseFloat(elLoanAmount.value) || 0;

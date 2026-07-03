@@ -275,14 +275,17 @@ function renderBarChart(yearlyData) {
 calculateEMI();
 
 // Calculator navigation
-document.getElementById('calculator-options').addEventListener('change', function() {
-    if (this.value === 'personal-loan') {
-        window.location.href = 'personal-loan-calculator.html';
-    } else if (this.value === 'home-loan') {
-        window.location.href = 'fintech-calculator.html';
-    } else if (this.value === 'car-loan') {
-        window.location.href = 'car-loan-calculator.html';
-    } else if (this.value === 'mutual-fund') {
-        window.location.href = 'mutual-fund-calculator.html';
-    }
-});
+const calcOptions = document.getElementById('calculator-options');
+if (calcOptions) {
+    calcOptions.addEventListener('change', function() {
+        if (this.value === 'personal-loan') {
+            window.location.href = 'personal-loan-calculator.html';
+        } else if (this.value === 'home-loan') {
+            window.location.href = 'fintech-calculator.html';
+        } else if (this.value === 'car-loan') {
+            window.location.href = 'car-loan-calculator.html';
+        } else if (this.value === 'mutual-fund') {
+            window.location.href = 'mutual-fund-calculator.html';
+        }
+    });
+}
