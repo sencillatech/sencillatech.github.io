@@ -738,9 +738,8 @@
    Google AdSense Containers
    ============================================================ */
 .calc-ad-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
+    width: 100%;
     overflow: hidden;
     margin: 16px auto;
     max-width: 1200px;
@@ -757,24 +756,28 @@
     margin-top: 12px;
     margin-bottom: 8px;
     min-height: 90px;
+    width: 100%;
 }
 
 .calc-ad-container.calc-ad-sidebar {
     min-height: 250px;
     padding: 0;
     margin: 0 0 20px 0;
+    width: 100%;
 }
 
 .calc-ad-container.calc-ad-in-content {
     min-height: 90px;
     max-width: 100%;
     padding: 0;
+    width: 100%;
 }
 
 .calc-ad-container.calc-ad-footer {
     margin-top: 20px;
     margin-bottom: 0;
     min-height: 90px;
+    width: 100%;
 }
 
 /* Ad label */
