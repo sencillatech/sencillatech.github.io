@@ -87,6 +87,7 @@
             <option value="multiplication">Multiplication (&times;)</option>
             <option value="division">Division (&divide;)</option>
             <option value="square">Squaring (x²)</option>
+            <option value="square_root">Square Root (&radic;x)</option>
           </select>
         </div>
 
@@ -244,6 +245,16 @@
           <div class="aba-input-group">
             <label for="squareBaseDigits">Base Number Width <span class="aba-slider-val" id="squareBaseDigitsVal">2 digits</span></label>
             <input type="range" id="squareBaseDigits" class="aba-slider" min="1" max="4" step="1" value="2" aria-label="Base number digits size">
+          </div>
+        </div>
+      </div>
+
+      <!-- Square Root Config -->
+      <div id="squareRootConfig" style="display: none;">
+        <div class="aba-config-grid">
+          <div class="aba-input-group">
+            <label for="squareRootRootDigits">Root Answer Width <span class="aba-slider-val" id="squareRootRootDigitsVal">2 digits</span></label>
+            <input type="range" id="squareRootRootDigits" class="aba-slider" min="1" max="3" step="1" value="2" aria-label="Root answer digits size">
           </div>
         </div>
       </div>
