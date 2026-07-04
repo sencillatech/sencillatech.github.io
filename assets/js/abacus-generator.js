@@ -23,6 +23,9 @@
         const addSubConfig = document.getElementById('addSubConfig');
         const multConfig = document.getElementById('multConfig');
         const divConfig = document.getElementById('divConfig');
+        const squareConfig = document.getElementById('squareConfig');
+        const squareRootConfig = document.getElementById('squareRootConfig');
+        const percentageConfig = document.getElementById('percentageConfig');
 
         // Toggle configurations based on sheet type selection
         typeSelect.addEventListener('change', () => {
@@ -30,6 +33,9 @@
             addSubConfig.style.display = 'none';
             multConfig.style.display = 'none';
             divConfig.style.display = 'none';
+            squareConfig.style.display = 'none';
+            squareRootConfig.style.display = 'none';
+            percentageConfig.style.display = 'none';
 
             if (val === 'addition' || val === 'subtraction' || val === 'combined') {
                 addSubConfig.style.display = 'block';
@@ -37,6 +43,12 @@
                 multConfig.style.display = 'block';
             } else if (val === 'division') {
                 divConfig.style.display = 'block';
+            } else if (val === 'square') {
+                squareConfig.style.display = 'block';
+            } else if (val === 'square_root') {
+                squareRootConfig.style.display = 'block';
+            } else if (val === 'percentage') {
+                percentageConfig.style.display = 'block';
             }
         });
 
@@ -46,6 +58,40 @@
         
         setupSlider('divDendDigits', 'divDendDigitsVal', ' digits');
         setupSlider('divSorDigits', 'divSorDigitsVal', ' digits');
+        
+        setupSlider('squareBaseDigits', 'squareBaseDigitsVal', ' digits');
+        setupSlider('squareRootRootDigits', 'squareRootRootDigitsVal', ' digits');
+
+        // Preset buttons handling
+        const presets = document.querySelectorAll('.aba-btn-preset');
+        const numQuestionsSelect = document.getElementById('numQuestions');
+        
+        presets.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const val = this.getAttribute('data-preset');
+                numQuestionsSelect.value = val;
+                presets.forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Deactivate presets if dropdown is manually changed
+        numQuestionsSelect.addEventListener('change', () => {
+            presets.forEach(p => {
+                if (p.getAttribute('data-preset') === numQuestionsSelect.value) {
+                    p.classList.add('active');
+                } else {
+                    p.classList.remove('active');
+                }
+            });
+        });
+
+        // Set initial active preset
+        presets.forEach(p => {
+            if (p.getAttribute('data-preset') === numQuestionsSelect.value) {
+                p.classList.add('active');
+            }
+        });
 
         // Lead Modal controls
         const leadModal = document.getElementById('leadModal');
@@ -149,9 +195,100 @@
             for (let q = 1; q <= count; q++) {
                 questions.push(generateDivQuestion(q, dendDigits, sorDigits));
             }
+        } else if (type === 'square') {
+            const baseDigits = parseInt(document.getElementById('squareBaseDigits').value);
+            generatorConfig.baseDigits = baseDigits;
+
+            for (let q = 1; q <= count; q++) {
+                questions.push(generateSquareQuestion(q, baseDigits));
+            }
+        } else if (type === 'square_root') {
+            const rootDigits = parseInt(document.getElementById('squareRootRootDigits').value);
+            generatorConfig.rootDigits = rootDigits;
+
+            for (let q = 1; q <= count; q++) {
+                questions.push(generateSquareRootQuestion(q, rootDigits));
+            }
+        } else if (type === 'percentage') {
+            const pctType = document.getElementById('percentageType').value;
+            generatorConfig.pctType = pctType;
+
+            for (let q = 1; q <= count; q++) {
+                questions.push(generatePercentageQuestion(q, pctType));
+            }
         }
 
         return questions;
+    }
+
+    // Percentage question generator
+    function generatePercentageQuestion(questionNum, pctType) {
+        let x, y, op, answer;
+        if (pctType === 'basic') {
+            // Clean percentage multiple of 5 or 10
+            const pctOptions = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 75, 80, 90, 95];
+            x = pctOptions[getRandomInt(0, pctOptions.length - 1)];
+            // Y is 2-digit or 3-digit number (10 to 999)
+            // Let's favor multiples of 10 or 5 for basic to keep math clean
+            const useCleanY = Math.random() > 0.3;
+            if (useCleanY) {
+                y = getRandomInt(2, 20) * 50; // 100, 150, 200, ..., 1000
+            } else {
+                y = getRandomInt(10, 999);
+            }
+            op = 'of';
+            answer = parseFloat(((x * y) / 100).toFixed(2));
+        } else if (pctType === 'advanced') {
+            // Random 2-digit or 3-digit numbers
+            x = getRandomInt(11, 99);
+            y = getRandomInt(100, 999);
+            op = 'of';
+            answer = parseFloat(((x * y) / 100).toFixed(2));
+        } else {
+            // inc_dec
+            const pctOptions = [5, 10, 12, 15, 20, 25, 30, 40, 50, 75];
+            x = pctOptions[getRandomInt(0, pctOptions.length - 1)];
+            y = getRandomInt(10, 50) * 10; // 100, 110, ..., 500
+            op = Math.random() > 0.5 ? 'inc' : 'dec';
+            if (op === 'inc') {
+                answer = parseFloat((y * (1 + x / 100)).toFixed(2));
+            } else {
+                answer = parseFloat((y * (1 - x / 100)).toFixed(2));
+            }
+        }
+
+        return {
+            questionNum: questionNum,
+            pctType: pctType,
+            x: x,
+            y: y,
+            op: op,
+            answer: answer
+        };
+    }
+
+    // Square Root question generator
+    function generateSquareRootQuestion(questionNum, rootDigits) {
+        const minVal = rootDigits === 1 ? 1 : Math.pow(10, rootDigits - 1);
+        const maxVal = Math.pow(10, rootDigits) - 1;
+        const root = getRandomInt(minVal, maxVal);
+        return {
+            questionNum: questionNum,
+            radicand: root * root,
+            answer: root
+        };
+    }
+
+    // Squaring question generator
+    function generateSquareQuestion(questionNum, baseDigits) {
+        const minVal = baseDigits === 1 ? 1 : Math.pow(10, baseDigits - 1);
+        const maxVal = Math.pow(10, baseDigits) - 1;
+        const base = getRandomInt(minVal, maxVal);
+        return {
+            questionNum: questionNum,
+            base: base,
+            answer: base * base
+        };
     }
 
     // Addition & Subtraction columns generator (running total must stay >= 0)
@@ -326,6 +463,12 @@
                 renderMultQuestions(doc, margin, pageHeight);
             } else if (generatorConfig.type === 'division') {
                 renderDivQuestions(doc, margin, pageHeight);
+            } else if (generatorConfig.type === 'square') {
+                renderSquareQuestions(doc, margin, pageHeight);
+            } else if (generatorConfig.type === 'square_root') {
+                renderSquareRootQuestions(doc, margin, pageHeight);
+            } else if (generatorConfig.type === 'percentage') {
+                renderPercentageQuestions(doc, margin, pageHeight);
             }
 
             // Query total question pages count before adding answer key page
@@ -461,6 +604,8 @@
         
         let typeStr = generatorConfig.type.toUpperCase();
         if (typeStr === 'COMBINED') typeStr = 'ADDITION & SUBTRACTION';
+        if (typeStr === 'SQUARE_ROOT') typeStr = 'SQUARE ROOT';
+        if (typeStr === 'PERCENTAGE') typeStr = 'PERCENTAGE';
         
         let detailStr = `Config: ${typeStr}`;
         if (generatorConfig.rows) {
@@ -469,6 +614,12 @@
             detailStr += ` | Size: ${generatorConfig.candDigits}d x ${generatorConfig.erDigits}d`;
         } else if (generatorConfig.dendDigits) {
             detailStr += ` | Size: ${generatorConfig.dendDigits}d / ${generatorConfig.sorDigits}d`;
+        } else if (generatorConfig.baseDigits) {
+            detailStr += ` | Size: ${generatorConfig.baseDigits}d\u00b2`;
+        } else if (generatorConfig.rootDigits) {
+            detailStr += ` | Size: \u221a(${generatorConfig.rootDigits}d root)`;
+        } else if (generatorConfig.pctType) {
+            detailStr += ` | Mode: ${generatorConfig.pctType.toUpperCase()}`;
         }
 
         if (isAnswerKey) {
@@ -707,6 +858,196 @@
         });
     }
 
+    // Squaring Questions Grid Rendering
+    function renderSquareQuestions(doc, margin, pageHeight) {
+        const startY = 48;
+        const availWidth = 180;
+        const rowHeight = 15;
+
+        // Estimate question text width to dynamically calculate cols/colWidth
+        const maxQNumLen = generatorConfig.count.toString().length + 2; 
+        const longestQTextLen = maxQNumLen + generatorConfig.baseDigits + 4; // e.g. "20)  45² = "
+        
+        doc.setFont('Helvetica', 'normal');
+        doc.setFontSize(10.5);
+        const charWidthMm = 10.5 * 0.3528 * 0.55;
+        const textWidth = longestQTextLen * charWidthMm;
+        const underlineWidth = 15; 
+        const calculatedColWidth = Math.max(38, textWidth + underlineWidth);
+        
+        const spacing = 4;
+        let cols = Math.floor((availWidth + spacing) / (calculatedColWidth + spacing));
+        cols = Math.max(3, Math.min(4, cols)); 
+
+        const colWidth = Math.floor((availWidth - (cols - 1) * spacing) / cols);
+
+        let col = 0;
+        let row = 0;
+        let curPageStartY = startY;
+
+        currentQuestions.forEach((q, index) => {
+            let currentX = margin + col * (colWidth + spacing);
+            let currentY = curPageStartY + row * rowHeight;
+
+            // Page overflow check
+            if (currentY + 12 > pageHeight - 15) {
+                doc.addPage();
+                renderHeader(doc, 'ABACUS PRACTICE WORKSHEET (Cont.)');
+                col = 0;
+                row = 0;
+                curPageStartY = 30;
+                currentX = margin + col * (colWidth + spacing);
+                currentY = curPageStartY + row * rowHeight;
+            }
+
+            doc.setFont('Helvetica', 'normal');
+            doc.setFontSize(10.5);
+            doc.setTextColor(30, 30, 30);
+            
+            const qStr = `${q.questionNum})  ${q.base}\u00b2 = `;
+            doc.text(qStr, currentX, currentY);
+            
+            // Underline space for answer
+            doc.setDrawColor(180, 180, 180);
+            doc.line(currentX + doc.getTextWidth(qStr) + 1, currentY + 1, currentX + colWidth - 2, currentY + 1);
+
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
+        });
+    }
+
+    // Square Root Questions Grid Rendering
+    function renderSquareRootQuestions(doc, margin, pageHeight) {
+        const startY = 48;
+        const availWidth = 180;
+        const rowHeight = 15;
+
+        // Estimate question text width to dynamically calculate cols/colWidth
+        const maxQNumLen = generatorConfig.count.toString().length + 2; 
+        const longestQTextLen = maxQNumLen + (generatorConfig.rootDigits * 2) + 5; // e.g. "20)  \u221a9801 = "
+        
+        doc.setFont('Helvetica', 'normal');
+        doc.setFontSize(10.5);
+        const charWidthMm = 10.5 * 0.3528 * 0.55;
+        const textWidth = longestQTextLen * charWidthMm;
+        const underlineWidth = 15; 
+        const calculatedColWidth = Math.max(38, textWidth + underlineWidth);
+        
+        const spacing = 4;
+        let cols = Math.floor((availWidth + spacing) / (calculatedColWidth + spacing));
+        cols = Math.max(3, Math.min(4, cols)); 
+
+        const colWidth = Math.floor((availWidth - (cols - 1) * spacing) / cols);
+
+        let col = 0;
+        let row = 0;
+        let curPageStartY = startY;
+
+        currentQuestions.forEach((q, index) => {
+            let currentX = margin + col * (colWidth + spacing);
+            let currentY = curPageStartY + row * rowHeight;
+
+            // Page overflow check
+            if (currentY + 12 > pageHeight - 15) {
+                doc.addPage();
+                renderHeader(doc, 'ABACUS PRACTICE WORKSHEET (Cont.)');
+                col = 0;
+                row = 0;
+                curPageStartY = 30;
+                currentX = margin + col * (colWidth + spacing);
+                currentY = curPageStartY + row * rowHeight;
+            }
+
+            doc.setFont('Helvetica', 'normal');
+            doc.setFontSize(10.5);
+            doc.setTextColor(30, 30, 30);
+            
+            const qStr = `${q.questionNum})  \u221a${q.radicand} = `;
+            doc.text(qStr, currentX, currentY);
+            
+            // Underline space for answer
+            doc.setDrawColor(180, 180, 180);
+            doc.line(currentX + doc.getTextWidth(qStr) + 1, currentY + 1, currentX + colWidth - 2, currentY + 1);
+
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
+        });
+    }
+
+    // Percentage Questions Grid Rendering
+    function renderPercentageQuestions(doc, margin, pageHeight) {
+        const startY = 48;
+        const availWidth = 180;
+        const rowHeight = 15;
+
+        // Estimate question text width to dynamically calculate cols/colWidth
+        const maxQNumLen = generatorConfig.count.toString().length + 2; 
+        const longestQTextLen = maxQNumLen + 18; // e.g. "20)  Inc 500 by 75% = "
+        
+        doc.setFont('Helvetica', 'normal');
+        doc.setFontSize(10);
+        const charWidthMm = 10 * 0.3528 * 0.55;
+        const textWidth = longestQTextLen * charWidthMm;
+        const underlineWidth = 12; 
+        const calculatedColWidth = Math.max(45, textWidth + underlineWidth);
+        
+        const spacing = 4;
+        let cols = Math.floor((availWidth + spacing) / (calculatedColWidth + spacing));
+        cols = Math.max(2, Math.min(3, cols)); // Keep between 2 and 3 columns for readable percentage text
+
+        const colWidth = Math.floor((availWidth - (cols - 1) * spacing) / cols);
+
+        let col = 0;
+        let row = 0;
+        let curPageStartY = startY;
+
+        currentQuestions.forEach((q, index) => {
+            let currentX = margin + col * (colWidth + spacing);
+            let currentY = curPageStartY + row * rowHeight;
+
+            // Page overflow check
+            if (currentY + 12 > pageHeight - 15) {
+                doc.addPage();
+                renderHeader(doc, 'ABACUS PRACTICE WORKSHEET (Cont.)');
+                col = 0;
+                row = 0;
+                curPageStartY = 30;
+                currentX = margin + col * (colWidth + spacing);
+                currentY = curPageStartY + row * rowHeight;
+            }
+
+            doc.setFont('Helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(30, 30, 30);
+            
+            let qStr = '';
+            if (q.op === 'of') {
+                qStr = `${q.questionNum})  Find ${q.x}% of ${q.y} = `;
+            } else if (q.op === 'inc') {
+                qStr = `${q.questionNum})  Inc ${q.y} by ${q.x}% = `;
+            } else {
+                qStr = `${q.questionNum})  Dec ${q.y} by ${q.x}% = `;
+            }
+            doc.text(qStr, currentX, currentY);
+            
+            // Underline space for answer
+            doc.setDrawColor(180, 180, 180);
+            doc.line(currentX + doc.getTextWidth(qStr) + 1, currentY + 1, currentX + colWidth - 2, currentY + 1);
+
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
+        });
+    }
+
     // Render Answer Key grid
     function renderAnswerKey(doc, margin) {
         const startY = 48;
@@ -722,6 +1063,12 @@
             maxAnsLen = generatorConfig.candDigits + generatorConfig.erDigits + 1;
         } else if (generatorConfig.type === 'division') {
             maxAnsLen = generatorConfig.dendDigits - generatorConfig.sorDigits + 2;
+        } else if (generatorConfig.type === 'square') {
+            maxAnsLen = generatorConfig.baseDigits * 2 + 1;
+        } else if (generatorConfig.type === 'square_root') {
+            maxAnsLen = generatorConfig.rootDigits + 1;
+        } else if (generatorConfig.type === 'percentage') {
+            maxAnsLen = 8; // e.g. 9999.99 is 7 chars
         }
 
         const maxQNumLen = generatorConfig.count.toString().length;

@@ -394,3 +394,23 @@
 .aba-btn-export:hover {
     background: #218838;
 }
+
+/* Preset Buttons Styling */
+.aba-btn-preset {
+    background: #fff;
+    color: #00275D;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.88rem;
+    line-height: 1;
+}
+
+.aba-btn-preset:hover, .aba-btn-preset.active {
+    background: #E29E21;
+    color: #fff;
+    border-color: #E29E21;
+}
