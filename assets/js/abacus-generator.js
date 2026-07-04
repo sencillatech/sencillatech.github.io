@@ -46,6 +46,16 @@
             } else if (val === 'square_root') {
                 squareRootConfig.style.display = 'block';
             }
+
+            // Hide presets group for squaring
+            const presetsGroup = document.querySelector('.aba-presets-group');
+            if (presetsGroup) {
+                if (val === 'square') {
+                    presetsGroup.style.display = 'none';
+                } else {
+                    presetsGroup.style.display = 'flex';
+                }
+            }
         });
 
         // Initialize range sliders with value badges for multiplication and division digits only
@@ -133,6 +143,9 @@
             leadForm.reset();
             leadModal.style.display = 'flex';
         });
+
+        // Trigger initial select change to update preset buttons visibility
+        typeSelect.dispatchEvent(new Event('change'));
     }
 
     // Slider display synchronizer
