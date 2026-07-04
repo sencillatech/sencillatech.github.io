@@ -23,6 +23,7 @@
         const addSubConfig = document.getElementById('addSubConfig');
         const multConfig = document.getElementById('multConfig');
         const divConfig = document.getElementById('divConfig');
+        const squareConfig = document.getElementById('squareConfig');
 
         // Toggle configurations based on sheet type selection
         typeSelect.addEventListener('change', () => {
@@ -30,6 +31,7 @@
             addSubConfig.style.display = 'none';
             multConfig.style.display = 'none';
             divConfig.style.display = 'none';
+            squareConfig.style.display = 'none';
 
             if (val === 'addition' || val === 'subtraction' || val === 'combined') {
                 addSubConfig.style.display = 'block';
@@ -37,6 +39,8 @@
                 multConfig.style.display = 'block';
             } else if (val === 'division') {
                 divConfig.style.display = 'block';
+            } else if (val === 'square') {
+                squareConfig.style.display = 'block';
             }
         });
 
@@ -46,6 +50,39 @@
         
         setupSlider('divDendDigits', 'divDendDigitsVal', ' digits');
         setupSlider('divSorDigits', 'divSorDigitsVal', ' digits');
+        
+        setupSlider('squareBaseDigits', 'squareBaseDigitsVal', ' digits');
+
+        // Preset buttons handling
+        const presets = document.querySelectorAll('.aba-btn-preset');
+        const numQuestionsSelect = document.getElementById('numQuestions');
+        
+        presets.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const val = this.getAttribute('data-preset');
+                numQuestionsSelect.value = val;
+                presets.forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Deactivate presets if dropdown is manually changed
+        numQuestionsSelect.addEventListener('change', () => {
+            presets.forEach(p => {
+                if (p.getAttribute('data-preset') === numQuestionsSelect.value) {
+                    p.classList.add('active');
+                } else {
+                    p.classList.remove('active');
+                }
+            });
+        });
+
+        // Set initial active preset
+        presets.forEach(p => {
+            if (p.getAttribute('data-preset') === numQuestionsSelect.value) {
+                p.classList.add('active');
+            }
+        });
 
         // Lead Modal controls
         const leadModal = document.getElementById('leadModal');
@@ -149,9 +186,26 @@
             for (let q = 1; q <= count; q++) {
                 questions.push(generateDivQuestion(q, dendDigits, sorDigits));
             }
-        }
+        } else if (type === 'square') {
+            const baseDigits = parseInt(document.getElementById('squareBaseDigits').value);
+            generatorConfig.baseDigits = baseDigits;
 
+            for (let q = 1; q <= count; q++) {
+                questions.push(generateSquareQuestion(q, baseDigits));
+            }
         return questions;
+    }
+
+    // Squaring question generator
+    function generateSquareQuestion(questionNum, baseDigits) {
+        const minVal = baseDigits === 1 ? 1 : Math.pow(10, baseDigits - 1);
+        const maxVal = Math.pow(10, baseDigits) - 1;
+        const base = getRandomInt(minVal, maxVal);
+        return {
+            questionNum: questionNum,
+            base: base,
+            answer: base * base
+        };
     }
 
     // Addition & Subtraction columns generator (running total must stay >= 0)
@@ -326,6 +380,8 @@
                 renderMultQuestions(doc, margin, pageHeight);
             } else if (generatorConfig.type === 'division') {
                 renderDivQuestions(doc, margin, pageHeight);
+            } else if (generatorConfig.type === 'square') {
+                renderSquareQuestions(doc, margin, pageHeight);
             }
 
             // Query total question pages count before adding answer key page
@@ -469,6 +525,8 @@
             detailStr += ` | Size: ${generatorConfig.candDigits}d x ${generatorConfig.erDigits}d`;
         } else if (generatorConfig.dendDigits) {
             detailStr += ` | Size: ${generatorConfig.dendDigits}d / ${generatorConfig.sorDigits}d`;
+        } else if (generatorConfig.baseDigits) {
+            detailStr += ` | Size: ${generatorConfig.baseDigits}d\u00b2`;
         }
 
         if (isAnswerKey) {
@@ -707,6 +765,68 @@
         });
     }
 
+    // Squaring Questions Grid Rendering
+    function renderSquareQuestions(doc, margin, pageHeight) {
+        const startY = 48;
+        const availWidth = 180;
+        const rowHeight = 15;
+
+        // Estimate question text width to dynamically calculate cols/colWidth
+        const maxQNumLen = generatorConfig.count.toString().length + 2; 
+        const longestQTextLen = maxQNumLen + generatorConfig.baseDigits + 4; // e.g. "20)  45² = "
+        
+        doc.setFont('Helvetica', 'normal');
+        doc.setFontSize(10.5);
+        const charWidthMm = 10.5 * 0.3528 * 0.55;
+        const textWidth = longestQTextLen * charWidthMm;
+        const underlineWidth = 15; 
+        const calculatedColWidth = Math.max(38, textWidth + underlineWidth);
+        
+        const spacing = 4;
+        let cols = Math.floor((availWidth + spacing) / (calculatedColWidth + spacing));
+        cols = Math.max(3, Math.min(4, cols)); 
+
+        const colWidth = Math.floor((availWidth - (cols - 1) * spacing) / cols);
+
+        let col = 0;
+        let row = 0;
+        let curPageStartY = startY;
+
+        currentQuestions.forEach((q, index) => {
+            let currentX = margin + col * (colWidth + spacing);
+            let currentY = curPageStartY + row * rowHeight;
+
+            // Page overflow check
+            if (currentY + 12 > pageHeight - 15) {
+                doc.addPage();
+                renderHeader(doc, 'ABACUS PRACTICE WORKSHEET (Cont.)');
+                col = 0;
+                row = 0;
+                curPageStartY = 30;
+                currentX = margin + col * (colWidth + spacing);
+                currentY = curPageStartY + row * rowHeight;
+            }
+
+            doc.setFont('Helvetica', 'normal');
+            doc.setFontSize(10.5);
+            doc.setTextColor(30, 30, 30);
+            
+            const qStr = `${q.questionNum})  ${q.base}\u00b2 = `;
+            doc.text(qStr, currentX, currentY);
+            
+            // Underline space for answer
+            doc.setDrawColor(180, 180, 180);
+            doc.line(currentX + doc.getTextWidth(qStr) + 1, currentY + 1, currentX + colWidth - 2, currentY + 1);
+
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
+        });
+    }
+
+
     // Render Answer Key grid
     function renderAnswerKey(doc, margin) {
         const startY = 48;
@@ -722,6 +842,8 @@
             maxAnsLen = generatorConfig.candDigits + generatorConfig.erDigits + 1;
         } else if (generatorConfig.type === 'division') {
             maxAnsLen = generatorConfig.dendDigits - generatorConfig.sorDigits + 2;
+        } else if (generatorConfig.type === 'square') {
+            maxAnsLen = generatorConfig.baseDigits * 2 + 1;
         }
 
         const maxQNumLen = generatorConfig.count.toString().length;
