@@ -50,6 +50,16 @@
             } else if (val === 'percentage') {
                 percentageConfig.style.display = 'block';
             }
+
+            // Hide presets group for squaring and square root
+            const presetsGroup = document.querySelector('.aba-presets-group');
+            if (presetsGroup) {
+                if (val === 'square' || val === 'square_root') {
+                    presetsGroup.style.display = 'none';
+                } else {
+                    presetsGroup.style.display = 'flex';
+                }
+            }
         });
 
         // Initialize range sliders with value badges for multiplication and division digits only
@@ -137,6 +147,9 @@
             leadForm.reset();
             leadModal.style.display = 'flex';
         });
+
+        // Trigger initial select change to update preset buttons visibility
+        typeSelect.dispatchEvent(new Event('change'));
     }
 
     // Slider display synchronizer
@@ -617,7 +630,7 @@
         } else if (generatorConfig.baseDigits) {
             detailStr += ` | Size: ${generatorConfig.baseDigits}d\u00b2`;
         } else if (generatorConfig.rootDigits) {
-            detailStr += ` | Size: \u221a(${generatorConfig.rootDigits}d root)`;
+            detailStr += ` | Size: √(${generatorConfig.rootDigits}d root)`;
         } else if (generatorConfig.pctType) {
             detailStr += ` | Mode: ${generatorConfig.pctType.toUpperCase()}`;
         }
@@ -927,7 +940,7 @@
 
         // Estimate question text width to dynamically calculate cols/colWidth
         const maxQNumLen = generatorConfig.count.toString().length + 2; 
-        const longestQTextLen = maxQNumLen + (generatorConfig.rootDigits * 2) + 5; // e.g. "20)  \u221a9801 = "
+        const longestQTextLen = maxQNumLen + (generatorConfig.rootDigits * 2) + 5; // e.g. "20)  √9801 = "
         
         doc.setFont('Helvetica', 'normal');
         doc.setFontSize(10.5);
@@ -965,7 +978,7 @@
             doc.setFontSize(10.5);
             doc.setTextColor(30, 30, 30);
             
-            const qStr = `${q.questionNum})  \u221a${q.radicand} = `;
+            const qStr = `${q.questionNum})  √${q.radicand} = `;
             doc.text(qStr, currentX, currentY);
             
             // Underline space for answer
