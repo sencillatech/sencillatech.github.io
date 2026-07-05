@@ -50,6 +50,8 @@
             } else if (val === 'percentage') {
                 percentageConfig.style.display = 'block';
             }
+
+
         });
 
         // Initialize range sliders with value badges for multiplication and division digits only
@@ -62,36 +64,7 @@
         setupSlider('squareBaseDigits', 'squareBaseDigitsVal', ' digits');
         setupSlider('squareRootRootDigits', 'squareRootRootDigitsVal', ' digits');
 
-        // Preset buttons handling
-        const presets = document.querySelectorAll('.aba-btn-preset');
-        const numQuestionsSelect = document.getElementById('numQuestions');
-        
-        presets.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const val = this.getAttribute('data-preset');
-                numQuestionsSelect.value = val;
-                presets.forEach(p => p.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
 
-        // Deactivate presets if dropdown is manually changed
-        numQuestionsSelect.addEventListener('change', () => {
-            presets.forEach(p => {
-                if (p.getAttribute('data-preset') === numQuestionsSelect.value) {
-                    p.classList.add('active');
-                } else {
-                    p.classList.remove('active');
-                }
-            });
-        });
-
-        // Set initial active preset
-        presets.forEach(p => {
-            if (p.getAttribute('data-preset') === numQuestionsSelect.value) {
-                p.classList.add('active');
-            }
-        });
 
         // Lead Modal controls
         const leadModal = document.getElementById('leadModal');
@@ -137,6 +110,8 @@
             leadForm.reset();
             leadModal.style.display = 'flex';
         });
+
+
     }
 
     // Slider display synchronizer
@@ -617,7 +592,7 @@
         } else if (generatorConfig.baseDigits) {
             detailStr += ` | Size: ${generatorConfig.baseDigits}d\u00b2`;
         } else if (generatorConfig.rootDigits) {
-            detailStr += ` | Size: \u221a(${generatorConfig.rootDigits}d root)`;
+            detailStr += ` | Size: √(${generatorConfig.rootDigits}d root)`;
         } else if (generatorConfig.pctType) {
             detailStr += ` | Mode: ${generatorConfig.pctType.toUpperCase()}`;
         }
@@ -927,7 +902,7 @@
 
         // Estimate question text width to dynamically calculate cols/colWidth
         const maxQNumLen = generatorConfig.count.toString().length + 2; 
-        const longestQTextLen = maxQNumLen + (generatorConfig.rootDigits * 2) + 5; // e.g. "20)  \u221a9801 = "
+        const longestQTextLen = maxQNumLen + (generatorConfig.rootDigits * 2) + 5; // e.g. "20)  √9801 = "
         
         doc.setFont('Helvetica', 'normal');
         doc.setFontSize(10.5);
@@ -965,7 +940,7 @@
             doc.setFontSize(10.5);
             doc.setTextColor(30, 30, 30);
             
-            const qStr = `${q.questionNum})  \u221a${q.radicand} = `;
+            const qStr = `${q.questionNum})  √${q.radicand} = `;
             doc.text(qStr, currentX, currentY);
             
             // Underline space for answer
