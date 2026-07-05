@@ -592,7 +592,7 @@
         } else if (generatorConfig.baseDigits) {
             detailStr += ` | Size: ${generatorConfig.baseDigits}d\u00b2`;
         } else if (generatorConfig.rootDigits) {
-            detailStr += ` | Size: √(${generatorConfig.rootDigits}d root)`;
+            detailStr += ` | Size: Sq Root (${generatorConfig.rootDigits}d root)`;
         } else if (generatorConfig.pctType) {
             detailStr += ` | Mode: ${generatorConfig.pctType.toUpperCase()}`;
         }
@@ -940,12 +940,35 @@
             doc.setFontSize(10.5);
             doc.setTextColor(30, 30, 30);
             
-            const qStr = `${q.questionNum})  √${q.radicand} = `;
-            doc.text(qStr, currentX, currentY);
+            const prefixStr = `${q.questionNum})  `;
+            const prefixWidth = doc.getTextWidth(prefixStr);
+            doc.text(prefixStr, currentX, currentY);
+            
+            // Draw radical symbol manually using line vectors
+            const radicandStr = `${q.radicand}`;
+            const radicandWidth = doc.getTextWidth(radicandStr);
+            const xRadical = currentX + prefixWidth;
+            const h = 10.5 * 0.28; // height of the text / symbol (~2.94mm)
+            
+            doc.setLineWidth(0.25);
+            doc.setDrawColor(30, 30, 30);
+            doc.line(xRadical, currentY - 0.8, xRadical + 0.8, currentY + 0.2); // left hook to bottom vertex
+            doc.line(xRadical + 0.8, currentY + 0.2, xRadical + 1.8, currentY - h - 0.3); // bottom vertex to top vertex
+            doc.line(xRadical + 1.8, currentY - h - 0.3, xRadical + 1.8 + radicandWidth + 0.6, currentY - h - 0.3); // horizontal vinculum line
+            
+            // Print the radicand text under the vinculum
+            doc.text(radicandStr, xRadical + 2.1, currentY);
+            
+            // Print the equal sign
+            const equalStr = ' = ';
+            const xEqual = xRadical + 2.1 + radicandWidth;
+            doc.text(equalStr, xEqual, currentY);
             
             // Underline space for answer
+            const totalWidthOfQuestion = prefixWidth + 2.1 + radicandWidth + doc.getTextWidth(equalStr);
+            doc.setLineWidth(0.2); // restore standard line width for answer underline
             doc.setDrawColor(180, 180, 180);
-            doc.line(currentX + doc.getTextWidth(qStr) + 1, currentY + 1, currentX + colWidth - 2, currentY + 1);
+            doc.line(currentX + totalWidthOfQuestion + 1, currentY + 1, currentX + colWidth - 2, currentY + 1);
 
             col++;
             if (col >= cols) {
