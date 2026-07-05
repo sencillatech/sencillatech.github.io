@@ -51,15 +51,7 @@
                 percentageConfig.style.display = 'block';
             }
 
-            // Hide presets group for squaring and square root
-            const presetsGroup = document.querySelector('.aba-presets-group');
-            if (presetsGroup) {
-                if (val === 'square' || val === 'square_root') {
-                    presetsGroup.style.display = 'none';
-                } else {
-                    presetsGroup.style.display = 'flex';
-                }
-            }
+
         });
 
         // Initialize range sliders with value badges for multiplication and division digits only
@@ -72,36 +64,7 @@
         setupSlider('squareBaseDigits', 'squareBaseDigitsVal', ' digits');
         setupSlider('squareRootRootDigits', 'squareRootRootDigitsVal', ' digits');
 
-        // Preset buttons handling
-        const presets = document.querySelectorAll('.aba-btn-preset');
-        const numQuestionsSelect = document.getElementById('numQuestions');
-        
-        presets.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const val = this.getAttribute('data-preset');
-                numQuestionsSelect.value = val;
-                presets.forEach(p => p.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
 
-        // Deactivate presets if dropdown is manually changed
-        numQuestionsSelect.addEventListener('change', () => {
-            presets.forEach(p => {
-                if (p.getAttribute('data-preset') === numQuestionsSelect.value) {
-                    p.classList.add('active');
-                } else {
-                    p.classList.remove('active');
-                }
-            });
-        });
-
-        // Set initial active preset
-        presets.forEach(p => {
-            if (p.getAttribute('data-preset') === numQuestionsSelect.value) {
-                p.classList.add('active');
-            }
-        });
 
         // Lead Modal controls
         const leadModal = document.getElementById('leadModal');
@@ -148,8 +111,7 @@
             leadModal.style.display = 'flex';
         });
 
-        // Trigger initial select change to update preset buttons visibility
-        typeSelect.dispatchEvent(new Event('change'));
+
     }
 
     // Slider display synchronizer
