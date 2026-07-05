@@ -22,7 +22,8 @@ const mimeTypes = {
 };
 
 http.createServer((req, res) => {
-    let reqUrl = req.url;
+    // Strip query parameters from URL before resolving file path
+    let reqUrl = req.url.split('?')[0];
     if (reqUrl === '/') {
         reqUrl = '/index.html';
     } else if (reqUrl === '/ru' || reqUrl === '/ru/') {
@@ -43,7 +44,12 @@ http.createServer((req, res) => {
                 res.end('Sorry, an error occurred: '+err.code+' ..\n');
             }
         } else {
-            res.writeHead(200, { 'Content-Type': contentType });
+            res.writeHead(200, {
+                'Content-Type': contentType,
+                'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+            });
             res.end(content, 'utf-8');
         }
     });
