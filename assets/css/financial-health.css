@@ -22,11 +22,19 @@
 
 /* Page Layout */
 .health-container {
+    width: 100%;
     max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
     color: var(--health-text);
+}
+
+@media (max-width: 600px) {
+    .health-container {
+        padding: 16px 12px;
+    }
 }
 
 .health-grid {
