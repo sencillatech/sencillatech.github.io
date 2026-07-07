@@ -254,7 +254,6 @@
     gap: 14px;
 }
 
-/* ---- Summary Result Cards ---- */
 .calc-summary-cards {
     display: flex;
     flex-direction: row;
@@ -266,10 +265,16 @@
     flex: 1;
 }
 
+.calc-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
 .calc-card {
     padding: 18px;
     text-align: center;
-    border-left: 4px solid var(--calc-primary);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -279,35 +284,36 @@
 }
 
 .calc-card h4 {
-    color: var(--calc-text-muted);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: #64748b;
+    font-size: 0.8rem;
     margin-bottom: 6px;
     font-family: 'Open Sans', sans-serif;
 }
 
 .calc-card .value {
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--calc-primary);
     font-family: 'Roboto', sans-serif;
 }
 
 .calc-card.interest-card {
-    border-left-color: var(--calc-chart-interest);
+    border-left: none;
 }
 
 .calc-card.interest-card .value {
-    color: #b8860b;
+    color: #007DBF;
 }
 
 .calc-card.total-card {
-    border-left-color: var(--calc-chart-principal);
+    border-left: none;
+    border-top: 4px solid var(--calc-primary);
 }
 
 .calc-card.total-card .value {
-    color: var(--calc-secondary);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--calc-primary);
 }
 
 /* ---- Charts ---- */
@@ -330,7 +336,7 @@
 .calc-schedule h3,
 .calc-bar-chart-section h3 {
     margin-bottom: 16px;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     color: var(--calc-primary);
     font-family: 'Roboto', sans-serif;
 }
@@ -650,6 +656,10 @@
 
     .calc-summary-cards {
         flex-direction: column;
+    }
+
+    .calc-summary-grid {
+        grid-template-columns: 1fr;
     }
 
     .calc-card .value {

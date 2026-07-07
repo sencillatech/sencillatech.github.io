@@ -6,8 +6,10 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Home Loan EMI Calculator with Prepayment 2026 | Free Online Tool</title>
-  <meta name="description" content="Calculate your Home Loan EMI instantly with prepayment options. See total interest, amortization schedule, processing fees & insurance. 100% free, no signup required.">
-  <meta name="keywords" content="home loan EMI calculator, home loan calculator with prepayment, EMI calculator India, home loan interest calculator, housing loan EMI, prepayment calculator, amortization schedule, home loan planner 2026">
+  <meta name="description"
+    content="Calculate your Home Loan EMI instantly with prepayment options. See total interest, amortization schedule, processing fees & insurance. 100% free, no signup required.">
+  <meta name="keywords"
+    content="home loan EMI calculator, home loan calculator with prepayment, EMI calculator India, home loan interest calculator, housing loan EMI, prepayment calculator, amortization schedule, home loan planner 2026">
   <meta name="author" content="SimpleiTech">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="theme-color" content="#00275D">
@@ -19,7 +21,8 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Home Loan EMI Calculator with Prepayment | Free Online Tool">
-  <meta property="og:description" content="Calculate your Home Loan EMI with prepayment, insurance & fees. View amortization schedule and save on interest. 100% free.">
+  <meta property="og:description"
+    content="Calculate your Home Loan EMI with prepayment, insurance & fees. View amortization schedule and save on interest. 100% free.">
   <meta property="og:url" content="https://simpleitech.com/fintech-calculator.html">
   <meta property="og:site_name" content="SimpleiTech Financial Tools">
   <meta property="og:image" content="https://simpleitech.com/assets/img/favicons/favicon.ico">
@@ -27,17 +30,23 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Home Loan EMI Calculator with Prepayment | Free Online Tool">
-  <meta name="twitter:description" content="Calculate your Home Loan EMI with prepayment, insurance & fees. View amortization schedule.">
+  <meta name="twitter:description"
+    content="Calculate your Home Loan EMI with prepayment, insurance & fees. View amortization schedule.">
 
   <!-- Favicons -->
   <link href="assets/img/favicons/favicon.ico" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700"
+    rel="stylesheet">
 
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Boxicons -->
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -50,13 +59,13 @@
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2630317528778433"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-55VEQSNG5F');
   </script>
@@ -95,7 +104,9 @@
         <span class="calc-brand-logo" style="font-size: 0.82rem;">Simple<span style="color:#E29E21;">i</span>Tech</span>
       </a>
       <span class="pdf-header-divider" style="color: rgba(255,255,255,0.3); font-weight: 300;">|</span>
-      <h1 style="font-family:'Roboto',sans-serif;font-size:1.45rem;font-weight:700;margin:0 0 0 12px;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">Home Loan <span style="color:#E29E21;margin-left:5px;">EMI</span></h1>
+      <h1
+        style="font-family:'Roboto',sans-serif;font-size:1.45rem;font-weight:700;margin:0 0 0 12px;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">
+        Home Loan <span style="color:#E29E21;margin-left:5px;">EMI</span></h1>
     </div>
   </div>
 
@@ -103,231 +114,251 @@
   <div class="calc-page-wrapper">
     <!-- ======= Calculator Content ======= -->
     <main class="calc-main-content" role="main">
-    <section class="calc-box" aria-label="Loan input parameters">
-      <div class="calc-input-group">
-        <label for="homeValue">Home Value (₹)</label>
-        <input type="number" id="homeValue" value="5000000" min="0" step="100000">
-      </div>
-      <div class="calc-input-group">
-        <label for="margin">Margin / Down Payment (%)</label>
-        <input type="number" id="margin" value="20" min="0" max="100" step="1">
-        <input type="range" id="marginRange" min="0" max="100" value="20" class="calc-slider">
-      </div>
-      <div class="calc-input-group">
-        <label for="loanAmount">Loan Amount (₹)</label>
-        <input type="number" id="loanAmount" value="4000000" min="0" step="100000" readonly>
-      </div>
-      <div class="calc-input-group">
-        <label for="interestRate">Interest Rate (%)</label>
-        <input type="number" id="interestRate" value="8.5" min="0" max="25" step="0.1">
-        <input type="range" id="interestRateRange" min="4" max="25" value="8.5" step="0.1" class="calc-slider">
-      </div>
-      <div class="calc-input-group">
-        <label for="loanTenureYears">Loan Tenure (Years)</label>
-        <input type="number" id="loanTenureYears" value="20" min="1" max="30" step="1">
-        <input type="range" id="loanTenureRange" min="1" max="30" value="20" class="calc-slider">
-      </div>
+      <section class="calc-box" aria-label="Loan input parameters">
+        <div class="calc-input-group">
+          <label for="homeValue">Home Value (₹)</label>
+          <input type="number" id="homeValue" value="5000000" min="0" step="100000">
+        </div>
+        <div class="calc-input-group">
+          <label for="margin">Margin / Down Payment (%)</label>
+          <input type="number" id="margin" value="20" min="0" max="100" step="1">
+          <input type="range" id="marginRange" min="0" max="100" value="20" class="calc-slider">
+        </div>
+        <div class="calc-input-group">
+          <label for="loanAmount">Loan Amount (₹)</label>
+          <input type="number" id="loanAmount" value="4000000" min="0" step="100000" readonly>
+        </div>
+        <div class="calc-input-group">
+          <label for="interestRate">Interest Rate (%)</label>
+          <input type="number" id="interestRate" value="8.5" min="0" max="25" step="0.1">
+          <input type="range" id="interestRateRange" min="4" max="25" value="8.5" step="0.1" class="calc-slider">
+        </div>
+        <div class="calc-input-group">
+          <label for="loanTenureYears">Loan Tenure (Years)</label>
+          <input type="number" id="loanTenureYears" value="20" min="1" max="30" step="1">
+          <input type="range" id="loanTenureRange" min="1" max="30" value="20" class="calc-slider">
+        </div>
 
-      <!-- Optional Fees and Charges -->
-      <details>
-        <summary>Fees, Insurance &amp; Taxes (Optional)</summary>
-        <div class="calc-options-grid">
-          <div class="calc-input-group">
-            <label for="loanInsurance">Loan Insurance (₹)</label>
-            <input type="number" id="loanInsurance" value="0" min="0" step="5000">
+        <!-- Optional Fees and Charges -->
+        <details>
+          <summary>Fees, Insurance &amp; Taxes (Optional)</summary>
+          <div class="calc-options-grid">
+            <div class="calc-input-group">
+              <label for="loanInsurance">Loan Insurance (₹)</label>
+              <input type="number" id="loanInsurance" value="0" min="0" step="5000">
+            </div>
+            <div class="calc-input-group">
+              <label for="processingFee">Processing Fees (%)</label>
+              <input type="number" id="processingFee" value="0.5" min="0" step="0.1">
+            </div>
           </div>
-          <div class="calc-input-group">
-            <label for="processingFee">Processing Fees (%)</label>
-            <input type="number" id="processingFee" value="0.5" min="0" step="0.1">
+        </details>
+
+        <hr>
+
+        <div class="calc-prepayment">
+          <h3>Partial Prepayments</h3>
+          <div class="calc-prepayment-row">
+            <div class="calc-input-group">
+              <label for="prepaymentAmount">Prepayment Amount (₹)</label>
+              <input type="number" id="prepaymentAmount" value="0" min="0" step="10000">
+            </div>
+            <div class="calc-input-group">
+              <label for="prepaymentFrequency">Frequency</label>
+              <select id="prepaymentFrequency">
+                <option value="none">None</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+                <option value="one-time">One-Time</option>
+              </select>
+            </div>
+            <div class="calc-input-group">
+              <label for="prepaymentStartMonth">Start From Month</label>
+              <input type="number" id="prepaymentStartMonth" value="1" min="1">
+            </div>
           </div>
         </div>
-      </details>
+      </section>
 
-      <hr>
-
-      <div class="calc-prepayment">
-        <h3>Partial Prepayments</h3>
-        <div class="calc-prepayment-row">
-          <div class="calc-input-group">
-            <label for="prepaymentAmount">Prepayment Amount (₹)</label>
-            <input type="number" id="prepaymentAmount" value="0" min="0" step="10000">
+      <aside aria-label="EMI results and chart">
+        <div class="calc-summary-cards">
+          <div class="calc-card calc-box">
+            <h4>Monthly EMI</h4>
+            <div class="value" id="monthlyEmiVal">₹0</div>
           </div>
-          <div class="calc-input-group">
-            <label for="prepaymentFrequency">Frequency</label>
-            <select id="prepaymentFrequency">
-              <option value="none">None</option>
-              <option value="monthly">Monthly</option>
-              <option value="yearly">Yearly</option>
-              <option value="one-time">One-Time</option>
-            </select>
+          <div class="calc-card interest-card calc-box">
+            <h4>Total Interest</h4>
+            <div class="value" id="totalInterestVal">₹0</div>
           </div>
-          <div class="calc-input-group">
-            <label for="prepaymentStartMonth">Start From Month</label>
-            <input type="number" id="prepaymentStartMonth" value="1" min="1">
+          <div class="calc-card total-card calc-box">
+            <h4>Total Payment</h4>
+            <div class="value" id="totalPaymentVal">₹0</div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <aside aria-label="EMI results and chart">
-      <div class="calc-summary-cards">
-        <div class="calc-card calc-box">
-          <h4>Monthly EMI</h4>
-          <div class="value" id="monthlyEmiVal">₹0</div>
+        <!-- AdSense Sidebar Ad -->
+        <div class="calc-ad-container calc-ad-sidebar">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2630317528778433"
+            data-ad-slot="SIDEBAR_AD_SLOT" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
-        <div class="calc-card interest-card calc-box">
-          <h4>Total Interest</h4>
-          <div class="value" id="totalInterestVal">₹0</div>
-        </div>
-        <div class="calc-card total-card calc-box">
-          <h4>Total Payment</h4>
-          <div class="value" id="totalPaymentVal">₹0</div>
-        </div>
-      </div>
 
-      <!-- AdSense Sidebar Ad -->
-      <div class="calc-ad-container calc-ad-sidebar">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-2630317528778433"
-             data-ad-slot="SIDEBAR_AD_SLOT"
-             data-ad-format="rectangle"
-             data-full-width-responsive="true"></ins>
+        <div class="calc-box">
+          <div class="calc-chart-wrapper">
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Amortization Bar Chart Section -->
+      <section class="calc-bar-chart-section calc-box calc-full-width" aria-label="Amortization graph">
+        <h3>Amortization Graph</h3>
+        <div class="calc-bar-chart-wrapper">
+          <canvas id="barChart"></canvas>
+        </div>
+      </section>
+
+      <!-- AdSense In-Content Ad -->
+      <div class="calc-ad-container calc-ad-in-content calc-full-width">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2630317528778433"
+          data-ad-slot="IN_CONTENT_AD_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </div>
 
-      <div class="calc-box">
-        <div class="calc-chart-wrapper">
-          <canvas id="pieChart"></canvas>
+      <!-- Amortization Schedule Table -->
+      <section class="calc-schedule calc-box calc-full-width" aria-label="Amortization schedule table">
+        <h3>Amortization Schedule</h3>
+        <div class="calc-table-responsive">
+          <table id="amortizationTable">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Principal Paid (₹)</th>
+                <th>Interest Paid (₹)</th>
+                <th>Prepayment (₹)</th>
+                <th>Total Payment (₹)</th>
+                <th>Balance (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Table rows generated by JS -->
+            </tbody>
+          </table>
         </div>
+      </section>
+      <!-- Rich Educational Content Section to meet AdSense Guidelines -->
+      <section class="calc-guide-section calc-box calc-full-width" style="margin-top: 30px; padding: 30px;">
+        <h2 style="color: #00275D; font-weight: 700; margin-bottom: 20px; font-size: 1.5rem;">Comprehensive Guide to
+          Home Loan EMIs</h2>
+        <p style="line-height: 1.6; color: #444;">
+          A home loan is a major long-term financial commitment, typically lasting from 15 to 30 years. Planning your
+          monthly installments (EMIs) is crucial to ensuring that you can borrow comfortably without straining your
+          household budget. This free online Home Loan EMI Calculator is designed to help you determine your monthly
+          payouts, understand the interest burden, and simulate the immense savings from making periodic prepayments.
+        </p>
+
+        <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">How Home
+          Loan EMI is Calculated</h3>
+        <p style="line-height: 1.6; color: #444;">
+          Equated Monthly Installments (EMIs) are calculated using a reducing-balance method. The mathematical formula
+          used for computing your monthly installment is:
+        </p>
+        <div
+          style="background: #f8f9fa; padding: 15px; border-left: 4px solid #E29E21; font-family: monospace; margin: 15px 0; font-size: 1.1rem; text-align: center;">
+          EMI = P &times; r &times; (1 + r)^n / ((1 + r)^n - 1)
+        </div>
+        <p style="line-height: 1.6; color: #444;">Where:</p>
+        <ul style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: disc;">
+          <li><strong>P (Principal):</strong> The total amount you wish to borrow from the bank or financial
+            institution.</li>
+          <li><strong>r (Monthly Interest Rate):</strong> The annual rate divided by 12 and then by 100. (For example,
+            9% annual rate is 9 / 12 / 100 = 0.0075).</li>
+          <li><strong>n (Number of Monthly Installments):</strong> The loan tenure expressed in months (e.g., 20 years =
+            240 months).</li>
+        </ul>
+
+        <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">The
+          Power of Prepayments in Home Loans</h3>
+        <p style="line-height: 1.6; color: #444;">
+          Because home loans run for decades, interest quickly compounds and often exceeds the original principal
+          borrowed. Making prepayments&mdash;extra payments directly towards your principal balance&mdash;can save you
+          lakhs of rupees in interest and shave years off your loan term. Our calculator allows you to define monthly or
+          yearly prepayment milestones to visualize how your amortization schedule changes dynamically.
+        </p>
+
+        <h3
+          style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px;">
+          Frequently Asked Questions (FAQ)</h3>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">1. What is the
+            amortization schedule?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            An amortization schedule is a complete table showing the breakdown of each monthly payment into principal
+            and interest components, along with the outstanding balance at the end of each period. In the early years of
+            a home loan, the interest portion dominates your EMI. Over time, the principal share increases.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">2. How does a prepayment
+            reduce my interest burden?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            When you make a prepayment, the entire extra amount goes directly toward lowering the outstanding principal
+            balance. Since interest is calculated on a reducing balance, a lower principal means less interest accrues
+            in subsequent months, allowing you to pay off the remaining balance much faster.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">3. What is the
+            difference between fixed and floating interest rates?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            A fixed interest rate remains unchanged for the entire duration of the loan, offering predictability. A
+            floating rate changes in response to market benchmarks (like repo rate indices set by central banks).
+            Floating rates are typically lower than fixed rates initially but carry the risk of rising monthly EMIs if
+            interest rates increase.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">4. What factors affect
+            home loan EMI eligibility?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            Lenders evaluate your net take-home salary, credit score, current debt commitments (like credit cards or car
+            loans), age, and employment stability. Lenders generally recommend that your total monthly debt payments
+            (including the new home loan) do not exceed 40-50% of your net monthly income.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======= Right Sidebar Navigation ======= -->
+    <aside class="calc-sidebar-nav" aria-label="Page navigation">
+      <div class="calc-sidebar-header">
+        <i class="bx bx-grid-alt"></i> Tools &amp; Calculators
+      </div>
+      <div class="calc-sidebar-body">
+        <a href="fintech-calculator.html" class="active"><i class="bx bx-home-alt" style="margin-right: 8px;"></i> Home
+          Loan EMI</a>
+        <a href="personal-loan-calculator.html"><i class="bx bx-user" style="margin-right: 8px;"></i> Personal Loan
+          EMI</a>
+        <a href="car-loan-calculator.html"><i class="bx bx-car" style="margin-right: 8px;"></i> Car Loan EMI</a>
+        <a href="mutual-fund-calculator.html"><i class="bx bx-trending-up" style="margin-right: 8px;"></i> Mutual
+          Fund</a>
+        <a href="pdf-utility.html"><i class="bx bxs-file-pdf" style="margin-right: 8px;"></i> PDF Utility</a>
+        <a href="financial-health.html"><i class="bx bx-heart" style="margin-right: 8px;"></i> Financial Health</a>
+        <a href="retirement-calculator.html"><i class="bx bx-shield" style="margin-right: 8px;"></i> Retirement</a>
+        <a href="money-power.html"><i class="bx bx-money" style="margin-right: 8px;"></i> Your Money Power</a>
+        <a href="abacus-generator.html"><i class="bx bx-grid" style="margin-right: 8px;"></i> Abacus</a>
       </div>
     </aside>
-
-    <!-- Amortization Bar Chart Section -->
-    <section class="calc-bar-chart-section calc-box calc-full-width" aria-label="Amortization graph">
-      <h3>Amortization Graph</h3>
-      <div class="calc-bar-chart-wrapper">
-        <canvas id="barChart"></canvas>
-      </div>
-    </section>
-
-    <!-- AdSense In-Content Ad -->
-    <div class="calc-ad-container calc-ad-in-content calc-full-width">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-2630317528778433"
-           data-ad-slot="IN_CONTENT_AD_SLOT"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-
-    <!-- Amortization Schedule Table -->
-    <section class="calc-schedule calc-box calc-full-width" aria-label="Amortization schedule table">
-      <h3>Amortization Schedule</h3>
-      <div class="calc-table-responsive">
-        <table id="amortizationTable">
-          <thead>
-            <tr>
-              <th>Month</th>
-              <th>Principal Paid (₹)</th>
-              <th>Interest Paid (₹)</th>
-              <th>Prepayment (₹)</th>
-              <th>Total Payment (₹)</th>
-              <th>Balance (₹)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Table rows generated by JS -->
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <!-- Rich Educational Content Section to meet AdSense Guidelines -->
-    <section class="calc-guide-section calc-box calc-full-width" style="margin-top: 30px; padding: 30px;">
-      <h2 style="color: #00275D; font-weight: 700; margin-bottom: 20px; font-size: 1.5rem;">Comprehensive Guide to Home Loan EMIs</h2>
-      <p style="line-height: 1.6; color: #444;">
-        A home loan is a major long-term financial commitment, typically lasting from 15 to 30 years. Planning your monthly installments (EMIs) is crucial to ensuring that you can borrow comfortably without straining your household budget. This free online Home Loan EMI Calculator is designed to help you determine your monthly payouts, understand the interest burden, and simulate the immense savings from making periodic prepayments.
-      </p>
-      
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">How Home Loan EMI is Calculated</h3>
-      <p style="line-height: 1.6; color: #444;">
-        Equated Monthly Installments (EMIs) are calculated using a reducing-balance method. The mathematical formula used for computing your monthly installment is:
-      </p>
-      <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #E29E21; font-family: monospace; margin: 15px 0; font-size: 1.1rem; text-align: center;">
-        EMI = P &times; r &times; (1 + r)^n / ((1 + r)^n - 1)
-      </div>
-      <p style="line-height: 1.6; color: #444;">Where:</p>
-      <ul style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: disc;">
-        <li><strong>P (Principal):</strong> The total amount you wish to borrow from the bank or financial institution.</li>
-        <li><strong>r (Monthly Interest Rate):</strong> The annual rate divided by 12 and then by 100. (For example, 9% annual rate is 9 / 12 / 100 = 0.0075).</li>
-        <li><strong>n (Number of Monthly Installments):</strong> The loan tenure expressed in months (e.g., 20 years = 240 months).</li>
-      </ul>
-
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">The Power of Prepayments in Home Loans</h3>
-      <p style="line-height: 1.6; color: #444;">
-        Because home loans run for decades, interest quickly compounds and often exceeds the original principal borrowed. Making prepayments&mdash;extra payments directly towards your principal balance&mdash;can save you lakhs of rupees in interest and shave years off your loan term. Our calculator allows you to define monthly or yearly prepayment milestones to visualize how your amortization schedule changes dynamically.
-      </p>
-
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px;">Frequently Asked Questions (FAQ)</h3>
-      
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">1. What is the amortization schedule?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-          An amortization schedule is a complete table showing the breakdown of each monthly payment into principal and interest components, along with the outstanding balance at the end of each period. In the early years of a home loan, the interest portion dominates your EMI. Over time, the principal share increases.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">2. How does a prepayment reduce my interest burden?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-          When you make a prepayment, the entire extra amount goes directly toward lowering the outstanding principal balance. Since interest is calculated on a reducing balance, a lower principal means less interest accrues in subsequent months, allowing you to pay off the remaining balance much faster.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">3. What is the difference between fixed and floating interest rates?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-          A fixed interest rate remains unchanged for the entire duration of the loan, offering predictability. A floating rate changes in response to market benchmarks (like repo rate indices set by central banks). Floating rates are typically lower than fixed rates initially but carry the risk of rising monthly EMIs if interest rates increase.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 10px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">4. What factors affect home loan EMI eligibility?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-          Lenders evaluate your net take-home salary, credit score, current debt commitments (like credit cards or car loans), age, and employment stability. Lenders generally recommend that your total monthly debt payments (including the new home loan) do not exceed 40-50% of your net monthly income.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <!-- ======= Right Sidebar Navigation ======= -->
-  <aside class="calc-sidebar-nav" aria-label="Page navigation">
-    <div class="calc-sidebar-header">
-      <i class="bx bx-grid-alt"></i> Tools &amp; Calculators
-    </div>
-    <div class="calc-sidebar-body">
-      <a href="fintech-calculator.html" class="active"><i class="bx bx-home-alt" style="margin-right: 8px;"></i> Home Loan EMI</a>
-      <a href="personal-loan-calculator.html"><i class="bx bx-user" style="margin-right: 8px;"></i> Personal Loan EMI</a>
-      <a href="car-loan-calculator.html"><i class="bx bx-car" style="margin-right: 8px;"></i> Car Loan EMI</a>
-      <a href="mutual-fund-calculator.html"><i class="bx bx-trending-up" style="margin-right: 8px;"></i> Mutual Fund</a>
-      <a href="pdf-utility.html"><i class="bx bxs-file-pdf" style="margin-right: 8px;"></i> PDF Utility</a>
-      <a href="financial-health.html"><i class="bx bx-heart" style="margin-right: 8px;"></i> Financial Health</a>
-      <a href="retirement-calculator.html"><i class="bx bx-shield" style="margin-right: 8px;"></i> Retirement</a>
-      <a href="money-power.html"><i class="bx bx-money" style="margin-right: 8px;"></i> Your Money Power</a>
-      <a href="abacus-generator.html"><i class="bx bx-grid" style="margin-right: 8px;"></i> Abacus</a>
-    </div>
-  </aside>
-</div>
+  </div>
 
   <!-- ======= AdSense Footer Ad ======= -->
   <div class="calc-ad-container calc-ad-footer">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-2630317528778433"
-         data-ad-slot="FOOTER_AD_SLOT"
-         data-ad-format="horizontal"
-         data-full-width-responsive="true"></ins>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2630317528778433"
+      data-ad-slot="FOOTER_AD_SLOT" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
@@ -352,7 +383,8 @@
       <nav class="calc-footer-policy-links" aria-label="Policy links">
         <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
         <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
-        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy
+          Policy</a>
       </nav>
       <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
     </div>
@@ -374,7 +406,7 @@
     // Calculator navigation
     const localCalcOptions = document.getElementById('calculator-options');
     if (localCalcOptions) {
-      localCalcOptions.addEventListener('change', function() {
+      localCalcOptions.addEventListener('change', function () {
         window.location.href = this.value;
       });
     }
