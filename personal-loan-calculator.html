@@ -6,8 +6,10 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Personal Loan EMI Calculator 2026 | Free Online Tool</title>
-  <meta name="description" content="Calculate your Personal Loan EMI, total interest payable, and view monthly amortization schedule. Fast, free, no signup needed.">
-  <meta name="keywords" content="personal loan EMI calculator, personal loan calculator, EMI calculator India, personal loan interest calculator, loan planner, amortization schedule 2026">
+  <meta name="description"
+    content="Calculate your Personal Loan EMI, total interest payable, and view monthly amortization schedule. Fast, free, no signup needed.">
+  <meta name="keywords"
+    content="personal loan EMI calculator, personal loan calculator, EMI calculator India, personal loan interest calculator, loan planner, amortization schedule 2026">
   <meta name="author" content="SimpleiTech">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="theme-color" content="#00275D">
@@ -19,7 +21,8 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Personal Loan EMI Calculator 2026 | Free Online Tool">
-  <meta property="og:description" content="Calculate your Personal Loan EMI and total interest. View amortization schedule. 100% free.">
+  <meta property="og:description"
+    content="Calculate your Personal Loan EMI and total interest. View amortization schedule. 100% free.">
   <meta property="og:url" content="https://simpleitech.com/personal-loan-calculator.html">
   <meta property="og:site_name" content="SimpleiTech Financial Tools">
   <meta property="og:image" content="https://simpleitech.com/assets/img/favicons/favicon.ico">
@@ -34,7 +37,9 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700"
+    rel="stylesheet">
 
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -53,13 +58,13 @@
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2630317528778433"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-55VEQSNG5F');
   </script>
@@ -98,7 +103,9 @@
         <span class="calc-brand-logo" style="font-size: 0.82rem;">Simple<span style="color:#E29E21;">i</span>Tech</span>
       </a>
       <span class="pdf-header-divider" style="color: rgba(255,255,255,0.3); font-weight: 300;">|</span>
-      <h1 style="font-family:'Roboto',sans-serif;font-size:1.45rem;font-weight:700;margin:0 0 0 12px;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">Personal Loan <span style="color:#E29E21;margin-left:5px;">EMI</span></h1>
+      <h1
+        style="font-family:'Roboto',sans-serif;font-size:1.45rem;font-weight:700;margin:0 0 0 12px;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">
+        Personal Loan <span style="color:#E29E21;margin-left:5px;">EMI</span></h1>
     </div>
   </div>
 
@@ -106,39 +113,39 @@
   <div class="calc-page-wrapper">
     <!-- ======= Calculator Content ======= -->
     <main class="calc-main-content" role="main">
-    <section class="calc-box" aria-label="Loan input parameters">
-      <div class="calc-input-group">
-        <label for="loanAmount">Loan Amount (₹)</label>
-        <input type="number" id="loanAmount" value="500000" min="0" step="10000">
-      </div>
-      <div class="calc-input-group">
-        <label for="interestRate">Interest Rate (%)</label>
-        <input type="number" id="interestRate" value="10.5" min="0" max="25" step="0.1">
-      </div>
-      <div class="calc-input-group">
-        <label for="loanTenureYears">Loan Tenure (Years)</label>
-        <input type="number" id="loanTenureYears" value="5" min="1" max="10" step="1">
-      </div>
-    </section>
+      <section class="calc-box" aria-label="Loan input parameters">
+        <div class="calc-input-group">
+          <label for="loanAmount">Loan Amount (₹)</label>
+          <input type="number" id="loanAmount" value="500000" min="0" step="10000">
+        </div>
+        <div class="calc-input-group">
+          <label for="interestRate">Interest Rate (%)</label>
+          <input type="number" id="interestRate" value="10.5" min="0" max="25" step="0.1">
+        </div>
+        <div class="calc-input-group">
+          <label for="loanTenureYears">Loan Tenure (Years)</label>
+          <input type="number" id="loanTenureYears" value="5" min="1" max="10" step="1">
+        </div>
+      </section>
 
-    <aside aria-label="EMI results and chart">
-      <div class="calc-summary-cards">
-        <div class="calc-card calc-box">
-          <h4>Monthly EMI</h4>
-          <div class="value" id="monthlyEmiVal">₹0</div>
+      <aside aria-label="EMI results and chart">
+        <div class="calc-summary-cards">
+          <div class="calc-card calc-box">
+            <h4>Monthly EMI</h4>
+            <div class="value" id="monthlyEmiVal">₹0</div>
+          </div>
+          <div class="calc-card interest-card calc-box">
+            <h4>Total Interest</h4>
+            <div class="value" id="totalInterestVal">₹0</div>
+          </div>
+          <div class="calc-card total-card calc-box">
+            <h4>Total Payment</h4>
+            <div class="value" id="totalPaymentVal">₹0</div>
+          </div>
         </div>
-        <div class="calc-card interest-card calc-box">
-          <h4>Total Interest</h4>
-          <div class="value" id="totalInterestVal">₹0</div>
-        </div>
-        <div class="calc-card total-card calc-box">
-          <h4>Total Payment</h4>
-          <div class="value" id="totalPaymentVal">₹0</div>
-        </div>
-      </div>
 
-      <!-- AdSense Sidebar Ad -->
-      <div class="calc-ad-container calc-ad-sidebar">
+        <!-- AdSense Sidebar Ad -->
+        <!-- <div class="calc-ad-container calc-ad-sidebar">
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-2630317528778433"
@@ -146,137 +153,159 @@
              data-ad-format="rectangle"
              data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
+      </div> -->
 
-      <div class="calc-box">
-        <div class="calc-chart-wrapper">
-          <canvas id="pieChart"></canvas>
+        <div class="calc-box">
+          <div class="calc-chart-wrapper">
+            <canvas id="pieChart"></canvas>
+          </div>
         </div>
+      </aside>
+
+      <!-- Amortization Bar Chart Section -->
+      <section class="calc-bar-chart-section calc-box calc-full-width" aria-label="Amortization graph">
+        <h3>Amortization Graph</h3>
+        <div class="calc-bar-chart-wrapper">
+          <canvas id="barChart"></canvas>
+        </div>
+      </section>
+
+      <!-- AdSense In-Content Ad -->
+      <!-- <div class="calc-ad-container calc-ad-in-content calc-full-width">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2630317528778433"
+          data-ad-slot="IN_CONTENT_AD_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div> -->
+
+      <!-- Amortization Schedule Table -->
+      <section class="calc-schedule calc-box calc-full-width" aria-label="Amortization schedule table">
+        <h3>Amortization Schedule</h3>
+        <div class="calc-table-responsive">
+          <table id="amortizationTable">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Principal Paid (₹)</th>
+                <th>Interest Paid (₹)</th>
+                <th>Total Payment (₹)</th>
+                <th>Balance (₹)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+      <!-- Rich Educational Content Section to meet AdSense Guidelines -->
+      <section class="calc-guide-section calc-box calc-full-width">
+        <h2 style="color: #00275D; font-weight: 700; margin-bottom: 20px; font-size: 1.5rem;">Comprehensive Guide to
+          Personal Loan EMIs</h2>
+        <p style="line-height: 1.6; color: #444;">
+          Personal loans are unsecured credit options designed to cover immediate, short-to-medium-term expenditures
+          such as medical emergencies, home renovation, wedding expenses, or debt consolidation. Unlike secured loans
+          like home or auto loans, personal loans do not require collateral. Planning your Equated Monthly Installment
+          (EMI) beforehand ensures you borrow responsibly and maintain a healthy credit score.
+        </p>
+
+        <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">How
+          Personal Loan EMI is Calculated</h3>
+        <p style="line-height: 1.6; color: #444;">
+          Lenders calculate your monthly payments using the reducing balance method. The mathematical formula for
+          calculating personal loan EMIs is:
+        </p>
+        <div
+          style="background: #f8f9fa; padding: 15px; border-left: 4px solid #E29E21; font-family: monospace; margin: 15px 0; font-size: 1.1rem; text-align: center;">
+          EMI = P &times; r &times; (1 + r)^n / ((1 + r)^n - 1)
+        </div>
+        <p style="line-height: 1.6; color: #444;">Where:</p>
+        <ul style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: disc;">
+          <li><strong>P (Principal Amount):</strong> The initial amount of money you borrow.</li>
+          <li><strong>r (Monthly Interest Rate):</strong> The annual rate divided by 12, then divided by 100 (e.g., 12%
+            per annum is 12 / 12 / 100 = 0.01 per month).</li>
+          <li><strong>n (Tenure in Months):</strong> The repayment period expressed in months (e.g., 5 years = 60
+            months).</li>
+        </ul>
+
+        <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">Tips for
+          Optimizing Your Personal Loan</h3>
+        <p style="line-height: 1.6; color: #444;">
+          Since personal loans carry higher interest rates than secured loans (ranging from 10% to 24%), choose your
+          tenure wisely. A longer tenure reduces your monthly EMI payments but significantly increases your overall
+          interest burden. Conversely, a shorter tenure increases your monthly outgo but helps you close the debt faster
+          with less total interest. Aim to prepay your loan when extra funds are available.
+        </p>
+
+        <h3
+          style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px;">
+          Frequently Asked Questions (FAQ)</h3>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">1. Does checking my
+            personal loan EMI affect my credit score?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            No. Using this free online EMI calculator is completely private, local to your browser, and has no impact on
+            your credit history. It is a planning tool designed to help you prepare before making formal applications to
+            banks, which do perform credit inquiries.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">2. What are prepayment
+            and foreclosure charges?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            Many lenders charge a fee (typically 2% to 5% of the outstanding principal balance) if you pay off your
+            personal loan early or make lump-sum prepayments. Be sure to review your loan agreement's foreclosure
+            policy, as these charges can eat into the interest savings you achieve by prepaying.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">3. What credit score is
+            needed for a personal loan?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            While criteria vary by lender, a credit score of 750 or higher is generally considered excellent and
+            qualifies you for the lowest interest rates. Lenders may still approve personal loans for lower credit
+            scores (down to 600), but they typically offset the higher risk by charging significantly higher interest
+            rates.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">4. Can I use a personal
+            loan to consolidate other debts?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            Yes. Debt consolidation is one of the most common uses of a personal loan. By taking out a single personal
+            loan with a lower interest rate to pay off multiple high-interest credit card balances or small loans, you
+            can simplify your payments and save money on overall interest charges.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======= Right Sidebar Navigation ======= -->
+    <aside class="calc-sidebar-nav" aria-label="Page navigation">
+      <div class="calc-sidebar-header">
+        <i class="bx bx-grid-alt"></i> Tools &amp; Calculators
+      </div>
+      <div class="calc-sidebar-body">
+        <a href="fintech-calculator.html"><i class="bx bx-home-alt" style="margin-right: 8px;"></i> Home Loan EMI</a>
+        <a href="personal-loan-calculator.html" class="active"><i class="bx bx-user" style="margin-right: 8px;"></i>
+          Personal Loan EMI</a>
+        <a href="car-loan-calculator.html"><i class="bx bx-car" style="margin-right: 8px;"></i> Car Loan EMI</a>
+        <a href="mutual-fund-calculator.html"><i class="bx bx-trending-up" style="margin-right: 8px;"></i> Mutual
+          Fund</a>
+        <a href="pdf-utility.html"><i class="bx bxs-file-pdf" style="margin-right: 8px;"></i> PDF Utility</a>
+        <a href="financial-health.html"><i class="bx bx-heart" style="margin-right: 8px;"></i> Financial Health</a>
+        <a href="retirement-calculator.html"><i class="bx bx-shield" style="margin-right: 8px;"></i> Retirement</a>
+        <a href="money-power.html"><i class="bx bx-money" style="margin-right: 8px;"></i> Your Money Power</a>
+        <a href="abacus-generator.html"><i class="bx bx-grid" style="margin-right: 8px;"></i> Abacus</a>
       </div>
     </aside>
-
-    <!-- Amortization Bar Chart Section -->
-    <section class="calc-bar-chart-section calc-box calc-full-width" aria-label="Amortization graph">
-      <h3>Amortization Graph</h3>
-      <div class="calc-bar-chart-wrapper">
-        <canvas id="barChart"></canvas>
-      </div>
-    </section>
-
-    <!-- AdSense In-Content Ad -->
-    <div class="calc-ad-container calc-ad-in-content calc-full-width">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-2630317528778433"
-           data-ad-slot="IN_CONTENT_AD_SLOT"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-
-    <!-- Amortization Schedule Table -->
-    <section class="calc-schedule calc-box calc-full-width" aria-label="Amortization schedule table">
-      <h3>Amortization Schedule</h3>
-      <div class="calc-table-responsive">
-        <table id="amortizationTable">
-          <thead>
-            <tr>
-              <th>Month</th>
-              <th>Principal Paid (₹)</th>
-              <th>Interest Paid (₹)</th>
-              <th>Total Payment (₹)</th>
-              <th>Balance (₹)</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
-    <!-- Rich Educational Content Section to meet AdSense Guidelines -->
-    <section class="calc-guide-section calc-box calc-full-width" style="margin-top: 30px; padding: 30px;">
-      <h2 style="color: #00275D; font-weight: 700; margin-bottom: 20px; font-size: 1.5rem;">Comprehensive Guide to Personal Loan EMIs</h2>
-      <p style="line-height: 1.6; color: #444;">
-        Personal loans are unsecured credit options designed to cover immediate, short-to-medium-term expenditures such as medical emergencies, home renovation, wedding expenses, or debt consolidation. Unlike secured loans like home or auto loans, personal loans do not require collateral. Planning your Equated Monthly Installment (EMI) beforehand ensures you borrow responsibly and maintain a healthy credit score.
-      </p>
-      
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">How Personal Loan EMI is Calculated</h3>
-      <p style="line-height: 1.6; color: #444;">
-        Lenders calculate your monthly payments using the reducing balance method. The mathematical formula for calculating personal loan EMIs is:
-      </p>
-      <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #E29E21; font-family: monospace; margin: 15px 0; font-size: 1.1rem; text-align: center;">
-        EMI = P &times; r &times; (1 + r)^n / ((1 + r)^n - 1)
-      </div>
-      <p style="line-height: 1.6; color: #444;">Where:</p>
-      <ul style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: disc;">
-        <li><strong>P (Principal Amount):</strong> The initial amount of money you borrow.</li>
-        <li><strong>r (Monthly Interest Rate):</strong> The annual rate divided by 12, then divided by 100 (e.g., 12% per annum is 12 / 12 / 100 = 0.01 per month).</li>
-        <li><strong>n (Tenure in Months):</strong> The repayment period expressed in months (e.g., 5 years = 60 months).</li>
-      </ul>
-
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">Tips for Optimizing Your Personal Loan</h3>
-      <p style="line-height: 1.6; color: #444;">
-        Since personal loans carry higher interest rates than secured loans (ranging from 10% to 24%), choose your tenure wisely. A longer tenure reduces your monthly EMI payments but significantly increases your overall interest burden. Conversely, a shorter tenure increases your monthly outgo but helps you close the debt faster with less total interest. Aim to prepay your loan when extra funds are available.
-      </p>
-
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px;">Frequently Asked Questions (FAQ)</h3>
-      
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">1. Does checking my personal loan EMI affect my credit score?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-          No. Using this free online EMI calculator is completely private, local to your browser, and has no impact on your credit history. It is a planning tool designed to help you prepare before making formal applications to banks, which do perform credit inquiries.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">2. What are prepayment and foreclosure charges?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-          Many lenders charge a fee (typically 2% to 5% of the outstanding principal balance) if you pay off your personal loan early or make lump-sum prepayments. Be sure to review your loan agreement's foreclosure policy, as these charges can eat into the interest savings you achieve by prepaying.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">3. What credit score is needed for a personal loan?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-          While criteria vary by lender, a credit score of 750 or higher is generally considered excellent and qualifies you for the lowest interest rates. Lenders may still approve personal loans for lower credit scores (down to 600), but they typically offset the higher risk by charging significantly higher interest rates.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 10px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">4. Can I use a personal loan to consolidate other debts?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-          Yes. Debt consolidation is one of the most common uses of a personal loan. By taking out a single personal loan with a lower interest rate to pay off multiple high-interest credit card balances or small loans, you can simplify your payments and save money on overall interest charges.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <!-- ======= Right Sidebar Navigation ======= -->
-  <aside class="calc-sidebar-nav" aria-label="Page navigation">
-    <div class="calc-sidebar-header">
-      <i class="bx bx-grid-alt"></i> Tools &amp; Calculators
-    </div>
-    <div class="calc-sidebar-body">
-      <a href="fintech-calculator.html"><i class="bx bx-home-alt" style="margin-right: 8px;"></i> Home Loan EMI</a>
-      <a href="personal-loan-calculator.html" class="active"><i class="bx bx-user" style="margin-right: 8px;"></i> Personal Loan EMI</a>
-      <a href="car-loan-calculator.html"><i class="bx bx-car" style="margin-right: 8px;"></i> Car Loan EMI</a>
-      <a href="mutual-fund-calculator.html"><i class="bx bx-trending-up" style="margin-right: 8px;"></i> Mutual Fund</a>
-      <a href="pdf-utility.html"><i class="bx bxs-file-pdf" style="margin-right: 8px;"></i> PDF Utility</a>
-      <a href="financial-health.html"><i class="bx bx-heart" style="margin-right: 8px;"></i> Financial Health</a>
-      <a href="retirement-calculator.html"><i class="bx bx-shield" style="margin-right: 8px;"></i> Retirement</a>
-      <a href="money-power.html"><i class="bx bx-money" style="margin-right: 8px;"></i> Your Money Power</a>
-      <a href="abacus-generator.html"><i class="bx bx-grid" style="margin-right: 8px;"></i> Abacus</a>
-    </div>
-  </aside>
-</div>
+  </div>
 
   <!-- ======= AdSense Footer Ad ======= -->
   <div class="calc-ad-container calc-ad-footer">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-2630317528778433"
-         data-ad-slot="FOOTER_AD_SLOT"
-         data-ad-format="horizontal"
-         data-full-width-responsive="true"></ins>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2630317528778433"
+      data-ad-slot="FOOTER_AD_SLOT" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
@@ -301,7 +330,8 @@
       <nav class="calc-footer-policy-links" aria-label="Policy links">
         <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
         <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
-        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy
+          Policy</a>
       </nav>
       <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
     </div>
@@ -321,7 +351,7 @@
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     const localCalcOptions = document.getElementById('calculator-options');
     if (localCalcOptions) {
-      localCalcOptions.addEventListener('change', function() {
+      localCalcOptions.addEventListener('change', function () {
         window.location.href = this.value;
       });
     }
