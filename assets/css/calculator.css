@@ -1261,7 +1261,7 @@ body {
 .calc-page-wrapper {
     display: grid;
     grid-template-columns: 1fr 280px;
-    gap: 30px;
+    /* gap: 30px; */
     width: 100%;
     max-width: 1500px;
     margin: 0 auto;
@@ -1338,7 +1338,7 @@ body {
 @media (max-width: 1200px) {
     .calc-page-wrapper {
         grid-template-columns: 1fr;
-        /* gap: 24px; */
+        gap: 24px;
         padding: 16px 12px;
     }
 
