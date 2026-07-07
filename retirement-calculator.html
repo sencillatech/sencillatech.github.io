@@ -6,8 +6,10 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Retirement Calculator | Plan Savings & Withdrawals | SimpleiTech</title>
-  <meta name="description" content="Calculate your required retirement corpus, inflation-adjusted expenses, and necessary monthly savings. Simulate how long your retirement fund will last. 100% free, browser-based.">
-  <meta name="keywords" content="retirement calculator, retirement corpus planner, early retirement, FIRE calculator, financial planning, how long will money last, retirement simulator">
+  <meta name="description"
+    content="Calculate your required retirement corpus, inflation-adjusted expenses, and necessary monthly savings. Simulate how long your retirement fund will last. 100% free, browser-based.">
+  <meta name="keywords"
+    content="retirement calculator, retirement corpus planner, early retirement, FIRE calculator, financial planning, how long will money last, retirement simulator">
   <meta name="author" content="SimpleiTech">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#00275D">
@@ -18,14 +20,16 @@
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2630317528778433"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
   <!-- Favicons -->
   <link href="assets/img/favicons/favicon.ico" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700"
+    rel="stylesheet">
 
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -43,7 +47,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-55VEQSNG5F');
   </script>
@@ -60,7 +64,9 @@
         <span class="calc-brand-logo" style="font-size: 0.82rem;">Simple<span style="color:#E29E21;">i</span>Tech</span>
       </a>
       <span class="pdf-header-divider" style="color: rgba(255,255,255,0.3); font-weight: 300;">|</span>
-      <h1 style="font-family:'Roboto',sans-serif;font-size:1.45rem;font-weight:700;margin:0 0 0 12px;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">Retirement <span style="color:#E29E21;margin-left:5px;">Calculator</span></h1>
+      <h1
+        style="font-family:'Roboto',sans-serif;font-size:1.45rem;font-weight:700;margin:0 0 0 12px;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">
+        Retirement <span style="color:#E29E21;margin-left:5px;">Calculator</span></h1>
     </div>
   </div>
 
@@ -68,250 +74,308 @@
   <div class="calc-page-wrapper">
     <!-- ======= Main Content ======= -->
     <main class="ret-main-content" role="main">
-    
-    <!-- Error Alert Container -->
-    <div class="alert alert-danger ret-full-width" id="calcErrorAlert" style="display: none; border-radius: var(--ret-radius);">
-      Error message here.
-    </div>
 
-    <!-- Left Column: Inputs -->
-    <section class="ret-box" aria-label="Retirement input fields">
-      <h3>Retirement Goal Details</h3>
-      
-      <div class="ret-input-grid">
-        <div class="ret-input-group">
-          <label for="currentAge">Current Age <span id="currentAgeVal" class="label-val">30 Yrs</span></label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix"><i class="bx bx-user"></i></span>
-            <input type="number" id="currentAge" value="30" min="1" max="99">
-          </div>
-          <input type="range" id="currentAgeRange" min="1" max="99" value="30" class="ret-slider">
-        </div>
-
-        <div class="ret-input-group">
-          <label for="retirementAge">Target Retirement Age <span id="retirementAgeVal" class="label-val">60 Yrs</span></label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix"><i class="bx bx-calendar-event"></i></span>
-            <input type="number" id="retirementAge" value="60" min="5" max="100">
-          </div>
-          <input type="range" id="retirementAgeRange" min="5" max="100" value="60" class="ret-slider">
-        </div>
-
-        <div class="ret-input-group">
-          <label for="lifeExpectancy">Life Expectancy <span id="lifeExpectancyVal" class="label-val">85 Yrs</span></label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix"><i class="bx bx-heart"></i></span>
-            <input type="number" id="lifeExpectancy" value="85" min="20" max="110">
-          </div>
-          <input type="range" id="lifeExpectancyRange" min="20" max="110" value="85" class="ret-slider">
-        </div>
-
-        <div class="ret-input-group">
-          <label for="inflation">Assumed Inflation Rate <span id="inflationVal" class="label-val">6%</span></label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix"><i class="bx bx-trending-up"></i></span>
-            <input type="number" id="inflation" value="6" min="0" max="20" step="0.5">
-          </div>
-          <input type="range" id="inflationRange" min="0" max="20" value="6" step="0.5" class="ret-slider">
-        </div>
-
-        <div class="ret-input-group">
-          <label for="preReturn">Pre-Retirement Investment Return <span id="preReturnVal" class="label-val">12%</span></label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix"><i class="bx bx-line-chart"></i></span>
-            <input type="number" id="preReturn" value="12" min="1" max="30" step="0.5">
-          </div>
-          <input type="range" id="preReturnRange" min="1" max="30" value="12" step="0.5" class="ret-slider">
-        </div>
-
-        <div class="ret-input-group">
-          <label for="postReturn">Post-Retirement Investment Return <span id="postReturnVal" class="label-val">8%</span></label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix"><i class="bx bx-line-chart-down"></i></span>
-            <input type="number" id="postReturn" value="8" min="1" max="30" step="0.5">
-          </div>
-          <input type="range" id="postReturnRange" min="1" max="30" value="8" step="0.5" class="ret-slider">
-        </div>
+      <!-- Error Alert Container -->
+      <div class="alert alert-danger ret-full-width" id="calcErrorAlert"
+        style="display: none; border-radius: var(--ret-radius);">
+        Error message here.
       </div>
 
-      <hr style="border-top: 1.5px solid var(--ret-border); margin: 25px 0;">
+      <!-- Left Column: Inputs -->
+      <section class="ret-box" aria-label="Retirement input fields">
+        <h3>Retirement Goal Details</h3>
 
-      <div class="ret-input-grid">
-        <div class="ret-input-group">
-          <label for="currentExpenses">Current Annual Expenses (₹)</label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix">₹</span>
-            <input type="number" id="currentExpenses" value="600000" min="0" step="50000">
+        <div class="ret-input-grid">
+          <div class="ret-input-group">
+            <label for="currentAge">Current Age <span id="currentAgeVal" class="label-val">30 Yrs</span></label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix"><i class="bx bx-user"></i></span>
+              <input type="number" id="currentAge" value="30" min="1" max="99">
+            </div>
+            <input type="range" id="currentAgeRange" min="1" max="99" value="30" class="ret-slider">
           </div>
-          <span class="health-help-text" style="font-size: 0.8rem; color: var(--ret-text-muted); margin-top: 4px;">
-            Your total yearly living expenses today.
-          </span>
+
+          <div class="ret-input-group">
+            <label for="retirementAge">Target Retirement Age <span id="retirementAgeVal" class="label-val">60
+                Yrs</span></label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix"><i class="bx bx-calendar-event"></i></span>
+              <input type="number" id="retirementAge" value="60" min="5" max="100">
+            </div>
+            <input type="range" id="retirementAgeRange" min="5" max="100" value="60" class="ret-slider">
+          </div>
+
+          <div class="ret-input-group">
+            <label for="lifeExpectancy">Life Expectancy <span id="lifeExpectancyVal" class="label-val">85
+                Yrs</span></label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix"><i class="bx bx-heart"></i></span>
+              <input type="number" id="lifeExpectancy" value="85" min="20" max="110">
+            </div>
+            <input type="range" id="lifeExpectancyRange" min="20" max="110" value="85" class="ret-slider">
+          </div>
+
+          <div class="ret-input-group">
+            <label for="inflation">Assumed Inflation Rate <span id="inflationVal" class="label-val">6%</span></label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix"><i class="bx bx-trending-up"></i></span>
+              <input type="number" id="inflation" value="6" min="0" max="20" step="0.5">
+            </div>
+            <input type="range" id="inflationRange" min="0" max="20" value="6" step="0.5" class="ret-slider">
+          </div>
+
+          <div class="ret-input-group">
+            <label for="preReturn">Pre-Retirement Investment Return <span id="preReturnVal"
+                class="label-val">12%</span></label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix"><i class="bx bx-line-chart"></i></span>
+              <input type="number" id="preReturn" value="12" min="1" max="30" step="0.5">
+            </div>
+            <input type="range" id="preReturnRange" min="1" max="30" value="12" step="0.5" class="ret-slider">
+          </div>
+
+          <div class="ret-input-group">
+            <label for="postReturn">Post-Retirement Investment Return <span id="postReturnVal"
+                class="label-val">8%</span></label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix"><i class="bx bx-line-chart-down"></i></span>
+              <input type="number" id="postReturn" value="8" min="1" max="30" step="0.5">
+            </div>
+            <input type="range" id="postReturnRange" min="1" max="30" value="8" step="0.5" class="ret-slider">
+          </div>
         </div>
 
-        <div class="ret-input-group">
-          <label for="currentSavings">Current Retirement Savings (₹)</label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix">₹</span>
-            <input type="number" id="currentSavings" value="500000" min="0" step="50000">
+        <hr style="border-top: 1.5px solid var(--ret-border); margin: 25px 0;">
+
+        <div class="ret-input-grid">
+          <div class="ret-input-group">
+            <label for="currentExpenses">Current Annual Expenses (₹)</label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix">₹</span>
+              <input type="number" id="currentExpenses" value="600000" min="0" step="50000">
+            </div>
+            <span class="health-help-text" style="font-size: 0.8rem; color: var(--ret-text-muted); margin-top: 4px;">
+              Your total yearly living expenses today.
+            </span>
           </div>
-          <span class="health-help-text" style="font-size: 0.8rem; color: var(--ret-text-muted); margin-top: 4px;">
-            Your existing accumulated nest egg.
-          </span>
+
+          <div class="ret-input-group">
+            <label for="currentSavings">Current Retirement Savings (₹)</label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix">₹</span>
+              <input type="number" id="currentSavings" value="500000" min="0" step="50000">
+            </div>
+            <span class="health-help-text" style="font-size: 0.8rem; color: var(--ret-text-muted); margin-top: 4px;">
+              Your existing accumulated nest egg.
+            </span>
+          </div>
         </div>
+      </section>
+
+      <!-- Right Column: Results -->
+      <aside aria-label="Calculator planning results">
+        <div class="ret-summary-cards">
+
+          <div class="ret-card corpus-card">
+            <h4>Required Retirement Corpus</h4>
+            <div class="value" id="outCorpusNeeded">₹0</div>
+            <span style="font-size: 0.8rem; color: var(--ret-text-muted);">Target corpus at planned retirement
+              age.</span>
+          </div>
+
+          <div class="ret-card savings-card">
+            <h4>Monthly Savings Required</h4>
+            <div class="value" id="outMonthlySavings">₹0</div>
+            <span style="font-size: 0.8rem; color: var(--ret-text-muted);">Required contribution until
+              retirement.</span>
+          </div>
+
+          <div class="ret-card">
+            <h4>Annual Expense at Retirement</h4>
+            <div class="value" id="outExpensesRetirement">₹0</div>
+            <span style="font-size: 0.8rem; color: var(--ret-text-muted);">Inflation-adjusted expenses at
+              retirement.</span>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- Depletion simulator: how long will money last -->
+      <section class="ret-box ret-full-width" aria-label="Withdrawal duration simulator">
+        <h3>Withdrawal Depletion Simulator</h3>
+        <p style="font-size: 0.85rem; color: var(--ret-text-muted); margin-bottom: 20px;">
+          Simulate the lifespan of your accumulated nest egg under specific withdrawal amounts and investment growth.
+        </p>
+
+        <div class="ret-input-grid" style="margin-bottom: 20px;">
+          <div class="ret-input-group">
+            <label for="simCorpus">Total Savings at Retirement (₹)</label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix">₹</span>
+              <input type="number" id="simCorpus" value="48200000" min="0" step="100000">
+            </div>
+            <span style="font-size: 0.75rem; color: var(--ret-text-muted); margin-top: 4px;">Nest egg size (defaults to
+              needed corpus).</span>
+          </div>
+
+          <div class="ret-input-group">
+            <label for="simWithdrawal">Planned Monthly Withdrawal (₹)</label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix">₹</span>
+              <input type="number" id="simWithdrawal" value="287000" min="0" step="5000">
+            </div>
+            <span style="font-size: 0.75rem; color: var(--ret-text-muted); margin-top: 4px;">Initial withdrawal
+              (defaults to inflation-adjusted expense / 12).</span>
+          </div>
+
+          <div class="ret-input-group">
+            <label for="simReturn">Average Post-Retirement return (%)</label>
+            <div class="ret-input-wrapper">
+              <span class="ret-input-prefix">%</span>
+              <input type="number" id="simReturn" value="8" min="0" max="30" step="0.5">
+            </div>
+          </div>
+
+          <div class="ret-input-group" style="justify-content: center; margin-bottom: 0;">
+            <div class="simulator-checkbox-row">
+              <input type="checkbox" id="simAdjustInflation" checked>
+              <label for="simAdjustInflation" style="margin: 0; cursor: pointer; font-size: 0.9rem;">Increase
+                withdrawals with inflation annually</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulator Status Banner -->
+        <div class="simulator-status status-lasts" id="simStatusBox">
+          Your money will last indefinitely (100+ years).
+        </div>
+
+        <!-- Depletion Chart Graph -->
+        <div class="ret-chart-wrapper">
+          <canvas id="depletionChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Rich Educational Content Section to meet AdSense Guidelines -->
+      <section class="ret-box ret-full-width">
+        <h2
+          style="color: #00275D; font-weight: 700; margin-bottom: 20px; font-size: 1.5rem; font-family: 'Poppins', sans-serif;">
+          <i class="bx bx-info-circle" style="color: #E29E21;"></i> Guide to Retirement Corpus Planning & Safe
+          Withdrawals</h2>
+        <p style="line-height: 1.6; color: #444; margin-bottom: 15px;">
+          Retirement planning is the process of defining your post-employment income goals and building the necessary
+          asset base to sustain them. Because people are living longer, active retirements can span 25 to 40 years.
+          Securing your financial freedom requires estimating your future expenses accurately and building an
+          inflation-proof "nest egg" (corpus) that can generate regular passive income.
+        </p>
+
+        <h3
+          style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">
+          Key Concepts in Retirement Planning</h3>
+
+        <ul style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: disc; margin-bottom: 20px;">
+          <li style="margin-bottom: 10px;"><strong>The Impact of Inflation:</strong> A critical error in retirement
+            planning is ignoring inflation. At an average inflation rate of 6% per annum, your living costs will double
+            approximately every 12 years. Our calculator adjusts your current expenses to show what you will actually
+            need on day one of your retirement.</li>
+          <li style="margin-bottom: 10px;"><strong>The 4% Safe Withdrawal Rule:</strong> A traditional financial
+            guideline suggesting that if you withdraw 4% of your total corpus in the first year of retirement, and
+            adjust subsequent withdrawals for inflation, your savings have a very high probability of lasting at least
+            30 years without running dry.</li>
+          <li style="margin-bottom: 10px;"><strong>Post-Retirement Investment Growth:</strong> You do not stop investing
+            once you retire. To protect your corpus from depletion, a portion of your funds must remain invested in
+            conservative, yield-generating structures (e.g. debt funds, annuities, dividend equities) to achieve a
+            return rate that keeps pace with inflation.</li>
+        </ul>
+
+        <h3
+          style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">
+          Step-by-Step Goal Planning</h3>
+        <ol style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: decimal; margin-bottom: 25px;">
+          <li style="margin-bottom: 8px;"><strong>Define Timeline:</strong> Input your current age, target retirement
+            age, and expected lifespan.</li>
+          <li style="margin-bottom: 8px;"><strong>Input Assumptions:</strong> Select realistic inflation rates and
+            projected returns for both your accumulation years (pre-retirement) and distribution years
+            (post-retirement).</li>
+          <li style="margin-bottom: 8px;"><strong>Set Budgets:</strong> Enter your current annual expenditures and
+            existing savings to calculate the gap.</li>
+          <li style="margin-bottom: 8px;"><strong>Simulate Depletion:</strong> Use the withdrawal simulator to see
+            exactly how many years your corpus will survive under varying monthly cash flows.</li>
+        </ol>
+
+        <h3
+          style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.25rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px; font-family: 'Poppins', sans-serif;">
+          Frequently Asked Questions (FAQ)</h3>
+
+        <div style="margin-bottom: 20px;">
+          <h4
+            style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">
+            1. What is a "Retirement Corpus"?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+            A retirement corpus is the total lump-sum pool of savings and investments you accumulate by the time you
+            retire. The purpose of this corpus is to produce passive income (interest, dividends, or capital
+            withdrawals) to cover your ongoing living expenses, allowing you to live comfortably without working.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4
+            style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">
+            2. How does the depletion simulator work?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+            The simulator runs a month-by-month projection of your nest egg. Each month, it adds interest gained based
+            on your post-retirement return rate, and subtracts your monthly withdrawal amount. If you select the
+            inflation-adjusted option, the withdrawals increase by your inflation rate at the start of each year. The
+            chart maps how your balance grows or declines over time.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4
+            style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">
+            3. Can I use this calculator for early retirement (FIRE)?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+            Yes, absolutely. The Financial Independence, Retire Early (FIRE) movement relies on retiring in one's 30s,
+            40s, or 50s. By setting your target retirement age lower (e.g. 40) and your life expectancy to 85+, the
+            calculator will compute the larger corpus and higher monthly savings rate required to sustain a much longer
+            distribution phase.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <h4
+            style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">
+            4. Are my inputs secure and private on this tool?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+            Yes, 100%. This tool performs all compounding math and chart plotting locally on your device using
+            JavaScript. Your numbers are never stored in databases or sent to external servers, protecting your
+            financial privacy.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======= Right Sidebar Navigation ======= -->
+    <aside class="calc-sidebar-nav" aria-label="Page navigation">
+      <div class="calc-sidebar-header">
+        <i class="bx bx-grid-alt"></i> Tools &amp; Calculators
       </div>
-    </section>
-
-    <!-- Right Column: Results -->
-    <aside aria-label="Calculator planning results">
-      <div class="ret-summary-cards">
-        
-        <div class="ret-card corpus-card">
-          <h4>Required Retirement Corpus</h4>
-          <div class="value" id="outCorpusNeeded">₹0</div>
-          <span style="font-size: 0.8rem; color: var(--ret-text-muted);">Target corpus at planned retirement age.</span>
-        </div>
-
-        <div class="ret-card savings-card">
-          <h4>Monthly Savings Required</h4>
-          <div class="value" id="outMonthlySavings">₹0</div>
-          <span style="font-size: 0.8rem; color: var(--ret-text-muted);">Required contribution until retirement.</span>
-        </div>
-
-        <div class="ret-card">
-          <h4>Annual Expense at Retirement</h4>
-          <div class="value" id="outExpensesRetirement">₹0</div>
-          <span style="font-size: 0.8rem; color: var(--ret-text-muted);">Inflation-adjusted expenses at retirement.</span>
-        </div>
-
+      <div class="calc-sidebar-body">
+        <a href="fintech-calculator.html"><i class="bx bx-home-alt" style="margin-right: 8px;"></i> Home Loan EMI</a>
+        <a href="personal-loan-calculator.html"><i class="bx bx-user" style="margin-right: 8px;"></i> Personal Loan
+          EMI</a>
+        <a href="car-loan-calculator.html"><i class="bx bx-car" style="margin-right: 8px;"></i> Car Loan EMI</a>
+        <a href="mutual-fund-calculator.html"><i class="bx bx-trending-up" style="margin-right: 8px;"></i> Mutual
+          Fund</a>
+        <a href="pdf-utility.html"><i class="bx bxs-file-pdf" style="margin-right: 8px;"></i> PDF Utility</a>
+        <a href="financial-health.html"><i class="bx bx-heart" style="margin-right: 8px;"></i> Financial Health</a>
+        <a href="retirement-calculator.html" class="active"><i class="bx bx-shield" style="margin-right: 8px;"></i>
+          Retirement</a>
+        <a href="money-power.html"><i class="bx bx-money" style="margin-right: 8px;"></i> Your Money Power</a>
+        <a href="abacus-generator.html"><i class="bx bx-grid" style="margin-right: 8px;"></i> Abacus</a>
       </div>
     </aside>
-
-    <!-- Depletion simulator: how long will money last -->
-    <section class="ret-box ret-full-width" aria-label="Withdrawal duration simulator">
-      <h3>Withdrawal Depletion Simulator</h3>
-      <p style="font-size: 0.85rem; color: var(--ret-text-muted); margin-bottom: 20px;">
-        Simulate the lifespan of your accumulated nest egg under specific withdrawal amounts and investment growth.
-      </p>
-
-      <div class="ret-input-grid" style="margin-bottom: 20px;">
-        <div class="ret-input-group">
-          <label for="simCorpus">Total Savings at Retirement (₹)</label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix">₹</span>
-            <input type="number" id="simCorpus" value="48200000" min="0" step="100000">
-          </div>
-          <span style="font-size: 0.75rem; color: var(--ret-text-muted); margin-top: 4px;">Nest egg size (defaults to needed corpus).</span>
-        </div>
-
-        <div class="ret-input-group">
-          <label for="simWithdrawal">Planned Monthly Withdrawal (₹)</label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix">₹</span>
-            <input type="number" id="simWithdrawal" value="287000" min="0" step="5000">
-          </div>
-          <span style="font-size: 0.75rem; color: var(--ret-text-muted); margin-top: 4px;">Initial withdrawal (defaults to inflation-adjusted expense / 12).</span>
-        </div>
-
-        <div class="ret-input-group">
-          <label for="simReturn">Average Post-Retirement return (%)</label>
-          <div class="ret-input-wrapper">
-            <span class="ret-input-prefix">%</span>
-            <input type="number" id="simReturn" value="8" min="0" max="30" step="0.5">
-          </div>
-        </div>
-
-        <div class="ret-input-group" style="justify-content: center; margin-bottom: 0;">
-          <div class="simulator-checkbox-row">
-            <input type="checkbox" id="simAdjustInflation" checked>
-            <label for="simAdjustInflation" style="margin: 0; cursor: pointer; font-size: 0.9rem;">Increase withdrawals with inflation annually</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Simulator Status Banner -->
-      <div class="simulator-status status-lasts" id="simStatusBox">
-        Your money will last indefinitely (100+ years).
-      </div>
-
-      <!-- Depletion Chart Graph -->
-      <div class="ret-chart-wrapper">
-        <canvas id="depletionChart"></canvas>
-      </div>
-    </section>
-
-    <!-- Rich Educational Content Section to meet AdSense Guidelines -->
-    <section class="ret-box ret-full-width" style="margin-top: 30px; padding: 30px; box-sizing: border-box;">
-      <h2 style="color: #00275D; font-weight: 700; margin-bottom: 20px; font-size: 1.5rem; font-family: 'Poppins', sans-serif;"><i class="bx bx-info-circle" style="color: #E29E21;"></i> Guide to Retirement Corpus Planning & Safe Withdrawals</h2>
-      <p style="line-height: 1.6; color: #444; margin-bottom: 15px;">
-        Retirement planning is the process of defining your post-employment income goals and building the necessary asset base to sustain them. Because people are living longer, active retirements can span 25 to 40 years. Securing your financial freedom requires estimating your future expenses accurately and building an inflation-proof "nest egg" (corpus) that can generate regular passive income.
-      </p>
-
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">Key Concepts in Retirement Planning</h3>
-      
-      <ul style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: disc; margin-bottom: 20px;">
-        <li style="margin-bottom: 10px;"><strong>The Impact of Inflation:</strong> A critical error in retirement planning is ignoring inflation. At an average inflation rate of 6% per annum, your living costs will double approximately every 12 years. Our calculator adjusts your current expenses to show what you will actually need on day one of your retirement.</li>
-        <li style="margin-bottom: 10px;"><strong>The 4% Safe Withdrawal Rule:</strong> A traditional financial guideline suggesting that if you withdraw 4% of your total corpus in the first year of retirement, and adjust subsequent withdrawals for inflation, your savings have a very high probability of lasting at least 30 years without running dry.</li>
-        <li style="margin-bottom: 10px;"><strong>Post-Retirement Investment Growth:</strong> You do not stop investing once you retire. To protect your corpus from depletion, a portion of your funds must remain invested in conservative, yield-generating structures (e.g. debt funds, annuities, dividend equities) to achieve a return rate that keeps pace with inflation.</li>
-      </ul>
-
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">Step-by-Step Goal Planning</h3>
-      <ol style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: decimal; margin-bottom: 25px;">
-        <li style="margin-bottom: 8px;"><strong>Define Timeline:</strong> Input your current age, target retirement age, and expected lifespan.</li>
-        <li style="margin-bottom: 8px;"><strong>Input Assumptions:</strong> Select realistic inflation rates and projected returns for both your accumulation years (pre-retirement) and distribution years (post-retirement).</li>
-        <li style="margin-bottom: 8px;"><strong>Set Budgets:</strong> Enter your current annual expenditures and existing savings to calculate the gap.</li>
-        <li style="margin-bottom: 8px;"><strong>Simulate Depletion:</strong> Use the withdrawal simulator to see exactly how many years your corpus will survive under varying monthly cash flows.</li>
-      </ol>
-
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.25rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px; font-family: 'Poppins', sans-serif;">Frequently Asked Questions (FAQ)</h3>
-
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">1. What is a "Retirement Corpus"?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
-          A retirement corpus is the total lump-sum pool of savings and investments you accumulate by the time you retire. The purpose of this corpus is to produce passive income (interest, dividends, or capital withdrawals) to cover your ongoing living expenses, allowing you to live comfortably without working.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">2. How does the depletion simulator work?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
-          The simulator runs a month-by-month projection of your nest egg. Each month, it adds interest gained based on your post-retirement return rate, and subtracts your monthly withdrawal amount. If you select the inflation-adjusted option, the withdrawals increase by your inflation rate at the start of each year. The chart maps how your balance grows or declines over time.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">3. Can I use this calculator for early retirement (FIRE)?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
-          Yes, absolutely. The Financial Independence, Retire Early (FIRE) movement relies on retiring in one's 30s, 40s, or 50s. By setting your target retirement age lower (e.g. 40) and your life expectancy to 85+, the calculator will compute the larger corpus and higher monthly savings rate required to sustain a much longer distribution phase.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 10px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">4. Are my inputs secure and private on this tool?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
-          Yes, 100%. This tool performs all compounding math and chart plotting locally on your device using JavaScript. Your numbers are never stored in databases or sent to external servers, protecting your financial privacy.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <!-- ======= Right Sidebar Navigation ======= -->
-  <aside class="calc-sidebar-nav" aria-label="Page navigation">
-    <div class="calc-sidebar-header">
-      <i class="bx bx-grid-alt"></i> Tools &amp; Calculators
-    </div>
-    <div class="calc-sidebar-body">
-      <a href="fintech-calculator.html"><i class="bx bx-home-alt" style="margin-right: 8px;"></i> Home Loan EMI</a>
-      <a href="personal-loan-calculator.html"><i class="bx bx-user" style="margin-right: 8px;"></i> Personal Loan EMI</a>
-      <a href="car-loan-calculator.html"><i class="bx bx-car" style="margin-right: 8px;"></i> Car Loan EMI</a>
-      <a href="mutual-fund-calculator.html"><i class="bx bx-trending-up" style="margin-right: 8px;"></i> Mutual Fund</a>
-      <a href="pdf-utility.html"><i class="bx bxs-file-pdf" style="margin-right: 8px;"></i> PDF Utility</a>
-      <a href="financial-health.html"><i class="bx bx-heart" style="margin-right: 8px;"></i> Financial Health</a>
-      <a href="retirement-calculator.html" class="active"><i class="bx bx-shield" style="margin-right: 8px;"></i> Retirement</a>
-      <a href="money-power.html"><i class="bx bx-money" style="margin-right: 8px;"></i> Your Money Power</a>
-      <a href="abacus-generator.html"><i class="bx bx-grid" style="margin-right: 8px;"></i> Abacus</a>
-    </div>
-  </aside>
-</div>
+  </div>
 
   <!-- ======= Standalone Footer ======= -->
   <footer class="calc-standalone-footer" role="contentinfo">
@@ -334,7 +398,8 @@
       <nav class="calc-footer-policy-links" aria-label="Policy links">
         <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
         <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
-        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy
+          Policy</a>
       </nav>
       <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
     </div>
@@ -356,7 +421,7 @@
     // Calculator dropdown nav
     const localCalcOptions = document.getElementById('calculator-options');
     if (localCalcOptions) {
-      localCalcOptions.addEventListener('change', function() {
+      localCalcOptions.addEventListener('change', function () {
         window.location.href = this.value;
       });
     }
