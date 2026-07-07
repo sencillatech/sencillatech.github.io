@@ -374,3 +374,9 @@
         grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 600px) {
+    .mp-main-content {
+        padding: 16px 12px;
+    }
+}
