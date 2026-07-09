@@ -5,16 +5,24 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Simpleitech</title>
-  <meta content="Мы в SimpleiTech стремимся предоставить вам самые лучшие программные продукты и услуги по разработке приложений." name="description">
-  <meta content="веб-разработка, дизайн пользовательского интерфейса, тестирование программного обеспечения, simpleitech" name="keywords">
+  <!-- SEO Optimization: Title and Meta Tags -->
+  <title>SimpleiTech — Веб, Облако, ИИ и Мобильные решения</title>
+  <meta content="SimpleiTech предоставляет профессиональную заказную веб-разработку, настройку инфраструктуры DevOps, диалоговых ИИ-чат-ботов и мобильных Android-приложений." name="description">
+  <meta content="веб-разработка, дизайн пользовательского интерфейса, тестирование программного обеспечения, simpleitech, DevOps, облачный хостинг, разработка Alexa, разработка Android" name="keywords">
+  <meta name="author" content="SimpleiTech">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#060913">
+
+  <!-- Open Graph / Facebook Preview Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://simpleitech.com/ru/">
+  <meta property="og:title" content="SimpleiTech — Веб, Облако, ИИ и Мобильные решения">
+  <meta property="og:description" content="Профессиональная веб-разработка, настройка инфраструктуры DevOps, голосовые навыки Alexa и мобильные приложения.">
+  <meta property="og:image" content="https://simpleitech.com/assets/img/hero-bg.jpg">
 
   <!-- Favicons -->
   <link href="assets/img/favicons/favicon.ico" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,202 +32,179 @@
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Redesigned Main CSS File -->
+  <link href="assets/css/redesign.css" rel="stylesheet">
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-55VEQSNG5F');
-    </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-55VEQSNG5F');
+  </script>
 </head>
 
 <body>
 
   <!-- ======= Top Bar ======= -->
   <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
-    <div class="container d-flex">
-      <div class="contact-info mr-auto">
-        <i class="icofont-envelope"></i> <a href="mailto:contact@example.com">sales@simpleitech.com</a>
-        <i class="icofont-phone"></i> +91 829 650 9546
+    <div class="container d-flex justify-content-between">
+      <div class="contact-info">
+        <i class="icofont-envelope"></i> <a href="mailto:sales@simpleitech.com">sales@simpleitech.com</a>
+        <i class="icofont-phone" style="margin-left: 15px;"></i> +91 829 650 9546
       </div>
-      <div class="social-links">
+      <div class="social-links d-flex align-items-center">
         <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
         <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-
-        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></i></a>
-        <a href="index.html" style="margin-left: 15px; color: white; font-weight: bold;">EN</a>
+        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
+        <a href="index.html" style="margin-left: 20px; color: var(--text-main); font-weight: 700; font-size: 0.8rem;">EN</a>
       </div>
     </div>
   </div>
 
-  <!-- ======= Header ======= -->
+  <!-- ======= Navigation Header ======= -->
   <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center">
-	
-      <div class="col-lg-4" >
-      <h1 class="logo mr-auto"><a href="index_ru.html" style="color: #00275D">Simple<span>i</span>Tech</a></h1>
-      <h6 style="padding-top: 10px;">Упростите свою работу с помощью технологий.</h6>
-    </div>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt=""></a>-->
-      <div class="col-lg-8" >
+    <div class="container d-flex align-items-center justify-content-between">
+      <div class="logo">
+        <h1><a href="index_ru.html">Simple<span>i</span>Tech</a></h1>
+        <h6>Упростите свою работу с помощью технологий.</h6>
+      </div>
+      
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active"><a href="index_ru.html">Главная</a></li>
           <li><a href="#about">О нас</a></li>
-			    <!-- <li><a href="#services">Career</a></li> -->
           <li><a href="#services">Услуги</a></li>
-		      <!-- <li><a href="#services">Tech expertise</a></li> -->
+          <li><a href="pricing.html">Цены</a></li>
+          <li><a href="#our-apps">Приложения</a></li>
           <li><a href="#contact">Контакты</a></li>
         </ul>
-      </nav><!-- .nav-menu -->
-		</div>
+      </nav>
     </div>
-  </header><!-- End Header -->
+  </header>
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
-	   <div class="container" >
-<!--
-		   <div class="row">
-			    <div class="container" data-aos="zoom-out" data-aos-delay="100">
-		<h1>Welcome to <span style="color: #00275D">Simple<span style="color:#E29E21;">i</span>Tech</spa>
-      </h1>
-      <h2>Simplify your work with Technology.</h2>
+    <div class="container">
+      <div class="row align-items-center">
+        
+        <!-- Left Column: Marketing Message & Actionable CTAs -->
+        <div class="col-lg-6 hero-content" data-aos="fade-right" data-aos-delay="100">
+          <span class="hero-subtitle">Проектируем будущее</span>
+          <h2 class="hero-title">Упростите работу с помощью <span class="grad">технологий</span></h2>
+          <p class="hero-desc">Мы проектируем, создаем и развертываем веб-приложения премиум-класса, безопасную облачную инфраструктуру, голосовые интерфейсы и мобильные системы для масштабирования.</p>
+          <div class="hero-btns">
+            <a href="#services" class="btn-primary-glow">Наши услуги <i class="bx bx-right-arrow-alt"></i></a>
+            <a href="#contact" class="btn-outline-glow">Консультация</a>
+          </div>
+        </div>
+        
+        <!-- Right Column: Interactive CSS Code Frame Visual -->
+        <div class="col-lg-6 hero-visual" data-aos="fade-left" data-aos-delay="200">
+          <div class="hero-screen-glow">
+            <div class="hero-screen-header">
+              <div class="hero-dot d1"></div>
+              <div class="hero-dot d2"></div>
+              <div class="hero-dot d3"></div>
+            </div>
+            <pre class="hero-code-block"><code><span class="hero-code-comment">// Технические услуги SimpleiTech</span>
+<span class="hero-code-keyword">const</span> simpleiTech = {
+  mission: <span class="hero-code-string">"Упростить бизнес с помощью кода"</span>,
+  stack: [
+    <span class="hero-code-string">"React / Node.js"</span>,
+    <span class="hero-code-string">"Spring Boot / Android"</span>,
+    <span class="hero-code-string">"Terraform / DevOps"</span>,
+    <span class="hero-code-string">"Голосовой ИИ"</span>
+  ],
+  readyToBuild: <span class="hero-code-keyword">true</span>
+};
+
+<span class="hero-code-keyword">console</span>.log(<span class="hero-code-string">"Расширение цифрового роста..."</span>);</code></pre>
+          </div>
+        </div>
+        
+      </div>
     </div>
-		   </div>
--->
-		  <div class="row">
+  </section>
 
-<!--
-			  <div class="col-lg-6" >
-				<h1>Welcome to <span style="color: #00275D">Simple<span style="color:#E29E21;">i</span>Tech</span>
-				  </h1>
-				  <h2>Simplify your work with Technology.</h2>
-			  </div>
-style="background-color: #E6F4F1;"
--->
-			  <!--div class="col-lg-12" >
-				  <span style=" font-size: large; font-weight: 500;"  ><b>Get your website done & Hosting free for 1 yr</b> </span>
-				  <span style=" color:#E29E21; font-size:8vw; font-weight: bolder;" >
-					  @ 
-				  </span>
-				   <span style=" color:#00275D; font-size:8vw; font-weight: bolder;" >
-					  2499
-				  </span>
-				   <span style=" color:#E29E21; font-size:8vw; font-weight: bolder;" >
-					  /-
-				  </span>
-			  </div>
-			 <div class="col-lg-12" >
-          <span style=" font-size: xx-small; "  >
-              <span class="fb ico11">
-                <span style="color: red;">*</span>
-                </span><a href="#" style="color:black; font-weight: bolder;">Terms & conditions Apply.</a></span>
-          </span>
-          </div-->
-        <!--  <i  class="fab fa-whatsapp fa-7x"></i>
-			  </div>
-      </div>    
-      <div class="col-lg-12" >
--->
-<!--div class="nopadding col-lg-5 " style="background-color: #007DBF;" -->
-   
-  
-
-  <!-- <i  class="fab fa-whatsapp fa-3x fa-spin  "></i> -->
-  <!-- <i class="fa fa-whatsapp" ></i> -->
-  <!-- <i class="fa fa-whatsapp" style="font-size:36px" ></i> -->
-  <!-- <i class="fas fa-camera fa-3x"></i> -->
-  <!-- <i class="fab fa-whatsapp fa-sm" aria-hidden="true"></i> -->
-  <!--h1 class="p-10" style=" color:#fff; font-size: x-large; font-weight: 600;"  > Call or <img src="https://i.ibb.co/N9P0K9H/239px-Whats-App-svg.png" width="50" height="50"/> &nbsp; +91 829 650 9546</h1>
-  </div-->
-
-
-
-<!--
-    <div class="container" data-aos="zoom-out" data-aos-delay="100">  
-		<h1>Welcome to <span style="color: #00275D">Simple<span style="color:#E29E21;">i</span>Tech</spa>
-      </h1>
-      <h2>Simplify your work with Technology.</h2>
-    </div>
--->
-	
-<!--
-	<div class="container" data-aos="zoom-out" data-aos-delay="100">
-		<h1>Welcome to <span style="color: #00275D">Simple<span style="color:#E29E21;">i</span>Tech</spa>
-      </h1>
-      <h2>Simplify your work with Technology.</h2>
-
-    </div>
--->
-  </section><!-- End Hero -->
-
+  <!-- ======= Main Content Area ======= -->
   <main id="main">
 
-    
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
           <h3>Ознакомьтесь с нашими <span>услугами</span></h3>
+          <p>Своевременная заказная веб-разработка, архитектурный аудит и облачная поддержка.</p>
         </div>
 
         <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" >
+          
+          <!-- Card 1: UI Design -->
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon">
-                <!-- <i class="bx bxl-dribbble"></i> -->
-                <img src="assets/img/services/sketch.png" style="width: 50px; height: 50px;" > 
+                <img src="assets/img/services/sketch.svg" alt="UI Design Icon">
               </div>
-              <h4><a href="">Дизайн пользовательского интерфейса</a></h4>
-              <p>Дизайн пользовательского интерфейса ставит во главу угла визуальный опыт пользователя. Хороший пользовательский интерфейс функционален, надежен и приятен в использовании. Дизайн пользовательского интерфейса должен минимизировать усилия, которые пользователь должен приложить для взаимодействия с продуктом, и помогать пользователям с легкостью достигать своих целей.</p>
+              <h4><a href="#">Дизайн интерфейсов</a></h4>
+              <p>Дизайн пользовательского интерфейса ставит во главу угла визуальный опыт. Мы проводим исследования пользователей и создаем высокоточные варфреймы для минимизации трения.</p>
             </div>
           </div>
 
+          <!-- Card 2: Web Design & Development -->
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box">
-              <div class="icon"><img src="assets/img/services/programming.png" style="width: 50px; height: 50px;" > </div>
-              <h4><a href="">Веб-дизайн и разработка</a></h4>
-              <p>Веб-дизайн — это процесс, который занимается визуальной эстетикой, такой как внешний вид, макет, цветовая схема и все остальное, что связано с визуальными аспектами пользовательского опыта. Проще говоря, они сосредотачиваются на аспектах пользовательского опыта при разработке веб-сайтов, а не на разработке программного обеспечения. Веб-разработка — это процесс, который занимается кодированием и обслуживанием веб-сайтов. Этот процесс подразделяется на два типа: фронтенд-разработка и бэкенд-разработка.</p>
+              <div class="icon">
+                <img src="assets/img/services/programming.svg" alt="Web Development Icon">
+              </div>
+              <h4><a href="#">Веб-разработка</a></h4>
+              <p>Веб-приложения на React и Angular с масштабируемыми API на Node.js и Spring Boot. Чистые модульные архитектуры, оптимизированные для максимальной скорости.</p>
             </div>
           </div>
 
+          <!-- Card 3: Software Testing -->
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box">
-              <div class="icon"><img src="assets/img/services/test (1).svg" style="width: 50px; height: 50px;" > </div>
-              <h4><a href="">Тестирование программного обеспечения</a></h4>
-              <p>Тестирование программного обеспечения — это исследование, проводимое для предоставления заинтересованным сторонам информации о качестве тестируемого программного продукта или услуги. Тестирование программного обеспечения также может предоставить объективное, независимое представление о программном обеспечении, чтобы позволить бизнесу оценить и понять риски внедрения программного обеспечения. Методы тестирования включают процесс выполнения программы или приложения с целью обнаружения ошибок программного обеспечения (ошибок или других дефектов) и проверки того, что программный продукт пригоден для использования.</p>
+              <div class="icon">
+                <img src="assets/img/services/test.svg" alt="Software Testing Icon">
+              </div>
+              <h4><a href="#">Тестирование ПО</a></h4>
+              <p>Интеграционное, модульное и приемочное тестирование для обеспечения высочайшего качества. Устранение узких мест производительности и брешей в безопасности перед релизом.</p>
             </div>
           </div>
 
+          <!-- Card 4: Search Engine Setup -->
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box">
-              <div class="icon"><img src="assets/img/services/gear.png" style="width: 50px; height: 50px;" > </div>
-              <h4><a href="">Настройка и обслуживание поисковых систем</a></h4>
-              <p>Поисковая система — это программная система, предназначенная для выполнения веб-поиска (поиска в Интернете), что означает систематический поиск в WWW определенной информации, указанной в текстовом поисковом запросе. Результаты поиска обычно представляются в виде строки результатов, часто называемой страницами результатов поисковой системы (SERP). Информация может представлять собой смесь ссылок на веб-страницы, изображения, видео, инфографику, статьи, исследовательские работы и другие типы файлов. Некоторые поисковые системы также извлекают данные, доступные в базах данных или открытых каталогах.</p>
+              <div class="icon">
+                <img src="assets/img/services/gear.svg" alt="SEO & Setup Icon">
+              </div>
+              <h4><a href="#">Поддержка в поисковиках</a></h4>
+              <p>Индексация метаданных, внедрение микроразметки и аудит поисковой оптимизации для вывода вашего сайта на первые страницы поисковой выдачи и SERPs.</p>
             </div>
           </div>
 
+          <!-- Card 5: Alexa Voice Assistant -->
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box">
-              <div class="icon"><img src="assets/img/services/alexa.png" style="width: 50px; height: 50px;" > </div>
-              <h4><a href="">Разработка голосового помощника Alexa</a></h4>
-              <p>Alexa — это технология виртуального помощника с искусственным интеллектом, разработанная Amazon и впервые использованная в умных колонках Amazon Echo, разработанных Amazon Lab126. Он способен к голосовому взаимодействию, воспроизведению музыки, составлению списков дел, установке будильников, потоковой передаче подкастов, воспроизведению аудиокниг и предоставлению информации о погоде, пробках, спорте и другой информации в реальном времени, такой как новости. Alexa также может управлять несколькими интеллектуальными устройствами, используя себя в качестве системы домашней автоматизации. Пользователи могут расширить возможности Alexa, устанавливая «навыки» (дополнительные функции, разработанные сторонними поставщиками, в других условиях чаще называемые приложениями, такими как погодные программы и аудиофункции).</p>
+              <div class="icon">
+                <img src="assets/img/services/alexa.svg" alt="Alexa Development Icon">
+              </div>
+              <h4><a href="#">Разработка навыков Alexa</a></h4>
+              <p>Создание навыков Alexa с моделированием понимания естественного языка (NLU), распознавания речи и бэкенд-обработкой на AWS Lambda.</p>
             </div>
           </div>
 
+          <!-- Card 6: Google Voice Assistant -->
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box">
-              <div class="icon"><img src="assets/img/services/google-home.png" style="width: 50px; height: 50px;" > </div>
-              <h4><a href="">Разработка голосового помощника Google</a></h4>
-              <p>Google Assistant — это виртуальный помощник на базе искусственного интеллекта, разработанный Google, который в основном доступен на мобильных устройствах и устройствах для умного дома. В отличие от предыдущего виртуального помощника компании, Google Now, Google Assistant может вести двусторонний диалог.</p>
+              <div class="icon">
+                <img src="assets/img/services/google-home.svg" alt="Google Assistant Icon">
+              </div>
+              <h4><a href="#">Ассистент Google</a></h4>
+              <p>Интеграция с умным домом и двусторонние диалоговые интерфейсы на Dialogflow для естественного общения и автоматизации IoT.</p>
             </div>
           </div>
 
@@ -227,127 +212,138 @@ style="background-color: #E6F4F1;"
 
       </div>
     </section>
-    <!-- End Services Section -->
 
     <!-- ======= About Section ======= -->
-    <section id="about" class="about section-bg">
+    <section id="about" class="about">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-<!--          <h2>About</h2>-->
           <h3>Узнайте о нас <span>больше</span></h3>
-<!--          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>-->
+          <p>Создание связанных цифровых платформ, повышающих эффективность бизнеса.</p>
+        </div>
+
+        <div class="row align-items-center">
+          <!-- Left Column: Team Image -->
+          <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="100">
+            <img src="assets/img/about.jpg" class="img-fluid" alt="SimpleiTech About Showcase Image">
+          </div>
+          
+          <!-- Right Column: Description & Strategic Pillars -->
+          <div class="col-lg-6 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <p>
+              SimpleiTech поставляет программные продукты и услуги по разработке приложений, применяя лучшие стандарты проектирования. Наш фокус — чистый дизайн, надежная архитектура кода и своевременная поставка.
+            </p>
+            <p>
+              Деловая среда быстро меняется. Цифровизация больше не роскошь, а необходимость. Мы конструируем модульные системы, позволяющие вашему предприятию расти эффективно.
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mv-box">
+                  <h4><i class="bx bx-show"></i> Видение</h4>
+                  <p>Создать по-настоящему единую бизнес-платформу и предоставлять клиентам значимую информацию для эффективного ведения дел.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mv-box">
+                  <h4><i class="bx bx-target-lock"></i> Миссия</h4>
+                  <p>Расширять возможности разработчиков, оптимизировать рабочие процессы и воплощать творческие бизнес-идеи в надежный код.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Our Apps Section (Store-front layout) ======= -->
+    <section id="our-apps" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h3>Наши <span>Приложения</span></h3>
+          <p>Изучите наш набор клиентских служебных приложений. Вычисления выполняются на 100% локально в вашем браузере.</p>
         </div>
 
         <div class="row">
-          <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="100">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
+          
+          <!-- App 1: Fintech Calculator -->
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <a href="fintech-calculator.html" class="app-tile">
+              <div class="app-tile-content">
+                <div class="icon"><i class="bx bx-calculator"></i></div>
+                <h4>Финтех-калькулятор</h4>
+                <p class="description">Расчет ипотечных кредитов с возможностью досрочного погашения, планирование амортизации и структуры платежей.</p>
+              </div>
+              <div class="btn-launch">Запустить <i class="bx bx-right-arrow-alt"></i></div>
+            </a>
           </div>
-          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
-<!--            <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>-->
-            <p class="font-weight-lighter text-center">
-				Мы в SimpleiTech стремимся предоставить вам самые лучшие программные продукты и услуги по разработке приложений, применяя лучшие практики с упором на уникальность, удобство для клиентов и своевременную доставку, где бы вы ни находились.
-            </p>
-			  <p  class="font-weight-lighter text-center" >
-			  В SimpleiTech у нас есть увлеченная команда, которая поставляет продукты и всегда надеется быть лучшей частью индустрии программного обеспечения.
-			  </p>
-			  <p  class="font-weight-lighter text-center" >
-			  Деловая среда вокруг нас меняется каждый день к лучшему. Это приводит к сбоям в работе многих предприятий и может даже вывести их из бизнеса, если они не адаптируются к изменениям. Адаптация к цифровизации увеличивает шансы на рост бизнеса и привлечение потенциальных клиентов.
-			  </p>
-			  <h3 class="text-center">
-			  	Видение
-			  </h3>
-			  <p  class="font-weight-lighter text-center"  >
-				 Создать по-настоящему связанную бизнес-платформу и предоставлять нашим клиентам значимую информацию для эффективного ведения их бизнеса.
-			  </p>
-			  <h3 class="text-center">
-			  	Миссия
-			  </h3>
-			  <p  class="font-weight-lighter text-center" >
-				Расширять возможности творческого мира и воплощать идеи в жизнь.
-			  </p>
 
-           
+          <!-- App 2: PDF Utility -->
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <a href="pdf-utility.html" class="app-tile">
+              <div class="app-tile-content">
+                <div class="icon"><i class="bx bxs-file-pdf"></i></div>
+                <h4>PDF-утилита</h4>
+                <p class="description">Разделение, объединение и извлечение страниц из PDF-файлов. Безопасная обработка в вашем браузере.</p>
+              </div>
+              <div class="btn-launch">Запустить <i class="bx bx-right-arrow-alt"></i></div>
+            </a>
           </div>
+
+          <!-- App 3: Financial Health -->
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+            <a href="financial-health.html" class="app-tile">
+              <div class="app-tile-content">
+                <div class="icon"><i class="bx bx-pulse"></i></div>
+                <h4>Финансовое здоровье</h4>
+                <p class="description">Аудит личных расходов, коэффициентов сбережений и индексов финансовой безопасности с отчетами.</p>
+              </div>
+              <div class="btn-launch">Запустить <i class="bx bx-right-arrow-alt"></i></div>
+            </a>
+          </div>
+
+          <!-- App 4: Retirement Calculator -->
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="400">
+            <a href="retirement-calculator.html" class="app-tile">
+              <div class="app-tile-content">
+                <div class="icon"><i class="bx bx-run"></i></div>
+                <h4>Пенсионный калькулятор</h4>
+                <p class="description">Расчет накоплений с учетом инфляции и сложных процентов для планирования стабильного будущего.</p>
+              </div>
+              <div class="btn-launch">Запустить <i class="bx bx-right-arrow-alt"></i></div>
+            </a>
+          </div>
+
+          <!-- App 5: Money Power -->
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="500">
+            <a href="money-power.html" class="app-tile">
+              <div class="app-tile-content">
+                <div class="icon"><i class="bx bx-wallet"></i></div>
+                <h4>Сила ваших денег</h4>
+                <p class="description">Визуализация чистой стоимости, резервных фондов и разработка долгосрочных финансовых планов.</p>
+              </div>
+              <div class="btn-launch">Запустить <i class="bx bx-right-arrow-alt"></i></div>
+            </a>
+          </div>
+
+          <!-- App 6: Abacus Worksheet Generator -->
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="600">
+            <a href="abacus-generator.html" class="app-tile">
+              <div class="app-tile-content">
+                <div class="icon"><i class="bx bx-grid-alt"></i></div>
+                <h4>Генератор Абакуса</h4>
+                <p class="description">Создание математических листов для занятий с абакусом, с настраиваемыми ключами и матрицами ответов.</p>
+              </div>
+              <div class="btn-launch">Запустить <i class="bx bx-right-arrow-alt"></i></div>
+            </a>
+          </div>
+
         </div>
-
-      </div>
-    </section><!-- End About Section -->
-
-
-
-    <!-- ======= Frequently Asked Questions Section ======= -->
-    <!-- <section id="faq" class="faq section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>F.A.Q</h2>
-          <h3>Frequently Asked <span>Questions</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        <ul class="faq-list" data-aos="fade-up" data-aos-delay="100">
-
-          <li>
-            <a data-toggle="collapse" class="" href="#faq1">Non consectetur a erat nam at lectus urna duis? <i class="icofont-simple-up"></i></a>
-            <div id="faq1" class="collapse show" data-parent=".faq-list">
-              <p>
-                Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <a data-toggle="collapse" href="#faq2" class="collapsed">Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque? <i class="icofont-simple-up"></i></a>
-            <div id="faq2" class="collapse" data-parent=".faq-list">
-              <p>
-                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <a data-toggle="collapse" href="#faq3" class="collapsed">Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi? <i class="icofont-simple-up"></i></a>
-            <div id="faq3" class="collapse" data-parent=".faq-list">
-              <p>
-                Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <a data-toggle="collapse" href="#faq4" class="collapsed">Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla? <i class="icofont-simple-up"></i></a>
-            <div id="faq4" class="collapse" data-parent=".faq-list">
-              <p>
-                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <a data-toggle="collapse" href="#faq5" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="icofont-simple-up"></i></a>
-            <div id="faq5" class="collapse" data-parent=".faq-list">
-              <p>
-                Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <a data-toggle="collapse" href="#faq6" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="icofont-simple-up"></i></a>
-            <div id="faq6" class="collapse" data-parent=".faq-list">
-              <p>
-                Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit massa enim nec.
-              </p>
-            </div>
-          </li>
-
-        </ul>
 
       </div>
     </section>
-     -->
-    <!-- End Frequently Asked Questions Section -->
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
@@ -355,139 +351,105 @@ style="background-color: #E6F4F1;"
 
         <div class="section-title">
           <h3><span>Свяжитесь с нами</span></h3>
-          <p>По любым вопросам, требованиям и расценкам по проекту.</p>
+          <p>По любым вопросам, техническим требованиям к проектам и для расчета стоимости.</p>
         </div>
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
+          
+          <!-- Location Info Box -->
           <div class="col-lg-6">
-            <div class="info-box mb-4">
+            <div class="info-box mb-4 h-100">
               <i class="bx bx-map"></i>
-              <h3>Наш адрес</h3>
-              <p>Радхакришан, дом № 1-S-18-1265/2, рядом с храмом Панчалингешвара, Мангалор, Карнатака, Ледихилл - 575006.</p>
+              <h3>Наши адреса</h3>
+              <div class="row w-100">
+                <div class="col-md-6 mb-3 mb-md-0 px-4 text-left">
+                  <p><strong>Штаб-квартира:</strong><br>Радхакришан, дом № 1-S-18-1265/2, рядом с храмом Панчалингешвара, Мангалор, Карнатака, Ледихилл - 575006.</p>
+                </div>
+                <div class="col-md-6 px-4 text-left">
+                  <p><strong>Филиал:</strong><br>Радхакришна, участок № 3, дорога № 2, сектор 11, Новый Панвел Восток - 410206.</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="info-box  mb-4">
-              <i class="bx bx-envelope"></i>
-              <h3>Напишите нам</h3>
-              <p>sales@simpleitech.com</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="info-box  mb-4">
+          <!-- Contact Channels Info Box -->
+          <div class="col-lg-6">
+            <div class="info-box mb-4 h-100">
               <i class="bx bx-phone-call"></i>
-              <h3>Whatsapp / Позвоните нам</h3>
-              <p>+91 829 650 9546</p>
+              <h3>Контакты</h3>
+              <div class="row w-100">
+                <div class="col-md-6 mb-3 mb-md-0 px-4">
+                  <p><strong>Электронная почта</strong></p>
+                  <p><a href="mailto:sales@simpleitech.com">sales@simpleitech.com</a></p>
+                </div>
+                <div class="col-md-6 px-4">
+                  <p><strong>Whatsapp / Телефон</strong></p>
+                  <p>+91 829 650 9546</p>
+                </div>
+              </div>
             </div>
           </div>
 
         </div>
 
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-
-          <div class="col-lg-6 ">
-
-			  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d972.314339698258!2d74.832953!3d12.891166!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd7ff7b7b6c9b468f!2sRadhakrishan!5e0!3m2!1sen!2sus!4v1605529780830!5m2!1sen!2sus" class="mb-4 mb-lg-0" aria-hidden="false" tabindex="0"
-					   frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen
-					  ></iframe>
-			
+        <!-- Google Map Embedding Frame -->
+        <div class="row mt-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-12">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d972.314339698258!2d74.832953!3d12.891166!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd7ff7b7b6c9b468f!2sRadhakrishan!5e0!3m2!1sen!2sus!4v1605529780830!5m2!1sen!2sus"
+              aria-hidden="false" tabindex="0" frameborder="0"
+              style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
           </div>
-
-          <div class="col-lg-6">
-            <form id="sendEmailForm" role="form" class="php-email-form">
-              <div class="form-row">
-                <div class="col form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя" data-rule="minlen:4" data-msg="Пожалуйста, введите не менее 4 символов" />
-                  <div class="validate"></div>
-                </div>
-                <div class="col form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Ваш E-mail" data-rule="email" data-msg="Пожалуйста, введите действительный адрес электронной почты" />
-                  <div class="validate"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Тема" data-rule="minlen:4" data-msg="Пожалуйста, введите не менее 8 символов темы" />
-                <div class="validate"></div>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" id="message" data-rule="required" data-msg="Пожалуйста, напишите что-нибудь для нас" placeholder="Сообщение"></textarea>
-                <div class="validate"></div>
-              </div>
-              <div class="mb-3">
-                <div class="loading">Загрузка</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Ваше сообщение было отправлено. Спасибо!</div>
-              </div>
-              <div class="text-center"><button type="submit">Отправить сообщение</button></div>
-
-              <div id="form-messages"></div>
-
-
-            </form>
-          </div>
-
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
+    </section>
 
-  </main><!-- End #main -->
+  </main>
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
-
-
     <div class="footer-top">
       <div class="container">
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>
-				<span style="color: #00275D">Simple<span style="color:#E29E21">i</span>Tech</span>
-			  </h3>
+            <h3>Simple<span>i</span>Tech</h3>
             <p>
-              Радхакришан, дом № 1-S-18-1265/2, <br>
-              рядом с храмом Панчалингешвара, <br>
-              Мангалор, Карнатака, <br>
-              Ледихилл - 575006 <br><br>
+              Радхакришан, дом № 1-S-18-1265/2,<br>
+              рядом с храмом Панчалингешвара,<br>
+              Мангалор, Карнатака, 575006<br><br>
               <strong>Телефон:</strong> +91 829 650 9546<br>
-              <strong>Электронная почта:</strong> sales@simpleitech.com<br>
+              <strong>Email:</strong> sales@simpleitech.com<br>
             </p>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Полезные ссылки</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="index_ru.html">Главная</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">О нас</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Услуги</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Условия обслуживания</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Политика конфиденциальности</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#hero">Главная</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#about">О нас</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Услуги</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="pricing.html">Тарифные планы</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Наши услуги</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Веб-дизайн</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Веб-разработка</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Управление продуктом</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Услуги чат-ботов</a></li>
-				<li><i class="bx bx-chevron-right"></i> <a href="#">Разработка голосовых помощников (Google и Alexa)</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Графический дизайн</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Дизайн интерфейсов</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Веб-разработка</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Тестирование ПО</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Голосовые ассистенты</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Наши социальные сети</h4>
-            <p>Присоединяйтесь к нам в социальных сетях ниже.</p>
+            <h4>Мы в соцсетях</h4>
+            <p>Свяжитесь с нашей командой в удобном для вас канале.</p>
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
               <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <!-- <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a> -->
-              <!-- <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a> -->
               <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
             </div>
           </div>
@@ -497,20 +459,11 @@ style="background-color: #E6F4F1;"
     </div>
 
     <div class="container py-4">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Simpleitech</span></strong>. Все права защищены
+      <div class="copyright text-center text-muted">
+        &copy; Copyright <strong><span>SimpleiTech</span></strong>. Все права защищены.
       </div>
-<!--      <div class="credits">-->
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
-<!--
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
--->
     </div>
-  </footer><!-- End Footer -->
+  </footer>
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
@@ -527,15 +480,11 @@ style="background-color: #E6F4F1;"
   <script src="assets/vendor/venobox/venobox.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
 
-  
-  
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- add the required scripts for the email js -->
+  <!-- EmailJS Library Script -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-  <!-- <script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script> -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 </body>
 
 </html>
