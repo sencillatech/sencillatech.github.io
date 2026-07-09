@@ -5,13 +5,25 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+  <!-- Theme switcher head script to initialize light/dark mode instantly -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
   <!-- SEO Optimization: Title and Meta Tags -->
   <title>SimpleiTech — Web, Cloud, AI & Mobile Solutions</title>
   <meta content="SimpleiTech provides professional custom web development, DevOps infrastructure setup, conversational AI chatbots, and Android mobile applications." name="description">
   <meta content="SimpleiTech, custom web development, DevOps infrastructure, React developer, Node.js, Spring Boot, cloud hosting, Alexa development, Android app development" name="keywords">
   <meta name="author" content="SimpleiTech">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#060913">
+  <meta name="theme-color" content="#f8fafc">
 
   <!-- Open Graph / Facebook Preview Metadata -->
   <meta property="og:type" content="website">
@@ -65,7 +77,7 @@
         <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
         <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
         <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
-        <a href="index_ru.html" style="margin-left: 20px; color: var(--text-main); font-weight: 700; font-size: 0.8rem;">RU</a>
+        <a href="index_ru.html" style="margin-left: 20px; color: var(--text-muted); font-weight: 700; font-size: 0.85rem;">RU</a>
       </div>
     </div>
   </div>
@@ -78,16 +90,24 @@
         <h6>Simplify your work with Technology.</h6>
       </div>
       
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="pricing.html">Pricing</a></li>
-          <li><a href="#our-apps">Our Apps</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
+      <div class="d-flex align-items-center">
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="#our-apps">Our Apps</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        
+        <!-- Light/Dark Mode Switcher Button -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+          <i class="bx bx-moon"></i>
+          <i class="bx bx-sun"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -492,6 +512,18 @@
 
   <!-- EmailJS Library Script -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+
+  <!-- Theme Toggle Logic Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      
+      themeToggleBtn.addEventListener('click', function () {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    });
+  </script>
 </body>
 
 </html>

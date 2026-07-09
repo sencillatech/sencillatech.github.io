@@ -5,13 +5,25 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+  <!-- Theme switcher head script to initialize light/dark mode instantly -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
   <!-- SEO Optimization: Title and Meta Tags -->
   <title>SimpleiTech — Веб, Облако, ИИ и Мобильные решения</title>
   <meta content="SimpleiTech предоставляет профессиональную заказную веб-разработку, настройку инфраструктуры DevOps, диалоговых ИИ-чат-ботов и мобильных Android-приложений." name="description">
   <meta content="веб-разработка, дизайн пользовательского интерфейса, тестирование программного обеспечения, simpleitech, DevOps, облачный хостинг, разработка Alexa, разработка Android" name="keywords">
   <meta name="author" content="SimpleiTech">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#060913">
+  <meta name="theme-color" content="#f8fafc">
 
   <!-- Open Graph / Facebook Preview Metadata -->
   <meta property="og:type" content="website">
@@ -58,7 +70,7 @@
         <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
         <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
         <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
-        <a href="index.html" style="margin-left: 20px; color: var(--text-main); font-weight: 700; font-size: 0.8rem;">EN</a>
+        <a href="index.html" style="margin-left: 20px; color: var(--text-muted); font-weight: 700; font-size: 0.85rem;">EN</a>
       </div>
     </div>
   </div>
@@ -71,16 +83,24 @@
         <h6>Упростите свою работу с помощью технологий.</h6>
       </div>
       
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="index_ru.html">Главная</a></li>
-          <li><a href="#about">О нас</a></li>
-          <li><a href="#services">Услуги</a></li>
-          <li><a href="pricing.html">Цены</a></li>
-          <li><a href="#our-apps">Приложения</a></li>
-          <li><a href="#contact">Контакты</a></li>
-        </ul>
-      </nav>
+      <div class="d-flex align-items-center">
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li class="active"><a href="index_ru.html">Главная</a></li>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#services">Услуги</a></li>
+            <li><a href="pricing.html">Цены</a></li>
+            <li><a href="#our-apps">Приложения</a></li>
+            <li><a href="#contact">Контакты</a></li>
+          </ul>
+        </nav>
+        
+        <!-- Light/Dark Mode Switcher Button -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+          <i class="bx bx-moon"></i>
+          <i class="bx bx-sun"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -485,6 +505,18 @@
 
   <!-- EmailJS Library Script -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+
+  <!-- Theme Toggle Logic Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      
+      themeToggleBtn.addEventListener('click', function () {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    });
+  </script>
 </body>
 
 </html>

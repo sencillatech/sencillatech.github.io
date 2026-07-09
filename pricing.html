@@ -5,13 +5,25 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+  <!-- Theme switcher head script to initialize light/dark mode instantly -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
   <!-- SEO Optimization: Title and Meta Tags -->
   <title>Pricing Plans | SimpleiTech — Web, Cloud, AI & Mobile Solutions</title>
   <meta name="description" content="Explore SimpleiTech pricing plans for Web Development, Cloud & DevOps, Conversational AI, and Android Development. Transparent pricing for startups to enterprise.">
   <meta name="keywords" content="SimpleiTech pricing, web development pricing, DevOps plans, cloud hosting, Alexa development, chatbot pricing, Android development, React development, Spring Boot, Node.js, Terraform, Jenkins CI/CD">
   <meta name="author" content="SimpleiTech">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#060913">
+  <meta name="theme-color" content="#f8fafc">
 
   <!-- Open Graph Preview Metadata -->
   <meta property="og:type" content="website">
@@ -68,16 +80,24 @@
         <h6>Simplify your work with Technology.</h6>
       </div>
       
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="index.html#about">About</a></li>
-          <li><a href="index.html#services">Services</a></li>
-          <li class="active"><a href="pricing.html">Pricing</a></li>
-          <li><a href="index.html#our-apps">Our Apps</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
-      </nav>
+      <div class="d-flex align-items-center">
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li class="active"><a href="pricing.html">Pricing</a></li>
+            <li><a href="index.html#our-apps">Our Apps</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+        
+        <!-- Light/Dark Mode Switcher Button -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+          <i class="bx bx-moon"></i>
+          <i class="bx bx-sun"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -132,7 +152,7 @@
             <a href="index.html#contact" class="pricing-cta pricing-cta-outline">Get Started</a>
           </div>
 
-          <!-- Professional (Featured / Recommended) -->
+          <!-- Professional -->
           <div class="pricing-card featured">
             <span class="pricing-badge">Recommended</span>
             <div class="pricing-card-header">
@@ -568,6 +588,18 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Theme Toggle Logic Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      
+      themeToggleBtn.addEventListener('click', function () {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    });
+  </script>
 </body>
 
 </html>
