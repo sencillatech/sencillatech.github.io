@@ -208,6 +208,7 @@
     items: 1
   });
 
+
   // Init AOS
   function aos_init() {
     AOS.init({
@@ -217,6 +218,40 @@
   }
   $(window).on('load', function() {
     aos_init();
+  });
+
+  // Theme Switcher Logic
+  $(document).ready(function() {
+    const $themeToggle = $('#theme-toggle');
+    if ($themeToggle.length) {
+      const getTheme = () => document.documentElement.getAttribute('data-theme') || 'light';
+      
+      const updateToggleIcon = (theme) => {
+        const $icon = $themeToggle.find('i');
+        if (theme === 'dark') {
+          $icon.removeClass('bx-moon').addClass('bx-sun');
+        } else {
+          $icon.removeClass('bx-sun').addClass('bx-moon');
+        }
+      };
+
+      updateToggleIcon(getTheme());
+
+      $themeToggle.on('click', function() {
+        const currentTheme = getTheme();
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        const $meta = $('meta[name="color-scheme"]');
+        if ($meta.length) {
+          $meta.attr('content', newTheme);
+        }
+        
+        updateToggleIcon(newTheme);
+      });
+    }
   });
 
 })(jQuery);

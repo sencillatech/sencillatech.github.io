@@ -5,9 +5,18 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Simpleitech</title>
+  <title>Simpleitech | Веб-разработка, Облачные технологии, ИИ и Мобильные решения</title>
   <meta content="Мы в SimpleiTech стремимся предоставить вам самые лучшие программные продукты и услуги по разработке приложений." name="description">
   <meta content="веб-разработка, дизайн пользовательского интерфейса, тестирование программного обеспечения, simpleitech" name="keywords">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- FOUC Prevention Script -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 
   <!-- Favicons -->
   <link href="assets/img/favicons/favicon.ico" rel="icon">
@@ -28,14 +37,14 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-      gtag('config', 'G-55VEQSNG5F');
-    </script>
+    gtag('config', 'G-55VEQSNG5F');
+  </script>
 </head>
 
 <body>
@@ -60,104 +69,79 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
-	
-      <div class="col-lg-4" >
-      <h1 class="logo mr-auto"><a href="index_ru.html" style="color: #00275D">Simple<span>i</span>Tech</a></h1>
-      <h6 style="padding-top: 10px;">Упростите свою работу с помощью технологий.</h6>
-    </div>
+
+      <div class="col-lg-4">
+        <h1 class="logo mr-auto"><a href="index_ru.html">Simple<span>i</span>Tech</a></h1>
+        <h6 style="padding-top: 10px;">Упростите свою работу с помощью технологий.</h6>
+      </div>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt=""></a>-->
-      <div class="col-lg-8" >
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="index_ru.html">Главная</a></li>
-          <li><a href="#about">О нас</a></li>
-			    <!-- <li><a href="#services">Career</a></li> -->
-          <li><a href="#services">Услуги</a></li>
-		      <!-- <li><a href="#services">Tech expertise</a></li> -->
-          <li><a href="#contact">Контакты</a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
-		</div>
+      <div class="col-lg-8 d-flex align-items-center justify-content-end">
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li class="active"><a href="index_ru.html">Главная</a></li>
+            <li><a href="#about">О нас</a></li>
+            <!-- <li><a href="#services">Career</a></li> -->
+            <li><a href="#services">Услуги</a></li>
+            <!-- <li><a href="#services">Tech expertise</a></li> -->
+            <li><a href="#contact">Контакты</a></li>
+          </ul>
+        </nav><!-- .nav-menu -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+          <i class="bx bx-moon"></i>
+        </button>
+      </div>
     </div>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
-	   <div class="container" >
-<!--
-		   <div class="row">
-			    <div class="container" data-aos="zoom-out" data-aos-delay="100">
-		<h1>Welcome to <span style="color: #00275D">Simple<span style="color:#E29E21;">i</span>Tech</spa>
-      </h1>
-      <h2>Simplify your work with Technology.</h2>
+    <div class="container">
+      <div class="row align-items-center w-100">
+        <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="zoom-out" data-aos-delay="100">
+          <h1>Упростите Вашу Работу С <span>Технологиями</span></h1>
+          <h2>Мы создаем высокопроизводительные веб-приложения, безопасную облачную инфраструктуру и интеллектуальные интеграции разговорного ИИ для расширения возможностей вашего бизнеса.</h2>
+          <div class="d-flex">
+            <a href="#services" class="btn-get-started scrollto">Наши Услуги</a>
+            <a href="#contact" class="btn-watch-video scrollto"><i class="bx bx-envelope"></i> <span>Связаться</span></a>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-graphic-container d-none d-lg-block" data-aos="zoom-in" data-aos-delay="200">
+          <div class="glass-dashboard animate-float">
+            <div class="dashboard-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="dashboard-title">simpleitech.com</span>
+            </div>
+            <div class="dashboard-body">
+              <div class="code-line"><span class="keyword">const</span> <span class="variable">simpleiTech</span> = <span class="keyword">new</span> <span class="class-name">Agency</span>();</div>
+              <div class="code-line indent-1"><span class="variable">simpleiTech</span>.<span class="method">simplifyWork</span>({</div>
+              <div class="code-line indent-2"><span class="key">design</span>: <span class="string">"Premium UI/UX"</span>,</div>
+              <div class="code-line indent-2"><span class="key">development</span>: <span class="string">"Fullstack Web"</span>,</div>
+              <div class="code-line indent-2"><span class="key">hosting</span>: <span class="string">"Cloud AWS/GCP"</span>,</div>
+              <div class="code-line indent-2"><span class="key">aiAssistant</span>: <span class="literal">true</span></div>
+              <div class="code-line indent-1">});</div>
+            </div>
+            <!-- Floating Stats Badges -->
+            <div class="floating-badge badge-1 animate-pulse">
+              <i class="bx bx-pulse text-warning"></i>
+              <div>
+                <div class="badge-title">Удовлетворенность</div>
+                <div class="badge-val">100% Фокус</div>
+              </div>
+            </div>
+            <div class="floating-badge badge-2 animate-float-delayed">
+              <i class="bx bx-bolt-circle text-primary"></i>
+              <div>
+                <div class="badge-title">Аптайм Серверов</div>
+                <div class="badge-val">99.9% Мониторинг</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-		   </div>
--->
-		  <div class="row">
-
-<!--
-			  <div class="col-lg-6" >
-				<h1>Welcome to <span style="color: #00275D">Simple<span style="color:#E29E21;">i</span>Tech</span>
-				  </h1>
-				  <h2>Simplify your work with Technology.</h2>
-			  </div>
-style="background-color: #E6F4F1;"
--->
-			  <!--div class="col-lg-12" >
-				  <span style=" font-size: large; font-weight: 500;"  ><b>Get your website done & Hosting free for 1 yr</b> </span>
-				  <span style=" color:#E29E21; font-size:8vw; font-weight: bolder;" >
-					  @ 
-				  </span>
-				   <span style=" color:#00275D; font-size:8vw; font-weight: bolder;" >
-					  2499
-				  </span>
-				   <span style=" color:#E29E21; font-size:8vw; font-weight: bolder;" >
-					  /-
-				  </span>
-			  </div>
-			 <div class="col-lg-12" >
-          <span style=" font-size: xx-small; "  >
-              <span class="fb ico11">
-                <span style="color: red;">*</span>
-                </span><a href="#" style="color:black; font-weight: bolder;">Terms & conditions Apply.</a></span>
-          </span>
-          </div-->
-        <!--  <i  class="fab fa-whatsapp fa-7x"></i>
-			  </div>
-      </div>    
-      <div class="col-lg-12" >
--->
-<!--div class="nopadding col-lg-5 " style="background-color: #007DBF;" -->
-   
-  
-
-  <!-- <i  class="fab fa-whatsapp fa-3x fa-spin  "></i> -->
-  <!-- <i class="fa fa-whatsapp" ></i> -->
-  <!-- <i class="fa fa-whatsapp" style="font-size:36px" ></i> -->
-  <!-- <i class="fas fa-camera fa-3x"></i> -->
-  <!-- <i class="fab fa-whatsapp fa-sm" aria-hidden="true"></i> -->
-  <!--h1 class="p-10" style=" color:#fff; font-size: x-large; font-weight: 600;"  > Call or <img src="https://i.ibb.co/N9P0K9H/239px-Whats-App-svg.png" width="50" height="50"/> &nbsp; +91 829 650 9546</h1>
-  </div-->
-
-
-
-<!--
-    <div class="container" data-aos="zoom-out" data-aos-delay="100">  
-		<h1>Welcome to <span style="color: #00275D">Simple<span style="color:#E29E21;">i</span>Tech</spa>
-      </h1>
-      <h2>Simplify your work with Technology.</h2>
-    </div>
--->
-	
-<!--
-	<div class="container" data-aos="zoom-out" data-aos-delay="100">
-		<h1>Welcome to <span style="color: #00275D">Simple<span style="color:#E29E21;">i</span>Tech</spa>
-      </h1>
-      <h2>Simplify your work with Technology.</h2>
-
-    </div>
--->
   </section><!-- End Hero -->
 
   <main id="main">
