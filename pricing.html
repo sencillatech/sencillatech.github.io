@@ -11,6 +11,15 @@
   <meta name="author" content="SimpleiTech">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#00275D">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- FOUC Prevention: apply saved theme before first paint -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
 
   <!-- Favicons -->
   <link href="assets/img/favicons/favicon.ico" rel="icon">
@@ -61,10 +70,10 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
       <div class="col-lg-4">
-        <h1 class="logo mr-auto"><a href="index.html" style="color: #00275D">Simple<span>i</span>Tech</a></h1>
+        <h1 class="logo mr-auto"><a href="index.html">Simple<span>i</span>Tech</a></h1>
         <h6 style="padding-top: 10px;">Simplify your work with Technology.</h6>
       </div>
-      <div class="col-lg-8">
+      <div class="col-lg-8 d-flex align-items-center justify-content-end">
         <nav class="nav-menu d-none d-lg-block">
           <ul>
             <li><a href="index.html">Home</a></li>
@@ -75,6 +84,9 @@
             <li><a href="index.html#our-apps">Our Apps</a></li>
           </ul>
         </nav>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme">
+          <i class="bx bx-moon"></i>
+        </button>
       </div>
     </div>
   </header>
@@ -486,7 +498,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3><span style="color: #00275D">Simple<span style="color:#E29E21">i</span>Tech</span></h3>
+            <h3><span>Simple<span style="color: var(--color-accent)">i</span>Tech</span></h3>
             <p>
               Radhakrishan, HO NO 1-S-18-1265/2, <br>
               Near Panchalingeshwara Temple, <br>

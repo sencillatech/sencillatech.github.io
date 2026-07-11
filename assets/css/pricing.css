@@ -505,3 +505,100 @@
 .pricing-custom-quote .container {
   animation: pricingFadeInUp 0.7s ease-out both;
 }
+
+/* ---------- Dark Mode Overrides ---------- */
+html[data-theme="dark"] .pricing-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a5f 100%);
+}
+
+html[data-theme="dark"] .pricing-section:nth-child(odd) {
+  background: #0f172a;
+}
+
+html[data-theme="dark"] .pricing-section:nth-child(even) {
+  background: #1e293b;
+}
+
+html[data-theme="dark"] .pricing-section-header h2 {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .pricing-section-header h2 span {
+  color: #3b82f6;
+}
+
+html[data-theme="dark"] .pricing-section-header p {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .pricing-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .pricing-card:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  border-color: #60a5fa;
+}
+
+html[data-theme="dark"] .pricing-card.featured {
+  border-color: #f59e0b;
+  box-shadow: 0 8px 30px rgba(245, 158, 11, 0.15);
+}
+
+html[data-theme="dark"] .pricing-card.featured:hover {
+  box-shadow: 0 20px 60px rgba(245, 158, 11, 0.2);
+}
+
+html[data-theme="dark"] .pricing-card-header {
+  border-bottom-color: #334155;
+}
+
+html[data-theme="dark"] .pricing-card-header h3 {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .pricing-price .currency,
+html[data-theme="dark"] .pricing-price .amount {
+  color: #60a5fa;
+}
+
+html[data-theme="dark"] .pricing-price .period {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .pricing-price-note {
+  color: #64748b;
+}
+
+html[data-theme="dark"] .pricing-card-header .plan-type {
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+}
+
+html[data-theme="dark"] .pricing-features li {
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .pricing-features li.not-included {
+  color: #475569;
+}
+
+html[data-theme="dark"] .pricing-features li.not-included .check-icon {
+  background: #475569;
+}
+
+html[data-theme="dark"] .pricing-cta-outline {
+  border-color: #60a5fa;
+  color: #60a5fa;
+}
+
+html[data-theme="dark"] .pricing-cta-outline:hover {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+html[data-theme="dark"] .pricing-custom-quote {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}

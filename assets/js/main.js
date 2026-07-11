@@ -171,12 +171,14 @@
   });
 
   // Testimonials carousel (uses the Owl Carousel library)
-  $(".testimonials-carousel").owlCarousel({
-    autoplay: true,
-    dots: true,
-    loop: true,
-    items: 1
-  });
+  if ($.fn.owlCarousel) {
+    $(".testimonials-carousel").owlCarousel({
+      autoplay: true,
+      dots: true,
+      loop: true,
+      items: 1
+    });
+  }
 
   // Porfolio isotope and filter
   $(window).on('load', function() {
@@ -201,12 +203,14 @@
   });
 
   // Portfolio details carousel
-  $(".portfolio-details-carousel").owlCarousel({
-    autoplay: true,
-    dots: true,
-    loop: true,
-    items: 1
-  });
+  if ($.fn.owlCarousel) {
+    $(".portfolio-details-carousel").owlCarousel({
+      autoplay: true,
+      dots: true,
+      loop: true,
+      items: 1
+    });
+  }
 
   // Init AOS
   function aos_init() {
@@ -217,6 +221,40 @@
   }
   $(window).on('load', function() {
     aos_init();
+  });
+
+  // ---- Theme Switcher Logic ----
+  $(document).ready(function() {
+    var $toggle = $('#theme-toggle');
+    if (!$toggle.length) return;
+
+    function updateIcon(theme) {
+      var $icon = $toggle.find('i');
+      if (theme === 'dark') {
+        $icon.removeClass('bx-moon').addClass('bx-sun');
+      } else {
+        $icon.removeClass('bx-sun').addClass('bx-moon');
+      }
+    }
+
+    // Set initial icon based on current theme (already applied by inline script)
+    var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    updateIcon(currentTheme);
+
+    $toggle.on('click', function() {
+      var theme = document.documentElement.getAttribute('data-theme') || 'light';
+      var newTheme = theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      // Update the color-scheme meta tag
+      var $meta = $('meta[name="color-scheme"]');
+      if ($meta.length) {
+        $meta.attr('content', newTheme === 'dark' ? 'dark light' : 'light dark');
+      }
+
+      updateIcon(newTheme);
+    });
   });
 
 })(jQuery);
