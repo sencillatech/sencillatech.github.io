@@ -54,20 +54,6 @@
   <!-- Calculator CSS -->
   <link href="assets/css/calculator.css" rel="stylesheet">
 
-  <!-- React & ReactDOM -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-
-  <!-- Babel for JSX -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script>
-    Babel.registerPreset('react-classic', {
-      presets: [
-        [Babel.availablePresets['react'], { runtime: 'classic' }]
-      ]
-    });
-  </script>
-
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -108,35 +94,7 @@
   </script>
 
   <style>
-    /* Mutual Fund specific overrides to match sencillatech theme */
-    .mf-glass-panel {
-      background: rgba(255, 255, 255, 0.97);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--calc-border, #dce6f1);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 39, 93, 0.1);
-    }
-
-    .mf-slider::-webkit-slider-thumb {
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      background: #00275D;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid #fff;
-      box-shadow: 0 2px 6px rgba(0, 39, 93, 0.3);
-    }
-
-    .mf-slider {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, #00275D, #007DBF);
-      border-radius: 3px;
-      outline: none;
-    }
-
+    /* Mutual Fund custom overrides to match Sencillatech theme */
     .mf-tab-active {
       background: #00275D !important;
       color: #fff !important;
@@ -145,51 +103,15 @@
 
     .mf-tab-inactive {
       color: #555 !important;
+      background: transparent !important;
     }
 
     .mf-tab-inactive:hover {
       color: #00275D !important;
     }
 
-    .mf-maturity-border {
-      border-top: 4px solid #00275D !important;
-    }
-
-    .mf-cagr-bar {
-      background: rgba(0, 39, 93, 0.08) !important;
-    }
-
-    .mf-cagr-bar span:first-child {
-      color: #00275D;
-    }
-
-    .mf-cagr-bar span:last-child {
-      color: #00275D;
-      font-weight: 700;
-    }
-
-    .mf-maturity-value {
-      color: #00275D !important;
-    }
-
-    .mf-returns-value {
-      color: #007DBF !important;
-    }
-
     .mf-checkbox {
       accent-color: #00275D;
-    }
-
-    .mf-summary-label {
-      color: #E29E21;
-      font-weight: 600;
-    }
-
-    /* Responsive for the mutual fund page */
-    @media (max-width: 768px) {
-      .mf-controls-panel {
-        margin-bottom: 20px;
-      }
     }
   </style>
 </head>
@@ -212,10 +134,269 @@
 
   <!-- ======= Page Wrapper for Right Sidebar Layout ======= -->
   <div class="calc-page-wrapper">
-    <!-- ======= Mutual Fund App (React) ======= -->
-    <div id="root"
-      style="width:100%; max-width:1200px; margin:0 auto; padding: 24px 20px; box-sizing: border-box; min-height: 800px;">
-    </div>
+    <!-- ======= Calculator Content ======= -->
+    <main class="calc-main-content" role="main">
+      
+      <!-- Inputs Section -->
+      <section class="calc-box" aria-label="Investment inputs">
+        <!-- Switch tabs for Monthly SIP vs One-time Lumpsum -->
+        <div style="display: flex; background: var(--calc-bg, #f6f9fe); padding: 4px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--calc-border, #dce6f1);">
+          <button id="tabSIP" class="mf-tab-active" style="flex: 1; padding: 8px 0; font-size: 0.9rem; font-weight: 600; border-radius: 6px; border: none; cursor: pointer; transition: all 0.2s; font-family: 'Open Sans', sans-serif;">Monthly SIP</button>
+          <button id="tabLumpsum" class="mf-tab-inactive" style="flex: 1; padding: 8px 0; font-size: 0.9rem; font-weight: 600; border-radius: 6px; border: none; cursor: pointer; transition: all 0.2s; font-family: 'Open Sans', sans-serif;">One-time Lumpsum</button>
+        </div>
+
+        <div class="calc-input-group">
+          <label id="amountLabel" for="amount">Monthly Investment (₹)</label>
+          <input type="number" id="amount" value="10000" min="500" max="1000000" step="500">
+          <input type="range" id="amountRange" min="500" max="1000000" value="10000" step="500" class="calc-slider">
+        </div>
+
+        <div class="calc-input-group">
+          <label for="returnRate">Expected Annual Return (%)</label>
+          <input type="number" id="returnRate" value="12" min="1" max="30" step="0.1">
+          <input type="range" id="returnRateRange" min="1" max="30" value="12" step="0.1" class="calc-slider">
+        </div>
+
+        <div class="calc-input-group">
+          <label for="tenure">Investment Tenure (Years)</label>
+          <input type="number" id="tenure" value="10" min="1" max="40" step="1">
+          <input type="range" id="tenureRange" min="1" max="40" value="10" class="calc-slider">
+        </div>
+
+        <hr>
+
+        <div style="margin-top: 24px;">
+          <h3 style="font-size: 1.15rem; font-weight: 700; color: #00275D; margin-bottom: 18px; border: none; padding: 0;">Advanced Tools</h3>
+
+          <!-- Annual Step-up SIP -->
+          <div id="stepUpSection" style="background: #f6f9fe; padding: 14px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #dce6f1;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 0;">
+              <input type="checkbox" id="stepUpEnabled" class="mf-checkbox" style="width: 18px; height: 18px; margin-right: 8px;">
+              <span style="font-size: 0.9rem; font-weight: 600; color: #333;">Annual Step-up SIP</span>
+            </label>
+            <div id="stepUpFields" style="display: none; padding-left: 28px; gap: 10px; margin-top: 10px;">
+              <select id="stepUpType" style="font-size: 0.85rem; border: 1px solid #dce6f1; border-radius: 6px; padding: 6px 10px; flex: 1;">
+                <option value="percentage">% Increase</option>
+                <option value="fixed">₹ Increase</option>
+              </select>
+              <input type="number" id="stepUpValue" value="10" style="font-size: 0.85rem; border: 1px solid #dce6f1; border-radius: 6px; padding: 6px 10px; width: 80px; text-align: right;">
+            </div>
+          </div>
+
+          <!-- Stay Invested Post-Tenure -->
+          <div style="background: #f6f9fe; padding: 14px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #dce6f1;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 0;">
+              <input type="checkbox" id="stayInvestedEnabled" class="mf-checkbox" style="width: 18px; height: 18px; margin-right: 8px;">
+              <span style="font-size: 0.9rem; font-weight: 600; color: #333;">Stay Invested Post-Tenure</span>
+            </label>
+            <div id="stayInvestedFields" style="display: none; padding-left: 28px; margin-top: 10px;">
+              <div class="calc-input-group" style="margin-bottom: 0;">
+                <label for="stayInvestedYears">Additional Years</label>
+                <input type="number" id="stayInvestedYears" value="5" min="1" max="30" step="1">
+                <input type="range" id="stayInvestedYearsRange" min="1" max="30" value="5" class="calc-slider">
+              </div>
+            </div>
+          </div>
+
+          <!-- Adjust for Inflation -->
+          <div style="background: #f6f9fe; padding: 14px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #dce6f1;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 0;">
+              <input type="checkbox" id="inflationEnabled" class="mf-checkbox" style="width: 18px; height: 18px; margin-right: 8px;">
+              <span style="font-size: 0.9rem; font-weight: 600; color: #333;">Adjust for Inflation (6%)</span>
+            </label>
+          </div>
+
+          <!-- Apply Tax on Profits -->
+          <div style="background: #f6f9fe; padding: 14px; border-radius: 10px; border: 1px solid #dce6f1;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 0;">
+              <input type="checkbox" id="taxEnabled" class="mf-checkbox" style="width: 18px; height: 18px; margin-right: 8px;">
+              <span style="font-size: 0.9rem; font-weight: 600; color: #333;">Apply Tax on Profits (12.5%)</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Side Section -->
+      <aside aria-label="Investment results">
+        <div class="calc-summary-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 16px;">
+          <div class="calc-card calc-box" style="margin-bottom: 0; padding: 16px;">
+            <h4 style="font-size: 0.8rem; color: #64748b; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Total Invested</h4>
+            <div class="value" id="totalInvestedVal" style="font-size: 1.35rem; font-weight: 700; color: #333;">₹0</div>
+          </div>
+          <div class="calc-card calc-box" style="margin-bottom: 0; padding: 16px;">
+            <h4 id="totalReturnsLabel" style="font-size: 0.8rem; color: #64748b; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Total Returns</h4>
+            <div class="value" id="totalReturnsVal" style="font-size: 1.35rem; font-weight: 700; color: #007DBF;">₹0</div>
+          </div>
+          <div class="calc-card calc-box" style="margin-bottom: 0; padding: 16px; border-top: 4px solid #00275D !important;">
+            <h4 style="font-size: 0.8rem; color: #64748b; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Maturity Value</h4>
+            <div class="value" id="maturityVal" style="font-size: 1.55rem; font-weight: 800; color: #00275D;">₹0</div>
+          </div>
+        </div>
+
+        <!-- Purchasing Power Banner -->
+        <div id="inflationSection" class="calc-box" style="display: none; padding: 14px; background: rgba(226,158,33,0.08); border: 1px solid rgba(226,158,33,0.3); align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;">
+          <div>
+            <p style="font-size: 0.85rem; font-weight: 600; color: #8B6914; margin: 0;">Purchasing Power Today</p>
+            <p style="font-size: 0.75rem; color: #a67c00; margin: 4px 0 0;">Value adjusted for 6% inflation.</p>
+          </div>
+          <h4 id="purchasingPowerVal" style="font-size: 1.2rem; font-weight: 700; color: #8B6914; margin: 0;">₹0</h4>
+        </div>
+
+        <!-- Doughnut Chart -->
+        <div class="calc-box">
+          <div class="calc-chart-wrapper" style="height: 250px; position: relative;">
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Wealth Accumulation Line Chart (Full Width) -->
+      <section class="calc-bar-chart-section calc-box calc-full-width" aria-label="Wealth growth graph">
+        <h3 style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+          <span><i class="bx bx-line-chart"></i> Wealth Accumulation Breakdown</span>
+          <span style="font-size: 0.85rem; font-weight: 500; color: #64748b; background: rgba(0, 39, 93, 0.08); padding: 4px 10px; border-radius: 6px;">
+            Effective CAGR: <span id="cagrVal" style="color: #00275D; font-weight: 700;">0.00%</span>
+          </span>
+        </h3>
+        <div class="calc-bar-chart-wrapper" style="height: 350px; position: relative; margin-top: 15px;">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Yearly Wealth Growth Schedule Table (Full Width) -->
+      <section class="calc-schedule calc-box calc-full-width" aria-label="Wealth growth projection schedule table">
+        <h3>Yearly Wealth Growth Projection</h3>
+        <div class="calc-table-responsive">
+          <table id="growthTable">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Invested Amount (₹)</th>
+                <th>Estimated Returns (₹)</th>
+                <th>Tax Liability (₹)</th>
+                <th>Inflation Impact (₹)</th>
+                <th>Net Value (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Table rows generated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- AdSense In-Content Ad -->
+      <div class="calc-ad-container calc-ad-in-content calc-full-width" style="max-width:100%;">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2630317528778433"
+          data-ad-slot="IN_CONTENT_AD_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+            }, 100);
+          });
+        </script>
+      </div>
+
+      <!-- Rich Educational Content Section to meet AdSense Guidelines -->
+      <section class="calc-guide-section calc-box calc-full-width">
+        <h2 style="color: #00275D; font-weight: 700; margin-bottom: 20px; font-size: 1.5rem;">Comprehensive Guide to Mutual Fund SIP & Lumpsum Investments</h2>
+        <p style="line-height: 1.6; color: #444;">
+          Mutual funds are managed investment vehicles that pool money from multiple investors to purchase a diversified
+          portfolio of stocks, bonds, or other securities. Making informed mutual fund investments is essential to long-term
+          wealth compounding. This advanced Mutual Fund Calculator allows you to estimate returns for both Systematic
+          Investment Plans (SIP) and one-time Lumpsum investments, adjust for inflation impact, evaluate capital gains tax
+          liability, and plan your annual step-up amounts.
+        </p>
+
+        <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">
+          Understanding Lumpsum vs. SIP Returns</h3>
+        <p style="line-height: 1.6; color: #444;">
+          A <strong>Lumpsum investment</strong> is a single, one-time bulk investment in a mutual fund scheme. A <strong>SIP (Systematic
+          Investment Plan)</strong> is a disciplined approach where you invest a fixed sum at regular intervals (usually monthly).
+          SIPs leverage rupee cost averaging—buying more units when prices are low and fewer units when prices are
+          high—reducing your overall cost basis.
+        </p>
+
+        <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">Mathematical Return Formulas</h3>
+
+        <div style="margin-bottom: 15px;">
+          <strong style="color: #00275D;">1. Lumpsum Compound Growth Formula:</strong>
+          <div
+            style="background: #f8f9fa; padding: 12px; border-left: 4px solid #E29E21; font-family: monospace; margin: 8px 0; font-size: 1.05rem; text-align: center;">
+            A = P &times; (1 + i)^n
+          </div>
+          <p style="line-height: 1.6; color: #444; font-size: 0.9rem; margin-left: 10px;">
+            Where <em>A</em> is the final amount, <em>P</em> is the principal invested, <em>i</em> is the annual return
+            rate, and <em>n</em> is the tenure in years.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <strong style="color: #00275D;">2. Monthly SIP Return Formula (Future Value of Annuity):</strong>
+          <div
+            style="background: #f8f9fa; padding: 12px; border-left: 4px solid #E29E21; font-family: monospace; margin: 8px 0; font-size: 1.05rem; text-align: center;">
+            M = P &times; [ (1 + i)^k - 1 ] &times; (1 + i) / i
+          </div>
+          <p style="line-height: 1.6; color: #444; font-size: 0.9rem; margin-left: 10px;">
+            Where <em>M</em> is the maturity value, <em>P</em> is monthly SIP, <em>i</em> is monthly return rate (annual
+            rate / 12 / 100), and <em>k</em> is total number of monthly payments (years &times; 12).
+          </p>
+        </div>
+
+        <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">Advanced Variables: Step-Up, Inflation, and Taxes</h3>
+        <ul style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: disc;">
+          <li><strong>Annual Step-up SIP:</strong> Increasing your SIP contribution by a fixed amount or percentage every
+            year (e.g. as your salary grows) increases your final retirement corpus significantly.</li>
+          <li><strong>Inflation Adjustment:</strong> Inflation erodes the purchasing power of your money. Our calculator
+            discounts your final value by your assumed inflation rate to display what that future amount is worth in today's
+            currency.</li>
+          <li><strong>Capital Gains Tax:</strong> In India, equity mutual fund profits are subject to Long-Term Capital
+            Gains (LTCG) tax (currently 12.5% on gains exceeding ₹1.25 lakh per year). Factoring this tax rate in gives a
+            more realistic net maturity projection.</li>
+        </ul>
+
+        <h3
+          style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px;">
+          Frequently Asked Questions (FAQ)</h3>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">1. What is the difference between Direct and Regular mutual funds?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            Direct plans are offered directly by the mutual fund house without commissions. Regular plans are sold through
+            distributors or brokers, who receive a commission. Direct plans have a lower expense ratio, meaning more of your
+            money is invested, leading to higher compounded returns over long periods.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">2. Can I adjust or stop my SIP payments at any time?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            Yes. SIPs are highly flexible. You can pause, stop, increase, or decrease your monthly SIP amount without any
+            penalty. If you miss a SIP payment due to low bank balance, the mutual fund house will not charge you, though
+            your bank may charge a small fee for ECS bounce.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">3. What is CAGR in mutual funds?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            CAGR stands for Compound Annual Growth Rate. It represents the smooth annual rate at which an investment grows
+            from start to finish, assuming profits are reinvested. It is the best metric to evaluate long-term fund
+            performance and compare returns across different asset classes.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">4. Are mutual fund returns guaranteed?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px;">
+            No. Mutual fund investments are subject to market risks. Debt funds carry credit and interest rate risk, while
+            equity funds fluctuate based on stock market conditions. Historically, equity mutual fund portfolios have
+            generated inflation-beating compound returns of 12% to 15% over long periods of 7+ years.
+          </p>
+        </div>
+      </section>
+    </main>
 
     <!-- ======= Right Sidebar Navigation ======= -->
     <aside class="calc-sidebar-nav" aria-label="Page navigation">
@@ -224,11 +405,9 @@
       </div>
       <div class="calc-sidebar-body">
         <a href="fintech-calculator.html"><i class="bx bx-home-alt" style="margin-right: 8px;"></i> Home Loan EMI</a>
-        <a href="personal-loan-calculator.html"><i class="bx bx-user" style="margin-right: 8px;"></i> Personal Loan
-          EMI</a>
+        <a href="personal-loan-calculator.html"><i class="bx bx-user" style="margin-right: 8px;"></i> Personal Loan EMI</a>
         <a href="car-loan-calculator.html"><i class="bx bx-car" style="margin-right: 8px;"></i> Car Loan EMI</a>
-        <a href="mutual-fund-calculator.html" class="active"><i class="bx bx-trending-up"
-            style="margin-right: 8px;"></i> Mutual Fund</a>
+        <a href="mutual-fund-calculator.html" class="active"><i class="bx bx-trending-up" style="margin-right: 8px;"></i> Mutual Fund</a>
         <a href="pdf-utility.html"><i class="bx bxs-file-pdf" style="margin-right: 8px;"></i> PDF Utility</a>
         <a href="financial-health.html"><i class="bx bx-heart" style="margin-right: 8px;"></i> Financial Health</a>
         <a href="retirement-calculator.html"><i class="bx bx-shield" style="margin-right: 8px;"></i> Retirement</a>
@@ -237,126 +416,6 @@
       </div>
     </aside>
   </div>
-
-  <!-- ======= AdSense In-Content Ad ======= -->
-  <div class="calc-ad-container calc-ad-in-content" style="max-width:1200px;">
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2630317528778433"
-      data-ad-slot="IN_CONTENT_AD_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        setTimeout(function () {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        }, 100);
-      });
-    </script>
-  </div>
-
-  <!-- Rich Educational Content Section to meet AdSense Guidelines -->
-  <section class="calc-guide-section container mt-4"
-    style="max-width: 1200px; padding: 30px; background: #fff; border: 1px solid #dce6f1; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 39, 93, 0.1); margin-bottom: 25px;">
-    <h2 style="color: #00275D; font-weight: 700; margin-bottom: 20px; font-size: 1.5rem;">Comprehensive Guide to Mutual
-      Fund SIP & Lumpsum Investments</h2>
-    <p style="line-height: 1.6; color: #444;">
-      Mutual funds are managed investment vehicles that pool money from multiple investors to purchase a diversified
-      portfolio of stocks, bonds, or other securities. Making informed mutual fund investments is essential to long-term
-      wealth compounding. This advanced Mutual Fund Calculator allows you to estimate returns for both Systematic
-      Investment Plans (SIP) and one-time Lumpsum investments, adjust for inflation impact, evaluate capital gains tax
-      liability, and plan your annual step-up amounts.
-    </p>
-
-    <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">
-      Understanding Lumpsum vs. SIP Returns</h3>
-    <p style="line-height: 1.6; color: #444;">
-      A **Lumpsum investment** is a single, one-time bulk investment in a mutual fund scheme. A **SIP (Systematic
-      Investment Plan)** is a disciplined approach where you invest a fixed sum at regular intervals (usually monthly).
-      SIPs leverage rupee cost averaging—buying more units when prices are low and fewer units when prices are
-      high—reducing your overall cost basis.
-    </p>
-
-    <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">Mathematical
-      Return Formulas</h3>
-
-    <div style="margin-bottom: 15px;">
-      <strong style="color: #00275D;">1. Lumpsum Compound Growth Formula:</strong>
-      <div
-        style="background: #f8f9fa; padding: 12px; border-left: 4px solid #E29E21; font-family: monospace; margin: 8px 0; font-size: 1.05rem; text-align: center;">
-        A = P &times; (1 + i)^n
-      </div>
-      <p style="line-height: 1.6; color: #444; font-size: 0.9rem; margin-left: 10px;">
-        Where <em>A</em> is the final amount, <em>P</em> is the principal invested, <em>i</em> is the annual return
-        rate, and <em>n</em> is the tenure in years.
-      </p>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-      <strong style="color: #00275D;">2. Monthly SIP Return Formula (Future Value of Annuity):</strong>
-      <div
-        style="background: #f8f9fa; padding: 12px; border-left: 4px solid #E29E21; font-family: monospace; margin: 8px 0; font-size: 1.05rem; text-align: center;">
-        M = P &times; [ (1 + i)^k - 1 ] &times; (1 + i) / i
-      </div>
-      <p style="line-height: 1.6; color: #444; font-size: 0.9rem; margin-left: 10px;">
-        Where <em>M</em> is the maturity value, <em>P</em> is monthly SIP, <em>i</em> is monthly return rate (annual
-        rate / 12 / 100), and <em>k</em> is total number of monthly payments (years &times; 12).
-      </p>
-    </div>
-
-    <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.2rem;">Advanced
-      Variables: Step-Up, Inflation, and Taxes</h3>
-    <ul style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: disc;">
-      <li><strong>Annual Step-up SIP:</strong> Increasing your SIP contribution by a fixed amount or percentage every
-        year (e.g. as your salary grows) increases your final retirement corpus significantly.</li>
-      <li><strong>Inflation Adjustment:</strong> Inflation erodes the purchasing power of your money. Our calculator
-        discounts your final value by your assumed inflation rate to display what that future amount is worth in today's
-        currency.</li>
-      <li><strong>Capital Gains Tax:</strong> In India, equity mutual fund profits are subject to Long-Term Capital
-        Gains (LTCG) tax (currently 12.5% on gains exceeding ₹1.25 lakh per year). Factoring this tax rate in gives a
-        more realistic net maturity projection.</li>
-    </ul>
-
-    <h3
-      style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px;">
-      Frequently Asked Questions (FAQ)</h3>
-
-    <div style="margin-bottom: 20px;">
-      <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">1. What is the difference
-        between Direct and Regular mutual funds?</h4>
-      <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-        Direct plans are offered directly by the mutual fund house without commissions. Regular plans are sold through
-        distributors or brokers, who receive a commission. Direct plans have a lower expense ratio, meaning more of your
-        money is invested, leading to higher compounded returns over long periods.
-      </p>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-      <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">2. Can I adjust or stop my
-        SIP payments at any time?</h4>
-      <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-        Yes. SIPs are highly flexible. You can pause, stop, increase, or decrease your monthly SIP amount without any
-        penalty. If you miss a SIP payment due to low bank balance, the mutual fund house will not charge you, though
-        your bank may charge a small fee for ECS bounce.
-      </p>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-      <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">3. What is CAGR in mutual
-        funds?</h4>
-      <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-        CAGR stands for Compound Annual Growth Rate. It represents the smooth annual rate at which an investment grows
-        from start to finish, assuming profits are reinvested. It is the best metric to evaluate long-term fund
-        performance and compare returns across different asset classes.
-      </p>
-    </div>
-
-    <div style="margin-bottom: 10px;">
-      <h4 style="color: #00275D; font-weight: 600; font-size: 1.05rem; margin-bottom: 6px;">4. Are mutual fund returns
-        guaranteed?</h4>
-      <p style="line-height: 1.6; color: #555; margin-left: 10px;">
-        No. Mutual fund investments are subject to market risks. Debt funds carry credit and interest rate risk, while
-        equity funds fluctuate based on stock market conditions. Historically, equity mutual fund portfolios have
-        generated inflation-beating compound returns of 12% to 15% over long periods of 7+ years.
-      </p>
-    </div>
-  </section>
 
   <!-- ======= AdSense Footer Ad ======= -->
   <div class="calc-ad-container calc-ad-footer">
@@ -392,8 +451,7 @@
       <nav class="calc-footer-policy-links" aria-label="Policy links">
         <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
         <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
-        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy
-          Policy</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
       </nav>
       <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
     </div>
@@ -403,10 +461,8 @@
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Calculator Navigation & Footer script -->
   <script>
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-    // Calculator navigation
     const localCalcOptions = document.getElementById('calculator-options');
     if (localCalcOptions) {
       localCalcOptions.addEventListener('change', function () {
@@ -415,368 +471,8 @@
     }
   </script>
 
-  <script>
-    window.onerror = function (msg, url, lineNo, columnNo, error) {
-      // Ignore third-party script errors (e.g. from Google AdSense, Analytics, or external domains)
-      if (url && (url.indexOf('googlesyndication.com') !== -1 || url.indexOf('googletagmanager.com') !== -1 || url.indexOf('doubleclick.net') !== -1)) {
-        console.warn("Ignored third-party script error in window.onerror:", msg, "at", url);
-        return false;
-      }
-      // Also ignore automation-related script errors if any
-      if (msg && (msg.indexOf('appendChild') !== -1 || msg.indexOf('import statement') !== -1)) {
-        console.warn("Ignored automation-related script error in window.onerror:", msg);
-        return false;
-      }
-      document.getElementById('root').innerHTML = '<div style="color:red; padding:20px;"><b>Error:</b> ' + msg + '<br>Line: ' + lineNo + '</div>';
-      return false;
-    };
-  </script>
-
-  <script type="text/babel" data-presets="react-classic">
-    const { useState, useMemo, useEffect, useRef } = React;
-
-    const formatCurrency = (val) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(val));
-
-    const CalculatorApp = () => {
-      const [type, setType] = useState('SIP');
-      const [amount, setAmount] = useState(10000);
-      const [returnRate, setReturnRate] = useState(12);
-      const [tenure, setTenure] = useState(10);
-
-      const [stepUpEnabled, setStepUpEnabled] = useState(false);
-      const [stepUpType, setStepUpType] = useState('percentage');
-      const [stepUpValue, setStepUpValue] = useState(10);
-
-      const [stayInvestedEnabled, setStayInvestedEnabled] = useState(false);
-      const [stayInvestedYears, setStayInvestedYears] = useState(5);
-
-      const [inflationEnabled, setInflationEnabled] = useState(false);
-      const [inflationRate, setInflationRate] = useState(6);
-
-      const [taxEnabled, setTaxEnabled] = useState(false);
-      const [taxRate, setTaxRate] = useState(12.5);
-
-      const { chartData, metrics } = useMemo(() => {
-        let totalInvested = 0;
-        let corpus = 0;
-        let currentMonthlySip = amount;
-
-        let data = [];
-        let totalYears = tenure;
-        if (stayInvestedEnabled) totalYears += stayInvestedYears;
-
-        const monthlyReturnRate = returnRate / 100 / 12;
-
-        for (let y = 1; y <= totalYears; y++) {
-          let isContributingYear = y <= tenure;
-
-          for (let m = 1; m <= 12; m++) {
-            if (isContributingYear) {
-              if (type === 'SIP') {
-                corpus += currentMonthlySip;
-                totalInvested += currentMonthlySip;
-              } else if (type === 'LUMPSUM' && y === 1 && m === 1) {
-                corpus += amount;
-                totalInvested += amount;
-              }
-            }
-            corpus = corpus * (1 + monthlyReturnRate);
-          }
-
-          if (isContributingYear && type === 'SIP' && stepUpEnabled) {
-            if (stepUpType === 'percentage') {
-              currentMonthlySip = currentMonthlySip * (1 + stepUpValue / 100);
-            } else {
-              currentMonthlySip += stepUpValue;
-            }
-          }
-
-          let yearProfit = corpus - totalInvested;
-          let yearTax = taxEnabled ? yearProfit * (taxRate / 100) : 0;
-          let yearNetProfit = yearProfit - yearTax;
-          let yearInflationLoss = 0;
-          let netPurchasingPower = corpus;
-
-          if (inflationEnabled) {
-            const discountFactor = Math.pow(1 + inflationRate / 100, y);
-            netPurchasingPower = (totalInvested + yearNetProfit) / discountFactor;
-            yearInflationLoss = (totalInvested + yearNetProfit) - netPurchasingPower;
-          }
-
-          data.push({
-            year: `Year ${y}`,
-            Invested: Math.round(totalInvested),
-            "Net Returns": Math.round(yearNetProfit),
-            Tax: Math.round(yearTax),
-            "Inflation Impact": Math.round(yearInflationLoss)
-          });
-        }
-
-        const finalProfit = corpus - totalInvested;
-        const finalTax = taxEnabled ? finalProfit * (taxRate / 100) : 0;
-        let finalNetValue = corpus - finalTax;
-        let finalPurchasingPower = finalNetValue;
-
-        if (inflationEnabled) {
-          const discountFactor = Math.pow(1 + inflationRate / 100, totalYears);
-          finalPurchasingPower = finalNetValue / discountFactor;
-        }
-
-        const cagr = ((Math.pow(finalNetValue / (totalInvested || 1), 1 / (totalYears || 1))) - 1) * 100;
-
-        return {
-          chartData: data,
-          metrics: {
-            invested: totalInvested,
-            profit: finalProfit,
-            tax: finalTax,
-            netValue: finalNetValue,
-            purchasingPower: finalPurchasingPower,
-            cagr: cagr
-          }
-        };
-      }, [type, amount, returnRate, tenure, stepUpEnabled, stepUpType, stepUpValue, stayInvestedEnabled, stayInvestedYears, inflationEnabled, inflationRate, taxEnabled, taxRate]);
-
-      const chartRef = useRef(null);
-      const chartInstance = useRef(null);
-
-      useEffect(() => {
-        const timer = setTimeout(() => {
-          try {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-          } catch (e) {
-            console.error("AdSense sidebar push error:", e);
-          }
-        }, 100);
-        return () => clearTimeout(timer);
-      }, []);
-
-      useEffect(() => {
-        if (!chartRef.current) return;
-        if (chartInstance.current) {
-          chartInstance.current.destroy();
-        }
-
-        const ctx = chartRef.current.getContext('2d');
-        chartInstance.current = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: chartData.map(d => d.year),
-            datasets: [
-              {
-                label: 'Total Invested',
-                data: chartData.map(d => d.Invested),
-                borderColor: '#00275D',
-                backgroundColor: 'rgba(0, 39, 93, 0.15)',
-                fill: true,
-                tension: 0.4
-              },
-              {
-                label: 'Estimated Returns',
-                data: chartData.map(d => d["Net Returns"]),
-                borderColor: '#007DBF',
-                backgroundColor: 'rgba(0, 125, 191, 0.15)',
-                fill: true,
-                tension: 0.4
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: { mode: 'index', intersect: false },
-            scales: {
-              y: {
-                stacked: true,
-                ticks: { callback: (value) => '₹' + (value / 100000).toFixed(1) + 'L' }
-              }
-            },
-            plugins: {
-              tooltip: {
-                callbacks: {
-                  label: function (context) {
-                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
-                  }
-                }
-              }
-            }
-          }
-        });
-
-        if (taxEnabled) {
-          chartInstance.current.data.datasets.push({
-            label: 'Tax Liability',
-            data: chartData.map(d => d.Tax),
-            borderColor: '#dc3545',
-            backgroundColor: 'rgba(220, 53, 69, 0.5)',
-            fill: true,
-            tension: 0.4
-          });
-        }
-        if (inflationEnabled) {
-          chartInstance.current.data.datasets.push({
-            label: 'Inflation Impact',
-            data: chartData.map(d => d["Inflation Impact"]),
-            borderColor: '#E29E21',
-            backgroundColor: 'rgba(226, 158, 33, 0.4)',
-            borderDash: [5, 5],
-            fill: true,
-            tension: 0.4
-          });
-        }
-        chartInstance.current.update();
-      }, [chartData, taxEnabled, inflationEnabled]);
-
-      const InputGroup = ({ label, value, onChange, min, max, step = 1, suffix = '' }) => (
-        <div style={{ marginBottom: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-            <label style={{ fontSize: '0.9rem', fontWeight: 600, color: '#333', fontFamily: 'Open Sans, sans-serif' }}>{label}</label>
-            <span style={{ color: '#00275D', fontWeight: 700, fontFamily: 'Roboto, sans-serif' }}>{suffix === '₹' ? formatCurrency(value) : value + suffix}</span>
-          </div>
-          <input
-            type="range"
-            min={min} max={max} step={step}
-            value={value}
-            onChange={(e) => onChange(parseFloat(e.target.value))}
-            className="mf-slider"
-          />
-        </div>
-      );
-
-      return (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px', padding: '10px 0' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-
-            {/* Left Column - Controls */}
-            <div className="mf-controls-panel">
-              <div className="mf-glass-panel" style={{ padding: '24px' }}>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#00275D', marginBottom: '20px', paddingBottom: '14px', borderBottom: '2px solid #dce6f1', fontFamily: 'Roboto, sans-serif' }}>Investment Strategy</h3>
-
-                <div style={{ display: 'flex', background: '#f0f2f5', padding: '4px', borderRadius: '8px', marginBottom: '20px' }}>
-                  <button
-                    className={type === 'SIP' ? 'mf-tab-active' : 'mf-tab-inactive'}
-                    style={{ flex: 1, padding: '8px 0', fontSize: '0.9rem', fontWeight: 600, borderRadius: '6px', border: 'none', cursor: 'pointer', transition: 'all 0.2s', fontFamily: 'Open Sans, sans-serif', background: type === 'SIP' ? '#00275D' : 'transparent' }}
-                    onClick={() => setType('SIP')}>Monthly SIP</button>
-                  <button
-                    className={type === 'LUMPSUM' ? 'mf-tab-active' : 'mf-tab-inactive'}
-                    style={{ flex: 1, padding: '8px 0', fontSize: '0.9rem', fontWeight: 600, borderRadius: '6px', border: 'none', cursor: 'pointer', transition: 'all 0.2s', fontFamily: 'Open Sans, sans-serif', background: type === 'LUMPSUM' ? '#00275D' : 'transparent' }}
-                    onClick={() => setType('LUMPSUM')}>One-time Lumpsum</button>
-                </div>
-
-                <InputGroup label={type === 'SIP' ? "Monthly Investment" : "Total Investment"} value={amount} onChange={setAmount} min={500} max={1000000} step={500} suffix="₹" />
-                <InputGroup label="Expected Annual Return (%)" value={returnRate} onChange={setReturnRate} min={1} max={30} step={0.1} suffix="%" />
-                <InputGroup label="Investment Tenure (Years)" value={tenure} onChange={setTenure} min={1} max={40} suffix=" Yr" />
-
-                <div style={{ marginTop: '24px' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#00275D', marginBottom: '14px', fontFamily: 'Roboto, sans-serif' }}>Advanced Tools</h4>
-
-                  {type === 'SIP' && (
-                    <div style={{ background: '#f6f9fe', padding: '14px', borderRadius: '10px', marginBottom: '12px', border: '1px solid #dce6f1' }}>
-                      <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', marginBottom: '8px' }}>
-                        <input type="checkbox" checked={stepUpEnabled} onChange={(e) => setStepUpEnabled(e.target.checked)} className="mf-checkbox" style={{ width: '18px', height: '18px' }} />
-                        <span style={{ fontSize: '0.9rem', fontWeight: 500, color: '#333' }}>Annual Step-up SIP</span>
-                      </label>
-                      {stepUpEnabled && (
-                        <div style={{ paddingLeft: '28px', display: 'flex', gap: '10px' }}>
-                          <select value={stepUpType} onChange={e => setStepUpType(e.target.value)} style={{ fontSize: '0.85rem', border: '1px solid #dce6f1', borderRadius: '6px', padding: '6px 10px', flex: 1 }}>
-                            <option value="percentage">% Increase</option>
-                            <option value="fixed">₹ Increase</option>
-                          </select>
-                          <input type="number" value={stepUpValue} onChange={e => setStepUpValue(parseFloat(e.target.value) || 0)} style={{ fontSize: '0.85rem', border: '1px solid #dce6f1', borderRadius: '6px', padding: '6px 10px', width: '80px', textAlign: 'right' }} />
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  <div style={{ background: '#f6f9fe', padding: '14px', borderRadius: '10px', marginBottom: '12px', border: '1px solid #dce6f1' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', marginBottom: '8px' }}>
-                      <input type="checkbox" checked={stayInvestedEnabled} onChange={(e) => setStayInvestedEnabled(e.target.checked)} className="mf-checkbox" style={{ width: '18px', height: '18px' }} />
-                      <span style={{ fontSize: '0.9rem', fontWeight: 500, color: '#333' }}>Stay Invested Post-Tenure</span>
-                    </label>
-                    {stayInvestedEnabled && (
-                      <div style={{ paddingLeft: '28px' }}>
-                        <InputGroup label="Additional Years" value={stayInvestedYears} onChange={setStayInvestedYears} min={1} max={30} suffix=" Yr" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div style={{ background: '#f6f9fe', padding: '14px', borderRadius: '10px', marginBottom: '12px', border: '1px solid #dce6f1' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                      <input type="checkbox" checked={inflationEnabled} onChange={(e) => setInflationEnabled(e.target.checked)} className="mf-checkbox" style={{ width: '18px', height: '18px' }} />
-                      <span style={{ fontSize: '0.9rem', fontWeight: 500, color: '#333' }}>Adjust for Inflation ({inflationRate}%)</span>
-                    </label>
-                  </div>
-
-                  <div style={{ background: '#f6f9fe', padding: '14px', borderRadius: '10px', border: '1px solid #dce6f1' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                      <input type="checkbox" checked={taxEnabled} onChange={(e) => setTaxEnabled(e.target.checked)} className="mf-checkbox" style={{ width: '18px', height: '18px' }} />
-                      <span style={{ fontSize: '0.9rem', fontWeight: 500, color: '#333' }}>Apply Tax on Profits ({taxRate}%)</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column - Results */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-
-              {/* Summary Cards */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
-                <div className="mf-glass-panel" style={{ padding: '16px' }}>
-                  <p style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 500, marginBottom: '4px' }}>Total Invested</p>
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#333', margin: 0 }}>{formatCurrency(metrics.invested)}</h3>
-                </div>
-                <div className="mf-glass-panel" style={{ padding: '16px' }}>
-                  <p style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 500, marginBottom: '4px' }}>Total Returns {taxEnabled && '(Post-Tax)'}</p>
-                  <h3 className="mf-returns-value" style={{ fontSize: '1.3rem', fontWeight: 700, margin: 0 }}>{formatCurrency(metrics.netValue - metrics.invested)}</h3>
-                </div>
-                <div className="mf-glass-panel mf-maturity-border" style={{ padding: '16px' }}>
-                  <p style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 500, marginBottom: '4px' }}>Final Maturity Value</p>
-                  <h3 className="mf-maturity-value" style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0 }}>{formatCurrency(metrics.netValue)}</h3>
-                </div>
-              </div>
-
-              {inflationEnabled && (
-                <div className="mf-glass-panel" style={{ padding: '14px', background: 'rgba(226,158,33,0.08)', border: '1px solid rgba(226,158,33,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-                  <div>
-                    <p style={{ fontSize: '0.85rem', fontWeight: 600, color: '#8B6914', margin: 0 }}>Purchasing Power Today</p>
-                    <p style={{ fontSize: '0.75rem', color: '#a67c00', margin: '4px 0 0' }}>Value adjusted for {inflationRate}% inflation.</p>
-                  </div>
-                  <h4 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#8B6914', margin: 0 }}>{formatCurrency(metrics.purchasingPower)}</h4>
-                </div>
-              )}
-
-              {/* AdSense Sidebar Ad */}
-              <div className="calc-ad-container calc-ad-sidebar" style={{ minHeight: '250px', padding: 0, margin: '0 0 16px 0' }}>
-                <ins className="adsbygoogle"
-                  style={{ display: 'block' }}
-                  data-ad-client="ca-pub-2630317528778433"
-                  data-ad-slot="SIDEBAR_AD_SLOT"
-                  data-ad-format="rectangle"
-                  data-full-width-responsive="true"></ins>
-              </div>
-
-              {/* Chart */}
-              <div className="mf-glass-panel" style={{ padding: '24px', flex: 1, minHeight: '350px', display: 'flex', flexDirection: 'column' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#00275D', marginBottom: '16px', fontFamily: 'Roboto, sans-serif' }}>Wealth Accumulation Breakdown</h3>
-                <div style={{ flex: 1, width: '100%', position: 'relative', minHeight: '280px' }}>
-                  <canvas ref={chartRef}></canvas>
-                </div>
-
-                <div className="mf-cagr-bar" style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between', padding: '10px 14px', borderRadius: '10px' }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Effective CAGR</span>
-                  <span style={{ fontSize: '0.95rem' }}>{metrics.cagr.toFixed(2)}%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    };
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<CalculatorApp />);
-  </script>
+  <!-- Calculator JS -->
+  <script src="assets/js/mutual-fund.js"></script>
 </body>
 
 </html>
