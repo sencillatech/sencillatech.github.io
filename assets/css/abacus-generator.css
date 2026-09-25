@@ -5,9 +5,17 @@
 */
 
 .aba-container {
+    width: 100%;
     max-width: 1200px;
-    margin: 0;
-    padding: 20px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .aba-container {
+        padding: 16px 12px;
+    }
 }
 
 .aba-header-title {

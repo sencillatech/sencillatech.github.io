@@ -6,8 +6,10 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Free Online PDF Splitter | Client-Side PDF Utility | SimpleiTech</title>
-  <meta name="description" content="Split your PDF documents into multiple files with custom page ranges. Runs entirely in your browser. 100% secure, private, and free.">
-  <meta name="keywords" content="split pdf, pdf splitter, free pdf tool, split pdf page ranges, jszip, pdf-lib, browser-side pdf split">
+  <meta name="description"
+    content="Split your PDF documents into multiple files with custom page ranges. Runs entirely in your browser. 100% secure, private, and free.">
+  <meta name="keywords"
+    content="split pdf, pdf splitter, free pdf tool, split pdf page ranges, jszip, pdf-lib, browser-side pdf split">
   <meta name="author" content="SimpleiTech">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#00275D">
@@ -21,7 +23,9 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,500,700|Poppins:400,500,600,700"
+    rel="stylesheet">
 
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -39,14 +43,14 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-55VEQSNG5F"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-55VEQSNG5F');
   </script>
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2630317528778433"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -60,7 +64,9 @@
         <span class="calc-brand-logo" style="font-size: 0.82rem;">Simple<span style="color:#E29E21;">i</span>Tech</span>
       </a>
       <span class="pdf-header-divider" style="color: rgba(255,255,255,0.3); font-weight: 300;">|</span>
-      <h1 style="font-family:'Roboto',sans-serif;font-size:1.45rem;font-weight:700;margin:0 0 0 12px;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">PDF <span style="color:#E29E21;margin-left:5px;">Utility</span></h1>
+      <h1
+        style="font-family:'Roboto',sans-serif;font-size:1.45rem;font-weight:700;margin:0 0 0 12px;color:#fff;display:inline-flex;align-items:center;white-space:nowrap;">
+        PDF <span style="color:#E29E21;margin-left:5px;">Utility</span></h1>
     </div>
   </div>
 
@@ -68,185 +74,223 @@
   <div class="calc-page-wrapper">
     <!-- ======= Main Content ======= -->
     <main class="pdf-container" role="main">
-    
-    <!-- Upload Section -->
-    <section class="pdf-card" aria-label="PDF Upload Zone">
-      <div class="pdf-header-title">
-        <i class="bx bxs-file-pdf"></i>
-        <span>Upload PDF Document</span>
-      </div>
-      
-      <div class="pdf-upload-zone" id="uploadZone">
-        <input type="file" id="fileInput" accept="application/pdf" style="display: none;">
-        <i class="bx bxs-cloud-upload pdf-upload-icon"></i>
-        <div class="pdf-upload-text">Drag & drop your PDF file here, or click to browse</div>
-        <div class="pdf-upload-subtext">All processing is done 100% locally in your browser. Your files are never sent to any server.</div>
-        <div>
-          <span class="pdf-upload-limit">Max suggested size: 50MB</span>
-        </div>
-      </div>
 
-      <!-- File Loading Progress Bar -->
-      <div class="pdf-progress-wrapper" id="loadingProgressWrapper">
-        <div class="pdf-progress-text">
-          <span id="progressStatusText">Reading PDF...</span>
-          <span id="progressPercent">0%</span>
+      <!-- Upload Section -->
+      <section class="pdf-card" aria-label="PDF Upload Zone">
+        <div class="pdf-header-title">
+          <i class="bx bxs-file-pdf"></i>
+          <span>Upload PDF Document</span>
         </div>
-        <div class="pdf-progress-bar">
-          <div class="pdf-progress-fill" id="loadingProgressBarFill"></div>
-        </div>
-      </div>
 
-      <!-- Loaded File Details -->
-      <div class="pdf-file-details" id="fileDetails" style="display: none;">
-        <div class="pdf-file-info">
-          <i class="bx bxs-file-pdf pdf-file-icon"></i>
+        <div class="pdf-upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept="application/pdf" style="display: none;">
+          <i class="bx bxs-cloud-upload pdf-upload-icon"></i>
+          <div class="pdf-upload-text">Drag & drop your PDF file here, or click to browse</div>
+          <div class="pdf-upload-subtext">All processing is done 100% locally in your browser. Your files are never sent
+            to any server.</div>
           <div>
-            <div class="pdf-file-name" id="pdfFileName">document.pdf</div>
-            <div class="pdf-file-meta" id="pdfFileMeta">Size: 0 KB | Pages: 0</div>
+            <span class="pdf-upload-limit">Max suggested size: 50MB</span>
           </div>
         </div>
-        <button class="pdf-btn-remove" id="btnRemoveFile" title="Remove file" aria-label="Remove uploaded file">
-          <i class="bx bx-trash"></i>
-        </button>
-      </div>
-    </section>
 
-    <!-- Configuration Section -->
-    <section class="pdf-card pdf-config-section" id="configSection" aria-label="Split Configuration">
-      <div class="pdf-header-title">
-        <i class="bx bx-cog"></i>
-        <span>Configure Page Splits</span>
-      </div>
-
-      <div class="pdf-config-header">
-        <div class="pdf-split-type">
-          <label for="numSplitsInput">Number of split files:</label>
-          <input type="number" id="numSplitsInput" class="pdf-input-number" value="2" min="1" max="100">
+        <!-- File Loading Progress Bar -->
+        <div class="pdf-progress-wrapper" id="loadingProgressWrapper">
+          <div class="pdf-progress-text">
+            <span id="progressStatusText">Reading PDF...</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="pdf-progress-bar">
+            <div class="pdf-progress-fill" id="loadingProgressBarFill"></div>
+          </div>
         </div>
-        <button class="pdf-btn-secondary" id="btnResetRanges">
-          <i class="bx bx-reset"></i> Reset Ranges
-        </button>
-      </div>
 
-      <!-- Dynamically generated ranges rows -->
-      <div class="pdf-ranges-container" id="rangesContainer">
-        <!-- Rows added via Javascript -->
-      </div>
-
-      <button class="pdf-btn-add-range" id="btnAddRangeRow">
-        <i class="bx bx-plus"></i> Add Split File
-      </button>
-
-      <!-- Range Validation Feedback message -->
-      <div class="pdf-validation-msg" id="validationErrorMsg">
-        <i class="bx bx-error-circle"></i>
-        <span id="validationErrorText">Invalid page ranges configured.</span>
-      </div>
-
-      <hr style="margin: 25px 0; border-color: rgba(0,39,93,0.1);">
-
-      <button class="pdf-btn-primary" id="btnSplitPDF">
-        <i class="bx bx-cut"></i> Split PDF
-      </button>
-    </section>
-
-    <!-- Results Section -->
-    <section class="pdf-card pdf-results-section" id="resultsSection" aria-label="Split Results">
-      <div class="pdf-header-title">
-        <i class="bx bx-check-circle" style="color: #28a745;"></i>
-        <span>Split Segments Ready</span>
-      </div>
-
-      <div class="pdf-results-header">
-        <div style="font-weight: 600; color: #555;">
-          Generated <span id="resultCount">0</span> split files successfully!
+        <!-- Loaded File Details -->
+        <div class="pdf-file-details" id="fileDetails" style="display: none;">
+          <div class="pdf-file-info">
+            <i class="bx bxs-file-pdf pdf-file-icon"></i>
+            <div>
+              <div class="pdf-file-name" id="pdfFileName">document.pdf</div>
+              <div class="pdf-file-meta" id="pdfFileMeta">Size: 0 KB | Pages: 0</div>
+            </div>
+          </div>
+          <button class="pdf-btn-remove" id="btnRemoveFile" title="Remove file" aria-label="Remove uploaded file">
+            <i class="bx bx-trash"></i>
+          </button>
         </div>
-        <button class="pdf-btn-zip" id="btnDownloadZip">
-          <i class="bx bxs-file-archive"></i> Download All (.ZIP)
+      </section>
+
+      <!-- Configuration Section -->
+      <section class="pdf-card pdf-config-section" id="configSection" aria-label="Split Configuration">
+        <div class="pdf-header-title">
+          <i class="bx bx-cog"></i>
+          <span>Configure Page Splits</span>
+        </div>
+
+        <div class="pdf-config-header">
+          <div class="pdf-split-type">
+            <label for="numSplitsInput">Number of split files:</label>
+            <input type="number" id="numSplitsInput" class="pdf-input-number" value="2" min="1" max="100">
+          </div>
+          <button class="pdf-btn-secondary" id="btnResetRanges">
+            <i class="bx bx-reset"></i> Reset Ranges
+          </button>
+        </div>
+
+        <!-- Dynamically generated ranges rows -->
+        <div class="pdf-ranges-container" id="rangesContainer">
+          <!-- Rows added via Javascript -->
+        </div>
+
+        <button class="pdf-btn-add-range" id="btnAddRangeRow">
+          <i class="bx bx-plus"></i> Add Split File
         </button>
-      </div>
 
-      <!-- Result items -->
-      <div class="pdf-results-list" id="resultsList">
-        <!-- Rows added via Javascript -->
-      </div>
-    </section>
+        <!-- Range Validation Feedback message -->
+        <div class="pdf-validation-msg" id="validationErrorMsg">
+          <i class="bx bx-error-circle"></i>
+          <span id="validationErrorText">Invalid page ranges configured.</span>
+        </div>
 
-    <!-- Rich Educational Content Section to meet AdSense Guidelines -->
-    <section class="pdf-card" style="margin-top: 30px; padding: 30px; width: 100%; box-sizing: border-box;">
-      <div class="pdf-header-title" style="margin-bottom: 20px;">
-        <i class="bx bx-info-circle"></i>
-        <span>How to Split PDF Files Securely Online</span>
-      </div>
-      <p style="line-height: 1.6; color: #444; margin-bottom: 15px;">
-        A PDF (Portable Document Format) is a universally compatible file format used to present documents reliably across different devices and operating systems. However, larger PDF files containing dozens of pages can be difficult to share via email or upload to online portals. Our free PDF Splitter allows you to segment large documents into smaller, targeted sections based on custom page ranges.
-      </p>
+        <hr style="margin: 25px 0; border-color: rgba(0,39,93,0.1);">
 
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">100% Client-Side Processing for Maximum Privacy</h3>
-      <p style="line-height: 1.6; color: #444; margin-bottom: 15px;">
-        Unlike most online PDF tools that upload your files to external cloud servers—exposing your sensitive data to security risks—our PDF Utility operates **entirely in your web browser**. 
-        Using powerful modern JavaScript libraries like <a href="https://pdf-lib.js.org/" target="_blank" rel="noopener">pdf-lib</a> and <a href="https://stuk.github.io/jszip/" target="_blank" rel="noopener">JSZip</a>, your files are read, parsed, and split locally on your machine. Your personal files never travel over the internet, making it completely private and secure for banking statements, legal contracts, or company spreadsheets.
-      </p>
+        <button class="pdf-btn-primary" id="btnSplitPDF">
+          <i class="bx bx-cut"></i> Split PDF
+        </button>
+      </section>
 
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">Step-by-Step Instructions</h3>
-      <ol style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: decimal; margin-bottom: 25px;">
-        <li style="margin-bottom: 8px;"><strong>Upload PDF:</strong> Drag and drop your document into the dashed drop zone above, or click to select from your local device files.</li>
-        <li style="margin-bottom: 8px;"><strong>Define Splits:</strong> Set the number of split files you wish to generate. You can add or remove custom splits.</li>
-        <li style="margin-bottom: 8px;"><strong>Enter Page Ranges:</strong> Specify page ranges for each split file (e.g., page 1-3, page 4, or page 5-10). The utility validates ranges automatically.</li>
-        <li style="margin-bottom: 8px;"><strong>Split and Download:</strong> Click "Split PDF". Download individual segments directly, or click "Download All (.ZIP)" to download all segments in a single, neat folder structure.</li>
-      </ol>
+      <!-- Results Section -->
+      <section class="pdf-card pdf-results-section" id="resultsSection" aria-label="Split Results">
+        <div class="pdf-header-title">
+          <i class="bx bx-check-circle" style="color: #28a745;"></i>
+          <span>Split Segments Ready</span>
+        </div>
 
-      <h3 style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.25rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px; font-family: 'Poppins', sans-serif;">Frequently Asked Questions (FAQ)</h3>
+        <div class="pdf-results-header">
+          <div style="font-weight: 600; color: #555;">
+            Generated <span id="resultCount">0</span> split files successfully!
+          </div>
+          <button class="pdf-btn-zip" id="btnDownloadZip">
+            <i class="bx bxs-file-archive"></i> Download All (.ZIP)
+          </button>
+        </div>
 
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">1. Is it safe to upload confidential agreements or medical files?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
-          Yes, absolutely. Because the splitting logic runs locally inside your browser tab, your files are never uploaded to any server or shared with anyone. You could even disconnect your internet connection entirely after loading this page, and the splitter will still function perfectly.
+        <!-- Result items -->
+        <div class="pdf-results-list" id="resultsList">
+          <!-- Rows added via Javascript -->
+        </div>
+      </section>
+
+      <!-- Rich Educational Content Section to meet AdSense Guidelines -->
+      <section class="pdf-card">
+        <div class="pdf-header-title" style="margin-bottom: 20px;">
+          <i class="bx bx-info-circle"></i>
+          <span>How to Split PDF Files Securely Online</span>
+        </div>
+        <p style="line-height: 1.6; color: #444; margin-bottom: 15px;">
+          A PDF (Portable Document Format) is a universally compatible file format used to present documents reliably
+          across different devices and operating systems. However, larger PDF files containing dozens of pages can be
+          difficult to share via email or upload to online portals. Our free PDF Splitter allows you to segment large
+          documents into smaller, targeted sections based on custom page ranges.
         </p>
-      </div>
 
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">2. What is the file size limit for splitting?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
-          We suggest a maximum size of 50MB to ensure smooth performance. Because the tool processes files using your device's memory (RAM), very large documents may cause older smartphones or low-spec computers to lag. For standard documents, the process takes less than a second.
+        <h3
+          style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">
+          100% Client-Side Processing for Maximum Privacy</h3>
+        <p style="line-height: 1.6; color: #444; margin-bottom: 15px;">
+          Unlike most online PDF tools that upload your files to external cloud servers—exposing your sensitive data to
+          security risks—our PDF Utility operates **entirely in your web browser**.
+          Using powerful modern JavaScript libraries like <a href="https://pdf-lib.js.org/" target="_blank"
+            rel="noopener">pdf-lib</a> and <a href="https://stuk.github.io/jszip/" target="_blank"
+            rel="noopener">JSZip</a>, your files are read, parsed, and split locally on your machine. Your personal
+          files never travel over the internet, making it completely private and secure for banking statements, legal
+          contracts, or company spreadsheets.
         </p>
-      </div>
 
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">3. Can I split password-protected PDFs?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
-          No. Encrypted or password-protected PDF files must be decrypted before they can be read by browser-side libraries. Please remove the password protection from your document before attempting to split page ranges.
-        </p>
-      </div>
+        <h3
+          style="color: #00275D; font-weight: 600; margin-top: 25px; margin-bottom: 12px; font-size: 1.15rem; font-family: 'Poppins', sans-serif;">
+          Step-by-Step Instructions</h3>
+        <ol style="line-height: 1.6; color: #444; padding-left: 20px; list-style-type: decimal; margin-bottom: 25px;">
+          <li style="margin-bottom: 8px;"><strong>Upload PDF:</strong> Drag and drop your document into the dashed drop
+            zone above, or click to select from your local device files.</li>
+          <li style="margin-bottom: 8px;"><strong>Define Splits:</strong> Set the number of split files you wish to
+            generate. You can add or remove custom splits.</li>
+          <li style="margin-bottom: 8px;"><strong>Enter Page Ranges:</strong> Specify page ranges for each split file
+            (e.g., page 1-3, page 4, or page 5-10). The utility validates ranges automatically.</li>
+          <li style="margin-bottom: 8px;"><strong>Split and Download:</strong> Click "Split PDF". Download individual
+            segments directly, or click "Download All (.ZIP)" to download all segments in a single, neat folder
+            structure.</li>
+        </ol>
 
-      <div style="margin-bottom: 10px;">
-        <h4 style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">4. Does splitting degrade the quality of my images or text?</h4>
-        <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
-          No. Our tool uses direct structural page copies to generate the new files. It does not compress or rasterize the PDF pages, meaning that all original vector texts, hyperlinks, image resolutions, and fonts are preserved at 100% quality.
-        </p>
-      </div>
-    </section>
-  </main>
+        <h3
+          style="color: #00275D; font-weight: 600; margin-top: 30px; margin-bottom: 15px; font-size: 1.25rem; border-bottom: 2px solid #E29E21; padding-bottom: 5px; font-family: 'Poppins', sans-serif;">
+          Frequently Asked Questions (FAQ)</h3>
 
-  <!-- ======= Right Sidebar Navigation ======= -->
-  <aside class="calc-sidebar-nav" aria-label="Page navigation">
-    <div class="calc-sidebar-header">
-      <i class="bx bx-grid-alt"></i> Tools &amp; Calculators
-    </div>
-    <div class="calc-sidebar-body">
-      <a href="fintech-calculator.html"><i class="bx bx-home-alt" style="margin-right: 8px;"></i> Home Loan EMI</a>
-      <a href="personal-loan-calculator.html"><i class="bx bx-user" style="margin-right: 8px;"></i> Personal Loan EMI</a>
-      <a href="car-loan-calculator.html"><i class="bx bx-car" style="margin-right: 8px;"></i> Car Loan EMI</a>
-      <a href="mutual-fund-calculator.html"><i class="bx bx-trending-up" style="margin-right: 8px;"></i> Mutual Fund</a>
-      <a href="pdf-utility.html" class="active"><i class="bx bxs-file-pdf" style="margin-right: 8px;"></i> PDF Utility</a>
-      <a href="financial-health.html"><i class="bx bx-heart" style="margin-right: 8px;"></i> Financial Health</a>
-      <a href="retirement-calculator.html"><i class="bx bx-shield" style="margin-right: 8px;"></i> Retirement</a>
-      <a href="money-power.html"><i class="bx bx-money" style="margin-right: 8px;"></i> Your Money Power</a>
-      <a href="abacus-generator.html"><i class="bx bx-grid" style="margin-right: 8px;"></i> Abacus</a>
-    </div>
-  </aside>
-</div>
+        <div style="margin-bottom: 20px;">
+          <h4
+            style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">
+            1. Is it safe to upload confidential agreements or medical files?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+            Yes, absolutely. Because the splitting logic runs locally inside your browser tab, your files are never
+            uploaded to any server or shared with anyone. You could even disconnect your internet connection entirely
+            after loading this page, and the splitter will still function perfectly.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4
+            style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">
+            2. What is the file size limit for splitting?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+            We suggest a maximum size of 50MB to ensure smooth performance. Because the tool processes files using your
+            device's memory (RAM), very large documents may cause older smartphones or low-spec computers to lag. For
+            standard documents, the process takes less than a second.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4
+            style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">
+            3. Can I split password-protected PDFs?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+            No. Encrypted or password-protected PDF files must be decrypted before they can be read by browser-side
+            libraries. Please remove the password protection from your document before attempting to split page ranges.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <h4
+            style="color: #00275D; font-weight: 600; font-size: 1rem; margin-bottom: 6px; font-family: 'Poppins', sans-serif;">
+            4. Does splitting degrade the quality of my images or text?</h4>
+          <p style="line-height: 1.6; color: #555; margin-left: 10px; margin-top: 0;">
+            No. Our tool uses direct structural page copies to generate the new files. It does not compress or rasterize
+            the PDF pages, meaning that all original vector texts, hyperlinks, image resolutions, and fonts are
+            preserved at 100% quality.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======= Right Sidebar Navigation ======= -->
+    <aside class="calc-sidebar-nav" aria-label="Page navigation">
+      <div class="calc-sidebar-header">
+        <i class="bx bx-grid-alt"></i> Tools &amp; Calculators
+      </div>
+      <div class="calc-sidebar-body">
+        <a href="fintech-calculator.html"><i class="bx bx-home-alt" style="margin-right: 8px;"></i> Home Loan EMI</a>
+        <a href="personal-loan-calculator.html"><i class="bx bx-user" style="margin-right: 8px;"></i> Personal Loan
+          EMI</a>
+        <a href="car-loan-calculator.html"><i class="bx bx-car" style="margin-right: 8px;"></i> Car Loan EMI</a>
+        <a href="mutual-fund-calculator.html"><i class="bx bx-trending-up" style="margin-right: 8px;"></i> Mutual
+          Fund</a>
+        <a href="pdf-utility.html" class="active"><i class="bx bxs-file-pdf" style="margin-right: 8px;"></i> PDF
+          Utility</a>
+        <a href="financial-health.html"><i class="bx bx-heart" style="margin-right: 8px;"></i> Financial Health</a>
+        <a href="retirement-calculator.html"><i class="bx bx-shield" style="margin-right: 8px;"></i> Retirement</a>
+        <a href="money-power.html"><i class="bx bx-money" style="margin-right: 8px;"></i> Your Money Power</a>
+        <a href="abacus-generator.html"><i class="bx bx-grid" style="margin-right: 8px;"></i> Abacus</a>
+      </div>
+    </aside>
+  </div>
 
   <!-- ======= PDF Preview Modal ======= -->
   <div class="pdf-modal" id="previewModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -265,7 +309,8 @@
           <button class="pdf-btn-secondary" id="btnPrevPage" style="padding: 5px 12px;">
             <i class="bx bx-chevron-left"></i> Prev
           </button>
-          <span class="pdf-page-num"><span id="previewCurrentPage">1</span> / <span id="previewTotalPages">1</span></span>
+          <span class="pdf-page-num"><span id="previewCurrentPage">1</span> / <span
+              id="previewTotalPages">1</span></span>
           <button class="pdf-btn-secondary" id="btnNextPage" style="padding: 5px 12px;">
             Next <i class="bx bx-chevron-right"></i>
           </button>
@@ -300,7 +345,8 @@
       <nav class="calc-footer-policy-links" aria-label="Policy links">
         <a href="calculator-about-us.html" title="About Us"><i class="bi bi-info-circle-fill"></i> About Us</a>
         <a href="calculator-contact-us.html" title="Contact Us"><i class="bi bi-envelope-fill"></i> Contact Us</a>
-        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy Policy</a>
+        <a href="calculator-privacy-policy.html" title="Privacy Policy"><i class="bi bi-shield-lock-fill"></i> Privacy
+          Policy</a>
       </nav>
       <div class="calc-footer-copy">&copy; <span id="currentYear"></span> SimpleiTech. All rights reserved.</div>
     </div>
@@ -324,7 +370,7 @@
     // App navigation handler
     const calcOptions = document.getElementById('calculator-options');
     if (calcOptions) {
-      calcOptions.addEventListener('change', function() {
+      calcOptions.addEventListener('change', function () {
         window.location.href = this.value;
       });
     }
