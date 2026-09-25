@@ -125,6 +125,39 @@
   });
 
   function php_email_form_submit(this_form, action1, data1) {
+    this_form.find('.sent-message').slideUp();
+    this_form.find('.error-message').slideUp();
+    this_form.find('.loading').slideDown();
+
+    var targetAction = action1 || this_form.attr('action');
+
+    if (targetAction && targetAction.indexOf('web3forms') !== -1) {
+      var formData = new FormData(this_form[0]);
+
+      fetch(targetAction, {
+        method: 'POST',
+        body: formData
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(json) {
+        this_form.find('.loading').slideUp();
+        if (json.success) {
+          this_form.find('.sent-message').slideDown();
+          this_form.find("input:not(input[type=submit]):not(input[type=hidden]), textarea").val('');
+        } else {
+          var msg = json.message || 'Form submission failed. Please try again.';
+          this_form.find('.error-message').slideDown().html(msg);
+        }
+      })
+      .catch(function(error) {
+        this_form.find('.loading').slideUp();
+        this_form.find('.error-message').slideDown().html('Form submission failed: ' + error.message);
+      });
+      return;
+    }
+
     var action = 'https://api.emailjs.com/api/v1.0/email/send';
 
     var data = {
@@ -140,8 +173,6 @@
       }
   };
 
-  //alert('before sending the request')
-
     $.ajax({
       type: "POST",
       url: action,
@@ -150,7 +181,6 @@
       timeout: 40000
     }).done( function(msg){
 
-      //alert('Your mail is sent!' + msg);
       if (msg.trim() == 'OK') {
         this_form.find('.loading').slideUp();
         this_form.find('.sent-message').slideDown();
@@ -164,7 +194,6 @@
       }
     }).fail( function(data){
 
-      //alert('Oops... ' + JSON.stringify(data));
       console.log("from console : " + data);
       var error_msg = "Form submission failed!<br>";
       if(data.statusText || data.status) {
