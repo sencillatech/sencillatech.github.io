@@ -29,6 +29,7 @@
   var estimateCard = document.getElementById("estimate-card");
   var estimateTitle = document.getElementById("estimate-title");
   var estimateValue = document.getElementById("estimate-value");
+  var estimateTerms = document.getElementById("estimate-terms");
   var result = document.getElementById("consultation-result");
   var calendarMonth = document.getElementById("calendar-month");
   var calendarDays = document.getElementById("calendar-days");
@@ -47,6 +48,9 @@
   var matchingServices = [];
   var activeSuggestion = -1;
   var suggestionLimit = 8;
+  var agreementCopy = document.getElementById("price-agreement-copy");
+  var estimateDisclaimer = estimateCard.querySelector(".estimate-disclaimer");
+  var estimateBadge = estimateCard.querySelector(".estimate-eyebrow span");
 
   function selectedServices() {
     return serviceChoices.filter(function (choice) {
@@ -186,6 +190,74 @@
     search.setAttribute("aria-activedescendant", suggestions[activeSuggestion].id);
   }
 
+  function attachServiceChoice(choice) {
+    choice.addEventListener("change", function () {
+      renderSelectedServices();
+      search.value = "";
+      filterServices();
+      updateEstimate();
+      resetBookingForEstimateChange();
+      updateFindTimeAvailability();
+    });
+  }
+
+  function addCustomService() {
+    var name = search.value.trim().replace(/\s+/g, " ").slice(0, 80);
+    if (!name) return false;
+
+    var duplicate = selectedServices().some(function (choice) {
+      return choice.value.toLowerCase() === name.toLowerCase();
+    });
+    if (duplicate) {
+      search.value = "";
+      filterServices();
+      return true;
+    }
+
+    var card = document.createElement("label");
+    card.className = "service-option";
+    card.dataset.search = name.toLowerCase();
+    card.dataset.rate = "0";
+    card.dataset.custom = "true";
+
+    var choice = document.createElement("input");
+    choice.className = "service-choice";
+    choice.type = "checkbox";
+    choice.value = name;
+    choice.checked = true;
+
+    var icon = document.createElement("span");
+    icon.className = "service-option-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = "\u2726";
+
+    var copy = document.createElement("span");
+    copy.className = "service-option-copy";
+    var title = document.createElement("strong");
+    title.textContent = name;
+    var description = document.createElement("small");
+    description.textContent = "Custom service — quote tailored to your request";
+    copy.appendChild(title);
+    copy.appendChild(description);
+
+    card.appendChild(choice);
+    card.appendChild(icon);
+    card.appendChild(copy);
+    document.getElementById("service-catalog").appendChild(card);
+    serviceCards.push(card);
+    serviceChoices.push(choice);
+    attachServiceChoice(choice);
+
+    search.value = "";
+    renderSelectedServices();
+    filterServices();
+    updateEstimate();
+    resetBookingForEstimateChange();
+    updateFindTimeAvailability();
+    search.focus();
+    return true;
+  }
+
   function updateProgress(currentStep, completed) {
     Array.prototype.forEach.call(stepProgress.querySelectorAll(".consultation-step"), function (step) {
       var number = Number(step.dataset.step);
@@ -212,6 +284,21 @@
     var rates = selected.map(function (choice) {
       return Number(choice.closest(".service-option").dataset.rate);
     });
+    var hasCustomService = selected.some(function (choice) {
+      return choice.closest(".service-option").dataset.custom === "true";
+    });
+    if (hasCustomService) {
+      estimateTitle.textContent = "Custom quote after we review your request";
+      estimateValue.value = "Custom quotation required for " + hours + (hours === 1 ? " work hour" : " work hours") + "; no sample price shown.";
+      agreementCopy.textContent = "I understand this custom service needs a tailored quotation and the final price will be confirmed in writing. ";
+      estimateTerms.value = "Accepted: custom service requires a tailored written quotation; no sample rate shown.";
+      estimateCard.classList.add("has-custom-service");
+      estimateBadge.textContent = "TAILORED QUOTE";
+      estimateDisclaimer.textContent = "We’ll review the scope you describe and confirm the service details and price in a written quotation before any paid work begins.";
+      estimateCard.hidden = false;
+      return;
+    }
+
     var minimum = Math.min.apply(Math, rates) * hours;
     var maximum = Math.max.apply(Math, rates) * hours;
     var formatINR = new Intl.NumberFormat("en-IN", {
@@ -224,6 +311,11 @@
       ? formatINR.format(minimum) + " for " + hours + (hours === 1 ? " work hour" : " work hours")
       : formatINR.format(minimum) + "–" + formatINR.format(maximum) + " for " + hours + (hours === 1 ? " work hour" : " work hours");
     estimateValue.value = estimateTitle.textContent + " (illustrative only)";
+    agreementCopy.textContent = "I have reviewed this illustrative estimate and understand the final price will be confirmed in a written quotation. ";
+    estimateTerms.value = "Accepted as a non-binding illustrative estimate";
+    estimateCard.classList.remove("has-custom-service");
+    estimateBadge.textContent = "ILLUSTRATIVE SAMPLE RATES";
+    estimateDisclaimer.textContent = "Sample INR rates for demonstration only—not SimpleiTech's confirmed price or a binding quotation. Your final written quote will confirm scope and fees.";
     estimateCard.hidden = false;
   }
 
@@ -239,7 +331,7 @@
     findTimeButton.disabled = !valid || submitting;
     document.getElementById("agreement-error").textContent = agreement.checked
       ? ""
-      : (details.hidden ? "" : "Please acknowledge the illustrative estimate to continue.");
+      : (details.hidden ? "" : "Please acknowledge the " + (estimateCard.classList.contains("has-custom-service") ? "custom quotation terms" : "illustrative estimate") + " to continue.");
   }
 
   function resetBookingForEstimateChange() {
@@ -581,22 +673,23 @@
     } else if (event.key === "Enter" && !options.hidden && activeSuggestion >= 0) {
       event.preventDefault();
       options.querySelectorAll(".service-suggestion")[activeSuggestion].click();
+    } else if (event.key === "Enter" && search.value.trim()) {
+      event.preventDefault();
+      if (matchingServices.length) {
+        options.querySelector(".service-suggestion").click();
+      } else {
+        addCustomService();
+      }
+    } else if (event.key === "Tab" && search.value.trim() && !matchingServices.length) {
+      event.preventDefault();
+      addCustomService();
     }
   });
   document.addEventListener("click", function (event) {
     if (!event.target.closest(".service-picker-field")) setSearchExpanded(false);
   });
 
-  serviceChoices.forEach(function (choice) {
-    choice.addEventListener("change", function () {
-      renderSelectedServices();
-      search.value = "";
-      filterServices();
-      updateEstimate();
-      resetBookingForEstimateChange();
-      updateFindTimeAvailability();
-    });
-  });
+  serviceChoices.forEach(attachServiceChoice);
   duration.addEventListener("change", function () {
     updateSearchStatus();
     updateEstimate();
@@ -662,7 +755,7 @@
     }
     if (!form.reportValidity()) return;
     if (!agreement.checked) {
-      document.getElementById("agreement-error").textContent = "Please acknowledge the illustrative estimate to continue.";
+      document.getElementById("agreement-error").textContent = "Please acknowledge the " + (estimateCard.classList.contains("has-custom-service") ? "custom quotation terms" : "illustrative estimate") + " to continue.";
       agreement.focus();
       return;
     }
