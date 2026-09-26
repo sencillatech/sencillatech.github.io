@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -85,7 +85,7 @@
     <section id="consultation" class="consultation-section">
       <div class="container">
         <div class="consultation-heading">
-          <p class="section-kicker">SIMPLE, PERSONAL CONSULTING</p>
+          <!-- <p class="section-kicker">SIMPLE, PERSONAL CONSULTING</p> -->
           <h1>Tell us what you need. <span>We'll make tech simple.</span></h1>
           <p>Choose your support, estimate the work, and request a tailored quote.</p>
         </div>
@@ -103,6 +103,7 @@
                 <label for="service-search">What would you like help with? <span class="required-mark">Required</span></label>
                 <div class="service-search-wrap">
                   <i class="bx bx-search" aria-hidden="true"></i>
+                  <div class="selected-service-chips" id="selected-service-chips" aria-label="Selected services"></div>
                   <input id="service-search" type="search" placeholder="Search and choose a service" autocomplete="off" aria-expanded="false" aria-controls="service-options" aria-describedby="service-search-status">
                 </div>
                 <p class="service-search-status field-help" id="service-search-status" aria-live="polite">Choose one or more services</p>
@@ -161,7 +162,7 @@
             <button class="consultation-proceed" id="consultation-proceed" type="button" disabled>Proceed <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
             </div>
 
-            <div class="consultation-details" id="consultation-details" hidden>
+            <div class="consultation-details" id="consultation-details" style="padding-top: 0px; margin-top: 0px;" hidden>
             <div class="form-step-heading contact-step-heading">
               <span class="step-number">02</span>
               <div><h2>Let's make it personal</h2><p>Share your details to see an estimate and available meeting times.</p></div>
@@ -201,7 +202,7 @@
               <span>I have reviewed this illustrative estimate and understand the final price will be confirmed in a written quotation. <strong>Required</strong></span>
             </label>
             <p class="agreement-error" id="agreement-error" aria-live="polite"></p>
-            <fieldset class="payment-preference">
+            <!-- <fieldset class="payment-preference">
               <legend>Preferred payment method <span class="optional-mark">Optional</span></legend>
               <div class="payment-options">
                 <label class="payment-option"><input type="radio" name="Preferred payment method" value="UPI"><span><i class="bx bx-qr-scan" aria-hidden="true"></i> UPI</span></label>
@@ -209,8 +210,8 @@
                 <label class="payment-option"><input type="radio" name="Preferred payment method" value="WhatsApp transfer"><span><i class="bx bxl-whatsapp" aria-hidden="true"></i> WhatsApp transfer</span></label>
               </div>
               <p class="field-help">Payment is arranged only after you approve the written quotation.</p>
-            </fieldset>
-            <button class="find-time-button" id="find-time-button" type="button" disabled>Find a time that works <i class="bx bx-calendar" aria-hidden="true"></i></button>
+            </fieldset> -->
+            <button class="find-time-button" id="find-time-button" type="button" style="margin-top: 10px;" disabled>Find a time that works <i class="bx bx-calendar" aria-hidden="true"></i></button>
 
             <section class="booking-panel" id="booking-panel" aria-labelledby="booking-title" hidden>
               <div class="form-step-heading booking-heading">

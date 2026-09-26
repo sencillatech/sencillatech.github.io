@@ -23,6 +23,7 @@
   var bookingPanel = document.getElementById("booking-panel");
   var submitButton = document.getElementById("consultation-submit");
   var serviceSummary = document.getElementById("selected-services");
+  var serviceChips = document.getElementById("selected-service-chips");
   var searchStatus = document.getElementById("service-search-status");
   var estimateCard = document.getElementById("estimate-card");
   var estimateTitle = document.getElementById("estimate-title");
@@ -54,6 +55,34 @@
     search.setAttribute("aria-expanded", String(expanded));
   }
 
+  function renderSelectedServices() {
+    serviceChips.textContent = "";
+
+    selectedServices().forEach(function (choice) {
+      var chip = document.createElement("span");
+      chip.className = "selected-service-chip";
+
+      var name = document.createElement("span");
+      name.className = "selected-service-name";
+      name.textContent = choice.value;
+
+      var remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "selected-service-remove";
+      remove.setAttribute("aria-label", "Remove " + choice.value);
+      remove.textContent = "\u00d7";
+      remove.addEventListener("click", function () {
+        choice.checked = false;
+        choice.dispatchEvent(new Event("change", { bubbles: true }));
+        search.focus();
+      });
+
+      chip.appendChild(name);
+      chip.appendChild(remove);
+      serviceChips.appendChild(chip);
+    });
+  }
+
   function updateSearchStatus() {
     var selected = selectedServices().map(function (choice) {
       return choice.value;
@@ -63,7 +92,7 @@
     }).length;
 
     searchStatus.textContent = selected.length
-      ? selected.length + " selected: " + selected.join(", ")
+      ? selected.length + (selected.length === 1 ? " service selected" : " services selected") + " · search to add more"
       : (search.value.trim() ? visible + " matching services" : "Choose one or more services");
     serviceSummary.value = selected.join(", ");
     proceedButton.disabled = selected.length === 0 || !duration.value || submitting;
@@ -469,6 +498,9 @@
 
   serviceChoices.forEach(function (choice) {
     choice.addEventListener("change", function () {
+      renderSelectedServices();
+      search.value = "";
+      filterServices();
       updateSearchStatus();
       updateEstimate();
       resetBookingForEstimateChange();
