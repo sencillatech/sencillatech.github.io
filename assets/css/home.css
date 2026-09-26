@@ -1533,3 +1533,890 @@ body.home-page h4 {
     animation-duration: .01ms !important;
   }
 }
+
+.home-page .consultation-section {
+  min-height: 72vh;
+  padding-top: 143px;
+}
+
+.home-page .consultation-heading {
+  max-width: 100%;
+  margin-bottom: 26px;
+}
+
+.home-page .consultation-heading .section-kicker {
+  margin-bottom: 8px;
+}
+
+.home-page .consultation-heading h1 {
+  margin: 0;
+  color: var(--home-navy);
+  font-size: clamp(30px, 3.2vw, 41px);
+  font-weight: 700;
+  letter-spacing: -.045em;
+  line-height: 1.15;
+}
+
+.home-page .consultation-heading h1 span {
+  color: var(--home-blue);
+}
+
+.home-page .consultation-heading > p:last-child {
+  margin: 8px auto 0;
+  font-size: 13px;
+}
+
+.home-page .consultation-form {
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 26px;
+  background: #fff;
+  border: 1px solid #e5ecf3;
+  border-radius: 13px;
+  box-shadow: 0 14px 45px rgba(0, 39, 93, .075);
+}
+
+.home-page .consultation-primary-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(145px, .34fr) auto;
+  align-items: end;
+  gap: 14px;
+}
+
+.home-page .consultation-field {
+  min-width: 0;
+  margin-bottom: 16px;
+}
+
+.home-page .consultation-primary-row .consultation-field {
+  position: static;
+  margin: 0;
+}
+
+.home-page .consultation-field > label,
+.home-page .payment-preference legend {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  margin: 0 0 8px;
+  color: #24364d;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.home-page .required-mark,
+.home-page .optional-mark {
+  flex: 0 0 auto;
+  color: #8a96a7;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.home-page .optional-mark {
+  padding: 3px 7px;
+  background: #f1f4f7;
+  border-radius: 20px;
+}
+
+.home-page .service-search-wrap {
+  position: relative;
+}
+
+.home-page .service-search-wrap > i {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  color: #8190a2;
+  font-size: 18px;
+  transform: translateY(-50%);
+}
+
+.home-page .service-search-wrap input,
+.home-page .consultation-field > input,
+.home-page .consultation-field select,
+.home-page .consultation-field textarea {
+  display: block;
+  width: 100%;
+  min-height: 45px;
+  padding: 11px 13px;
+  color: var(--home-ink);
+  background: #fff;
+  border: 1px solid #dfe7ef;
+  border-radius: 7px;
+  box-shadow: none;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.home-page .service-search-wrap input {
+  padding-left: 39px;
+}
+
+.home-page .consultation-field select {
+  height: 45px;
+  padding: 8px 11px;
+}
+
+.home-page .consultation-field textarea {
+  min-height: 86px;
+  resize: vertical;
+}
+
+.home-page .service-search-wrap input:focus,
+.home-page .consultation-field > input:focus,
+.home-page .consultation-field select:focus,
+.home-page .consultation-field textarea:focus {
+  border-color: var(--home-blue);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(0, 125, 191, .11);
+}
+
+.home-page .consultation-field input::placeholder,
+.home-page .consultation-field textarea::placeholder {
+  color: #97a3b1;
+}
+
+.home-page .service-search-status.field-help {
+  min-height: 0;
+  margin: 5px 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-page .service-options {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  right: auto;
+  left: 0;
+  display: grid;
+  width: min(100%, 690px);
+  max-height: 310px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  overflow-y: auto;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #dfe7ef;
+  border-radius: 10px;
+  box-shadow: 0 18px 38px rgba(0, 39, 93, .17);
+}
+
+.home-page .service-options[hidden],
+.home-page .consultation-details[hidden],
+.home-page .booking-panel[hidden],
+.home-page .estimate-card[hidden],
+.home-page .slot-picker[hidden],
+.home-page .selected-slot-summary[hidden] {
+  display: none !important;
+}
+
+.home-page .service-option {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 63px;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 9px 24px 9px 9px;
+  background: #fff;
+  border: 1px solid #e5ebf1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease;
+}
+
+.home-page .service-option:hover {
+  border-color: rgba(0, 125, 191, .48);
+}
+
+.home-page .service-option.is-selected {
+  background: #f2f8fb;
+  border-color: var(--home-blue);
+}
+
+.home-page .service-option[hidden] {
+  display: none !important;
+}
+
+.home-page .service-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.home-page .service-option:focus-within {
+  outline: 3px solid rgba(0, 125, 191, .2);
+  outline-offset: 2px;
+}
+
+.home-page .service-option-icon {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  color: var(--home-blue);
+  background: #edf6fa;
+  border-radius: 7px;
+  font-size: 17px;
+}
+
+.home-page .service-option-copy {
+  display: block;
+  min-width: 0;
+}
+
+.home-page .service-option-copy strong {
+  display: block;
+  color: var(--home-navy);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.home-page .service-option-copy small {
+  display: block;
+  margin-top: 3px;
+  color: #78879a;
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.home-page .service-option-check {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  color: var(--home-blue);
+  font-size: 15px;
+  opacity: 0;
+  transform: scale(.75);
+}
+
+.home-page .service-option.is-selected .service-option-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.home-page .field-error,
+.home-page .agreement-error {
+  margin: 4px 0 0;
+  color: #ad3131;
+  font-size: 11px;
+}
+
+.home-page .consultation-proceed,
+.home-page .find-time-button,
+.home-page .consultation-submit {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 19px;
+  color: #fff;
+  background: var(--home-navy);
+  border: 0;
+  border-radius: 7px;
+  box-shadow: 0 7px 17px rgba(0, 39, 93, .13);
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.home-page .consultation-proceed:hover:not(:disabled),
+.home-page .find-time-button:hover:not(:disabled),
+.home-page .consultation-submit:hover:not(:disabled) {
+  background: var(--home-blue);
+  transform: translateY(-1px);
+}
+
+.home-page .consultation-proceed:disabled,
+.home-page .find-time-button:disabled,
+.home-page .consultation-submit:disabled {
+  color: #8793a0;
+  background: #e6ebf0;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.home-page .consultation-proceed i,
+.home-page .find-time-button i,
+.home-page .consultation-submit i {
+  font-size: 17px;
+}
+
+.home-page .consultation-details {
+  margin-top: 24px;
+  padding-top: 23px;
+  border-top: 1px solid #e9eef3;
+  scroll-margin-top: 105px;
+}
+
+.home-page .consultation-details .form-step-heading,
+.home-page .booking-panel .form-step-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.home-page .consultation-details .step-number,
+.home-page .booking-panel .step-number {
+  display: inline-flex;
+  width: 35px;
+  height: 35px;
+  flex: 0 0 35px;
+  align-items: center;
+  justify-content: center;
+  color: var(--home-blue);
+  background: #eaf5fa;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.home-page .consultation-details h2,
+.home-page .booking-panel h2 {
+  margin: 0;
+  color: var(--home-navy);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.home-page .consultation-details .form-step-heading p,
+.home-page .booking-panel .form-step-heading p {
+  margin: 4px 0 0;
+  color: var(--home-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.home-page .consultation-contact-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 14px;
+}
+
+.home-page .notes-field {
+  grid-column: 1 / -1;
+}
+
+.home-page .field-help {
+  margin: 6px 0 0;
+  color: #78879a;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.home-page .estimate-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 3px 0 16px;
+  padding: 17px 18px;
+  background: linear-gradient(110deg, #eef7fb, #f7f9fc);
+  border: 1px solid #dcebf2;
+  border-radius: 9px;
+}
+
+.home-page .estimate-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 5px;
+  color: var(--home-blue);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+
+.home-page .estimate-eyebrow span {
+  padding: 3px 6px;
+  color: #8b6726;
+  background: #fff1d8;
+  border-radius: 20px;
+  font-size: 8px;
+  letter-spacing: .04em;
+}
+
+.home-page .estimate-price {
+  margin: 0;
+  color: var(--home-navy);
+  font-family: "Poppins", sans-serif;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -.025em;
+}
+
+.home-page .estimate-disclaimer {
+  max-width: 360px;
+  margin: 0;
+  color: #78879a;
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.home-page .price-agreement {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 13px;
+  background: #fffaf0;
+  border: 1px solid #f2e6cb;
+  border-radius: 8px;
+  color: #5f533c;
+  cursor: pointer;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.home-page .price-agreement input {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  margin: 1px 0 0;
+  accent-color: var(--home-blue);
+}
+
+.home-page .price-agreement strong {
+  color: #94701f;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.home-page .payment-preference {
+  min-width: 0;
+  margin: 14px 0;
+  padding: 13px 0 0;
+  border: 0;
+  border-top: 1px solid #edf1f5;
+}
+
+.home-page .payment-preference legend {
+  float: none;
+  padding: 0;
+  font-size: 11px;
+}
+
+.home-page .payment-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.home-page .payment-option {
+  display: block;
+  margin: 0;
+  cursor: pointer;
+}
+
+.home-page .payment-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.home-page .payment-option span {
+  display: flex;
+  min-height: 43px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px;
+  color: #45566b;
+  background: #fff;
+  border: 1px solid #e3eaf0;
+  border-radius: 7px;
+  font-size: 9px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.home-page .payment-option span i {
+  color: var(--home-blue);
+  font-size: 15px;
+}
+
+.home-page .payment-option input:checked + span {
+  color: var(--home-navy);
+  background: #f0f7fb;
+  border-color: var(--home-blue);
+}
+
+.home-page .payment-option input:focus-visible + span {
+  outline: 3px solid rgba(0, 125, 191, .2);
+  outline-offset: 2px;
+}
+
+.home-page .find-time-button {
+  width: 100%;
+}
+
+.home-page .booking-panel {
+  margin-top: 22px;
+  padding: 23px;
+  background: #fbfcfe;
+  border: 1px solid #e5ecf3;
+  border-radius: 10px;
+  scroll-margin-top: 100px;
+}
+
+.home-page .booking-panel.booking-complete {
+  border-color: #a6d6bb;
+  background: #f6fcf8;
+}
+
+.home-page .calendar-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.home-page .calendar-toolbar h3 {
+  margin: 0;
+  color: var(--home-navy);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.home-page .calendar-month-button {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  color: var(--home-navy);
+  background: #fff;
+  border: 1px solid #e3eaf0;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.home-page .calendar-month-button:hover:not(:disabled) {
+  border-color: var(--home-blue);
+}
+
+.home-page .calendar-month-button:disabled {
+  color: #aab4bf;
+  cursor: not-allowed;
+}
+
+.home-page .calendar-weekdays,
+.home-page .calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  text-align: center;
+}
+
+.home-page .calendar-weekdays {
+  margin-bottom: 7px;
+  color: #8491a1;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.home-page .calendar-day-spacer {
+  min-height: 36px;
+}
+
+.home-page .calendar-day {
+  min-width: 0;
+  min-height: 36px;
+  padding: 0;
+  color: #55667b;
+  background: #fff;
+  border: 1px solid #e5ebf1;
+  border-radius: 7px;
+  font-size: 10px;
+}
+
+.home-page .calendar-day.has-availability {
+  color: var(--home-navy);
+  border-color: #cfe3ed;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.home-page .calendar-day.has-availability:hover,
+.home-page .calendar-day.is-selected {
+  color: #fff;
+  background: var(--home-blue);
+  border-color: var(--home-blue);
+}
+
+.home-page .calendar-day:disabled:not(.has-availability) {
+  color: #b5bec8;
+  background: #f6f8fa;
+}
+
+.home-page .calendar-status {
+  min-height: 17px;
+  margin: 12px 0 0;
+  color: #718095;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.home-page .calendar-status.is-loading {
+  color: var(--home-blue);
+}
+
+.home-page .calendar-status.is-error {
+  color: #923333;
+}
+
+.home-page .slot-picker {
+  margin-top: 17px;
+  padding-top: 16px;
+  border-top: 1px solid #e8edf2;
+}
+
+.home-page .slot-picker h3 {
+  margin: 0 0 10px;
+  color: var(--home-navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.home-page .slot-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.home-page .slot-option {
+  min-width: 76px;
+  min-height: 36px;
+  padding: 7px 11px;
+  color: var(--home-navy);
+  background: #fff;
+  border: 1px solid #dfe7ef;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.home-page .slot-option:hover,
+.home-page .slot-option.is-selected {
+  color: #fff;
+  background: var(--home-blue);
+  border-color: var(--home-blue);
+}
+
+.home-page .selected-slot-summary {
+  margin: 15px 0;
+  padding: 11px 13px;
+  color: #195b3a;
+  background: #ebf7ef;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.home-page .consultation-submit {
+  display: flex;
+  width: 100%;
+  min-height: 49px;
+  margin-top: 15px;
+  font-size: 12px;
+}
+
+.home-page .consultation-privacy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 10px 0 0;
+  color: #78879a;
+  font-size: 9px;
+}
+
+.home-page .consultation-privacy i {
+  color: var(--home-blue);
+}
+
+.home-page .payment-after-quote {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 16px 0 0;
+  padding: 12px;
+  color: #746346;
+  background: #fbf8f1;
+  border: 1px solid #f2e9d6;
+  border-radius: 8px;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.home-page .payment-lock {
+  display: inline-flex;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  align-items: center;
+  justify-content: center;
+  color: #a8751c;
+  background: #fff0d4;
+  border-radius: 50%;
+}
+
+.home-page .payment-after-quote strong {
+  color: #634915;
+}
+
+.home-page .consultation-result {
+  display: none;
+  margin: 15px 0 0;
+  padding: 13px 15px;
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.home-page .consultation-result.is-success,
+.home-page .consultation-result.is-error,
+.home-page .consultation-result.is-loading {
+  display: block;
+}
+
+.home-page .consultation-result.is-success {
+  color: #16603f;
+  background: #eaf7f0;
+}
+
+.home-page .consultation-result.is-error {
+  color: #923333;
+  background: #fff0ef;
+}
+
+.home-page .consultation-result.is-loading {
+  color: var(--home-navy);
+  background: #edf6fa;
+}
+
+.home-page .form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+@media (max-width: 991px) {
+  .home-page .consultation-form {
+    padding: 22px;
+  }
+
+  .home-page .consultation-primary-row {
+    grid-template-columns: minmax(220px, 1fr) minmax(130px, .55fr) auto;
+    gap: 10px;
+  }
+
+  .home-page .consultation-proceed {
+    padding: 0 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page .consultation-section {
+    min-height: 0;
+    padding: 112px 0 48px;
+  }
+
+  .home-page .consultation-heading {
+    margin-bottom: 20px;
+  }
+
+  .home-page .consultation-heading .section-kicker {
+    font-size: 9px;
+  }
+
+  .home-page .consultation-heading h1 {
+    font-size: clamp(28px, 8vw, 36px);
+  }
+
+  .home-page .consultation-heading > p:last-child {
+    font-size: 12px;
+  }
+
+  .home-page .consultation-form {
+    padding: 17px;
+  }
+
+  .home-page .consultation-primary-row {
+    grid-template-columns: minmax(0, 1fr) minmax(110px, .55fr);
+    gap: 12px 9px;
+  }
+
+  .home-page .service-picker-field {
+    grid-column: 1 / -1;
+  }
+
+  .home-page .consultation-proceed {
+    width: 100%;
+    min-height: 45px;
+  }
+
+  .home-page .service-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-page .consultation-details {
+    scroll-margin-top: 76px;
+  }
+
+  .home-page .consultation-contact-fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .home-page .estimate-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+    padding: 14px;
+  }
+
+  .home-page .estimate-price {
+    font-size: 21px;
+  }
+
+  .home-page .booking-panel {
+    padding: 16px;
+    scroll-margin-top: 76px;
+  }
+
+  .home-page .calendar-weekdays,
+  .home-page .calendar-days {
+    gap: 4px;
+  }
+
+  .home-page .calendar-day {
+    min-height: 35px;
+  }
+
+  .home-page .payment-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

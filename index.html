@@ -86,92 +86,85 @@
       <div class="container">
         <div class="consultation-heading">
           <p class="section-kicker">SIMPLE, PERSONAL CONSULTING</p>
-          <h1>Tell us what you need.<br><span>We'll help you plan what comes next.</span></h1>
-          <p>Choose the support you need, find a time that works, and request a tailored quotation. No payment is due until you approve the quote.</p>
+          <h1>Tell us what you need. <span>We'll make tech simple.</span></h1>
+          <p>Choose your support, estimate the work, and request a tailored quote.</p>
         </div>
 
-        <div class="consultation-layout">
-          <form action="https://api.web3forms.com/submit" method="POST" class="consultation-form" id="consultation-form">
+        <form action="https://api.web3forms.com/submit" method="POST" class="consultation-form" id="consultation-form" novalidate>
             <input type="hidden" name="access_key" value="b33b5051-7662-4638-88a6-dc1ef8bc88df">
-            <input type="hidden" name="subject" value="New consulting quotation request - SimpleiTech">
-            <input type="hidden" name="from_name" value="SimpleiTech website">
+            <input type="hidden" name="subject" id="request-subject" value="">
+            <input type="hidden" name="from_name" value="SimpleiTech Consulting">
+            <input type="hidden" name="replyto" id="request-replyto" value="">
+            <input type="hidden" name="message" id="request-email-message" value="">
             <input type="checkbox" name="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off">
 
-            <div class="form-step-heading">
-              <span class="step-number">01</span>
-              <div><h3>Build your request</h3><p>Tell us a little about the help you need.</p></div>
-            </div>
-
-            <div class="consultation-field">
-              <label for="service-search">What would you like help with? <span class="required-mark">Required</span></label>
-              <div class="service-search-wrap">
-                <i class="bx bx-search" aria-hidden="true"></i>
-                <input id="service-search" type="search" placeholder="Search or filter services" autocomplete="off" aria-describedby="service-search-help service-search-status">
-              </div>
-              <p class="field-help" id="service-search-help">Select one or more services below. Try “website”, “design”, “testing”, or “SEO”.</p>
-              <div class="service-options" id="service-options" role="group" aria-label="Available consulting services">
-                <label class="service-option" data-search="ui design user interface ux experience research">
+            <div class="consultation-primary-row" id="consultation-step-one">
+              <div class="consultation-field service-picker-field">
+                <label for="service-search">What would you like help with? <span class="required-mark">Required</span></label>
+                <div class="service-search-wrap">
+                  <i class="bx bx-search" aria-hidden="true"></i>
+                  <input id="service-search" type="search" placeholder="Search and choose a service" autocomplete="off" aria-expanded="false" aria-controls="service-options" aria-describedby="service-search-status">
+                </div>
+                <p class="service-search-status field-help" id="service-search-status" aria-live="polite">Choose one or more services</p>
+                <div class="service-options" id="service-options" role="group" aria-label="Available consulting services" hidden>
+                <label class="service-option" data-search="ui design user interface ux experience research" data-rate="1800">
                   <input class="service-choice" type="checkbox" value="UI Design">
                   <span class="service-option-icon"><i class="bx bx-pencil" aria-hidden="true"></i></span>
                   <span class="service-option-copy"><strong>UI Design</strong><small>Clear, intuitive product experiences</small></span>
                   <i class="bx bx-check service-option-check" aria-hidden="true"></i>
                 </label>
-                <label class="service-option" data-search="web design development website web application">
+                <label class="service-option" data-search="web design development website web application" data-rate="2500">
                   <input class="service-choice" type="checkbox" value="Web Design & Development">
                   <span class="service-option-icon"><i class="bx bx-window-alt" aria-hidden="true"></i></span>
                   <span class="service-option-copy"><strong>Web Design &amp; Development</strong><small>Websites and custom web applications</small></span>
                   <i class="bx bx-check service-option-check" aria-hidden="true"></i>
                 </label>
-                <label class="service-option" data-search="software testing qa quality assurance automation">
+                <label class="service-option" data-search="software testing qa quality assurance automation" data-rate="1600">
                   <input class="service-choice" type="checkbox" value="Software Testing">
                   <span class="service-option-icon"><i class="bx bx-check-shield" aria-hidden="true"></i></span>
                   <span class="service-option-copy"><strong>Software Testing</strong><small>Quality assurance and testing support</small></span>
                   <i class="bx bx-check service-option-check" aria-hidden="true"></i>
                 </label>
-                <label class="service-option" data-search="search engine optimization seo maintenance">
+                <label class="service-option" data-search="search engine optimization seo maintenance" data-rate="1500">
                   <input class="service-choice" type="checkbox" value="Search Engine Setup & Maintenance">
                   <span class="service-option-icon"><i class="bx bx-trending-up" aria-hidden="true"></i></span>
                   <span class="service-option-copy"><strong>Search Engine Setup &amp; Maintenance</strong><small>Technical SEO and ongoing site care</small></span>
                   <i class="bx bx-check service-option-check" aria-hidden="true"></i>
                 </label>
-                <label class="service-option" data-search="alexa voice assistant amazon skill">
+                <label class="service-option" data-search="alexa voice assistant amazon skill" data-rate="2200">
                   <input class="service-choice" type="checkbox" value="Alexa Voice Assistant Development">
                   <span class="service-option-icon"><i class="bx bx-microphone" aria-hidden="true"></i></span>
                   <span class="service-option-copy"><strong>Alexa Voice Assistant</strong><small>Custom voice skills and integrations</small></span>
                   <i class="bx bx-check service-option-check" aria-hidden="true"></i>
                 </label>
-                <label class="service-option" data-search="google voice assistant google assistant">
+                <label class="service-option" data-search="google voice assistant google assistant" data-rate="2200">
                   <input class="service-choice" type="checkbox" value="Google Voice Assistant Development">
                   <span class="service-option-icon"><i class="bx bx-message-rounded-dots" aria-hidden="true"></i></span>
                   <span class="service-option-copy"><strong>Google Voice Assistant</strong><small>Useful conversational experiences</small></span>
                   <i class="bx bx-check service-option-check" aria-hidden="true"></i>
                 </label>
+                </div>
+                <input type="hidden" id="selected-services" name="Services requested">
+                <p class="field-error" id="service-error" aria-live="polite"></p>
               </div>
-              <p class="service-search-status field-help" id="service-search-status" aria-live="polite">6 services available</p>
-              <input type="hidden" id="selected-services" name="Services requested">
-              <p class="field-error" id="service-error" aria-live="polite"></p>
-            </div>
 
             <div class="consultation-field duration-field">
-              <label for="consultation-duration">How much consulting/work time do you estimate? <span class="required-mark">Required</span></label>
-              <select id="consultation-duration" class="form-control" name="Requested duration" required>
-                <option value="" selected disabled>Choose a consultation duration</option>
-                <option value="1 hour">1 hour</option>
-                <option value="2 hours">2 hours</option>
-                <option value="3 hours">3 hours</option>
-                <option value="4 hours">4 hours</option>
+              <label for="consultation-duration">Estimated work</label>
+              <select id="consultation-duration" name="Estimated work hours">
+                <option value="">Select hours</option>
+                <option value="1">1 hour</option>
+                <option value="2">2 hours</option>
+                <option value="3">3 hours</option>
+                <option value="4">4 hours</option>
               </select>
-              <p class="field-help">Choose an estimate from 1 to 4 hours. We'll confirm the scope and fee in your quotation.</p>
+            </div>
+            <button class="consultation-proceed" id="consultation-proceed" type="button" disabled>Proceed <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
             </div>
 
-            <div class="consultation-field">
-              <label for="consultation-notes">Anything else we should know? <span class="optional-mark">Optional</span></label>
-              <textarea id="consultation-notes" name="Additional details" rows="3" placeholder="Share any goals, context, or questions that will help us prepare."></textarea>
-            </div>
-
+            <div class="consultation-details" id="consultation-details" hidden>
             <div class="form-step-heading contact-step-heading">
               <span class="step-number">02</span>
-              <div><h3>Where can we reach you?</h3><p>We'll send your quotation and next steps here.</p></div>
+              <div><h2>Let's make it personal</h2><p>Share your details to see an estimate and available meeting times.</p></div>
             </div>
             <div class="consultation-contact-fields">
               <div class="consultation-field">
@@ -182,41 +175,68 @@
                 <label for="consultation-email">Email address <span class="required-mark">Required</span></label>
                 <input id="consultation-email" type="email" name="email" autocomplete="email" placeholder="you@company.com" required>
               </div>
+              <div class="consultation-field mobile-field">
+                <label for="consultation-phone">Mobile number (with country code) <span class="required-mark">Required</span></label>
+                <input id="consultation-phone" type="tel" name="Mobile number" autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210" pattern="\+[1-9][0-9\s-]{7,18}" required>
+                <p class="field-help">Include your international calling code, for example +91.</p>
+              </div>
+              <div class="consultation-field notes-field">
+                <label for="consultation-notes">Anything else we should know? <span class="optional-mark">Optional</span></label>
+                <textarea id="consultation-notes" name="Additional details" rows="3" placeholder="Goals, context, or a question to help us prepare."></textarea>
+              </div>
             </div>
 
-            <fieldset class="payment-preference">
-              <legend>How would you prefer to pay after approving your quote? <span class="required-mark">Required</span></legend>
-              <div class="payment-options">
-                <label class="payment-option"><input type="radio" name="Preferred payment method" value="UPI" required><span><i class="bx bx-qr-scan" aria-hidden="true"></i> UPI</span></label>
-                <label class="payment-option"><input type="radio" name="Preferred payment method" value="Net banking" required><span><i class="bx bx-buildings" aria-hidden="true"></i> Net banking</span></label>
-                <label class="payment-option"><input type="radio" name="Preferred payment method" value="WhatsApp transfer" required><span><i class="bx bxl-whatsapp" aria-hidden="true"></i> WhatsApp transfer</span></label>
+            <section class="estimate-card" id="estimate-card" aria-labelledby="estimate-title" hidden>
+              <div>
+                <p class="estimate-eyebrow">YOUR PLANNING ESTIMATE <span>ILLUSTRATIVE SAMPLE RATES</span></p>
+                <h3 id="estimate-title" class="estimate-price">Select a service and work estimate</h3>
               </div>
-              <p class="field-help">No charge now. We'll confirm the quotation first, then send payment instructions for your preferred method.</p>
-            </fieldset>
+              <p class="estimate-disclaimer">Sample INR rates for demonstration only—not SimpleiTech's confirmed price or a binding quotation. Your final written quote will confirm scope and fees.</p>
+            </section>
+            <input type="hidden" id="estimate-value" name="Illustrative estimate">
+            <input type="hidden" id="estimate-terms" name="Estimate acknowledgement" value="Accepted as a non-binding illustrative estimate">
 
-            <button class="consultation-submit" id="consultation-submit" type="submit">Request my quotation <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
-            <p class="consultation-privacy"><i class="bx bx-lock-alt" aria-hidden="true"></i> Your details are only used to respond to this request.</p>
+            <label class="price-agreement" for="price-agreement">
+              <input id="price-agreement" type="checkbox" name="Estimate accepted" value="Yes" required>
+              <span>I have reviewed this illustrative estimate and understand the final price will be confirmed in a written quotation. <strong>Required</strong></span>
+            </label>
+            <p class="agreement-error" id="agreement-error" aria-live="polite"></p>
+            <fieldset class="payment-preference">
+              <legend>Preferred payment method <span class="optional-mark">Optional</span></legend>
+              <div class="payment-options">
+                <label class="payment-option"><input type="radio" name="Preferred payment method" value="UPI"><span><i class="bx bx-qr-scan" aria-hidden="true"></i> UPI</span></label>
+                <label class="payment-option"><input type="radio" name="Preferred payment method" value="Net banking"><span><i class="bx bx-buildings" aria-hidden="true"></i> Net banking</span></label>
+                <label class="payment-option"><input type="radio" name="Preferred payment method" value="WhatsApp transfer"><span><i class="bx bxl-whatsapp" aria-hidden="true"></i> WhatsApp transfer</span></label>
+              </div>
+              <p class="field-help">Payment is arranged only after you approve the written quotation.</p>
+            </fieldset>
+            <button class="find-time-button" id="find-time-button" type="button" disabled>Find a time that works <i class="bx bx-calendar" aria-hidden="true"></i></button>
+
+            <section class="booking-panel" id="booking-panel" aria-labelledby="booking-title" hidden>
+              <div class="form-step-heading booking-heading">
+                <span class="step-number">03</span>
+                <div><h2 id="booking-title">Choose your 30-minute consultation</h2><p>Select an available date and time. Your work estimate is separate from the call length.</p></div>
+              </div>
+              <div class="calendar-toolbar">
+                <button type="button" id="calendar-previous" class="calendar-month-button" aria-label="Previous month"><i class="bx bx-chevron-left" aria-hidden="true"></i></button>
+                <h3 id="calendar-month" aria-live="polite"></h3>
+                <button type="button" id="calendar-next" class="calendar-month-button" aria-label="Next month"><i class="bx bx-chevron-right" aria-hidden="true"></i></button>
+              </div>
+              <div class="calendar-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+              <div class="calendar-days" id="calendar-days" role="group" aria-label="Available consultation dates"></div>
+              <div class="slot-picker" id="slot-picker" hidden>
+                <h3 id="slot-picker-title">Available times</h3>
+                <div class="slot-options" id="slot-options" role="group" aria-label="Available appointment times"></div>
+              </div>
+              <p class="calendar-status" id="calendar-status" role="status" aria-live="polite"></p>
+              <div class="selected-slot-summary" id="selected-slot-summary" hidden></div>
+              <button class="consultation-submit" id="consultation-submit" type="submit" disabled>Confirm time &amp; send request <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
+              <p class="consultation-privacy"><i class="bx bx-lock-alt" aria-hidden="true"></i> Your booking is only created after you confirm above.</p>
+              <p class="payment-after-quote"><span class="payment-lock"><i class="bx bx-lock-alt" aria-hidden="true"></i></span><span><strong>No payment is collected today.</strong><br>Your preferred payment method can be confirmed after you approve the written quotation.</span></p>
+            </section>
+            </div>
             <p class="consultation-result" id="consultation-result" role="status" aria-live="polite"></p>
           </form>
-
-          <aside class="booking-panel" aria-labelledby="booking-title">
-            <div class="form-step-heading booking-heading">
-              <span class="step-number">03</span>
-              <div><h3 id="booking-title">Find a time that works</h3><p>Check live availability and request a slot through Cal.com.</p></div>
-            </div>
-            <div class="booking-note"><i class="bx bx-info-circle" aria-hidden="true"></i><span>Choose your available time in the calendar. We'll confirm the scope and quotation separately before any paid work begins.</span></div>
-            <div class="calendar-frame">
-              <iframe
-                src="https://cal.com/simpleitech?embed=true&amp;layout=month_view&amp;theme=light"
-                title="SimpleiTech consultation availability calendar"
-                loading="lazy"
-                allow="payment"
-                referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <a class="calendar-fallback" href="https://cal.com/simpleitech" target="_blank" rel="noopener noreferrer">Open the calendar in a new tab <i class="bx bx-link-external" aria-hidden="true"></i></a>
-            <div class="payment-after-quote"><span class="payment-lock"><i class="bx bx-lock-alt" aria-hidden="true"></i></span><p><strong>Payment comes after your quote.</strong><br>UPI, net banking, and WhatsApp transfer are available preferences. We don't collect payment details on this page.</p></div>
-          </aside>
-        </div>
       </div>
     </section>
 
