@@ -13,10 +13,11 @@
 
   var search = document.getElementById("service-search");
   var options = document.getElementById("service-options");
-  var serviceCards = Array.prototype.slice.call(document.querySelectorAll(".service-option"));
+  var serviceCards = Array.prototype.slice.call(document.querySelectorAll("#service-catalog .service-option"));
   var serviceChoices = Array.prototype.slice.call(document.querySelectorAll(".service-choice"));
   var duration = document.getElementById("consultation-duration");
   var details = document.getElementById("consultation-details");
+  var stepProgress = document.getElementById("consultation-steps");
   var proceedButton = document.getElementById("consultation-proceed");
   var agreement = document.getElementById("price-agreement");
   var findTimeButton = document.getElementById("find-time-button");
@@ -43,6 +44,9 @@
   calendarMonthDate = new Date(calendarMonthDate.getFullYear(), calendarMonthDate.getMonth(), 1);
   var requestNumber = null;
   var submitting = false;
+  var matchingServices = [];
+  var activeSuggestion = -1;
+  var suggestionLimit = 8;
 
   function selectedServices() {
     return serviceChoices.filter(function (choice) {
@@ -53,6 +57,10 @@
   function setSearchExpanded(expanded) {
     options.hidden = !expanded;
     search.setAttribute("aria-expanded", String(expanded));
+    if (!expanded) {
+      search.removeAttribute("aria-activedescendant");
+      activeSuggestion = -1;
+    }
   }
 
   function renderSelectedServices() {
@@ -87,35 +95,109 @@
     var selected = selectedServices().map(function (choice) {
       return choice.value;
     });
-    var visible = serviceCards.filter(function (card) {
-      return !card.hidden;
-    }).length;
-
     searchStatus.textContent = selected.length
       ? selected.length + (selected.length === 1 ? " service selected" : " services selected") + " · search to add more"
-      : (search.value.trim() ? visible + " matching services" : "Choose one or more services");
+      : (search.value.trim()
+        ? (matchingServices.length ? matchingServices.length + " matching " + (matchingServices.length === 1 ? "service" : "services") : "No matching services")
+        : "Choose one or more services");
     serviceSummary.value = selected.join(", ");
     proceedButton.disabled = selected.length === 0 || !duration.value || submitting;
   }
 
-  function filterServices() {
-    var query = search.value.trim().toLowerCase();
-    var visibleCount = 0;
+  function renderSuggestions() {
+    options.textContent = "";
+    activeSuggestion = -1;
+    search.removeAttribute("aria-activedescendant");
 
-    serviceCards.forEach(function (card) {
+    matchingServices.slice(0, suggestionLimit).forEach(function (card, index) {
       var choice = card.querySelector(".service-choice");
-      var matches = !query || card.dataset.search.indexOf(query) !== -1;
-      card.hidden = !matches && !choice.checked;
-      card.classList.toggle("is-selected", choice.checked);
-      if (!card.hidden) visibleCount += 1;
+      var suggestion = document.createElement("button");
+      suggestion.type = "button";
+      suggestion.id = "service-suggestion-" + index;
+      suggestion.className = "service-suggestion";
+      suggestion.setAttribute("role", "option");
+      suggestion.setAttribute("aria-selected", "false");
+
+      var icon = card.querySelector(".service-option-icon");
+      if (icon) suggestion.appendChild(icon.cloneNode(true));
+
+      var copy = document.createElement("span");
+      copy.className = "service-suggestion-copy";
+
+      var title = document.createElement("strong");
+      title.textContent = choice.value;
+      copy.appendChild(title);
+
+      var description = card.querySelector(".service-option-copy small");
+      if (description) {
+        var detail = document.createElement("small");
+        detail.textContent = description.textContent;
+        copy.appendChild(detail);
+      }
+
+      suggestion.appendChild(copy);
+      suggestion.addEventListener("click", function () {
+        choice.checked = true;
+        choice.dispatchEvent(new Event("change", { bubbles: true }));
+        search.focus();
+      });
+      options.appendChild(suggestion);
     });
 
-    if (query) setSearchExpanded(true);
-    if (!visibleCount && query) {
-      searchStatus.textContent = "No matching services. Try another search.";
-    } else {
-      updateSearchStatus();
+    if (!matchingServices.length && search.value.trim()) {
+      var empty = document.createElement("p");
+      empty.className = "service-suggestion-empty";
+      empty.textContent = "No exact match yet. Try a broader term or tell us more in your project details.";
+      options.appendChild(empty);
     }
+
+    setSearchExpanded(Boolean(search.value.trim()));
+  }
+
+  function filterServices() {
+    var query = search.value.trim().toLowerCase().replace(/\s+/g, " ");
+    var terms = query ? query.split(" ") : [];
+    var selected = selectedServices();
+
+    matchingServices = terms.length
+      ? serviceCards.filter(function (card) {
+        var choice = card.querySelector(".service-choice");
+        if (choice.checked) return false;
+
+        var searchableText = (choice.value + " " + (card.dataset.search || "")).toLowerCase();
+        return terms.every(function (term) {
+          return searchableText.indexOf(term) !== -1;
+        });
+      })
+      : [];
+
+    renderSuggestions();
+    updateSearchStatus();
+  }
+
+  function setActiveSuggestion(index) {
+    var suggestions = options.querySelectorAll(".service-suggestion");
+    if (!suggestions.length) return;
+    activeSuggestion = (index + suggestions.length) % suggestions.length;
+
+    Array.prototype.forEach.call(suggestions, function (suggestion, suggestionIndex) {
+      suggestion.setAttribute("aria-selected", String(suggestionIndex === activeSuggestion));
+    });
+    search.setAttribute("aria-activedescendant", suggestions[activeSuggestion].id);
+  }
+
+  function updateProgress(currentStep, completed) {
+    Array.prototype.forEach.call(stepProgress.querySelectorAll(".consultation-step"), function (step) {
+      var number = Number(step.dataset.step);
+      var isCurrent = !completed && number === currentStep;
+      step.classList.toggle("is-current", isCurrent);
+      step.classList.toggle("is-complete", completed || number < currentStep);
+      if (isCurrent) {
+        step.setAttribute("aria-current", "step");
+      } else {
+        step.removeAttribute("aria-current");
+      }
+    });
   }
 
   function updateEstimate() {
@@ -482,14 +564,23 @@
   }
 
   search.addEventListener("focus", function () {
-    setSearchExpanded(true);
     filterServices();
   });
   search.addEventListener("input", filterServices);
   search.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
       setSearchExpanded(false);
-      search.blur();
+      return;
+    }
+    if (event.key === "ArrowDown" && !options.hidden) {
+      event.preventDefault();
+      setActiveSuggestion(activeSuggestion + 1);
+    } else if (event.key === "ArrowUp" && !options.hidden) {
+      event.preventDefault();
+      setActiveSuggestion(activeSuggestion < 0 ? 0 : activeSuggestion - 1);
+    } else if (event.key === "Enter" && !options.hidden && activeSuggestion >= 0) {
+      event.preventDefault();
+      options.querySelectorAll(".service-suggestion")[activeSuggestion].click();
     }
   });
   document.addEventListener("click", function (event) {
@@ -501,7 +592,6 @@
       renderSelectedServices();
       search.value = "";
       filterServices();
-      updateSearchStatus();
       updateEstimate();
       resetBookingForEstimateChange();
       updateFindTimeAvailability();
@@ -516,9 +606,11 @@
   proceedButton.addEventListener("click", function () {
     if (!selectedServices().length || !duration.value) return;
     details.hidden = false;
+    stepProgress.hidden = false;
+    updateProgress(2, false);
     setSearchExpanded(false);
     updateEstimate();
-    details.scrollIntoView({ behavior: "smooth", block: "start" });
+    stepProgress.scrollIntoView({ behavior: "smooth", block: "start" });
     document.getElementById("consultation-name").focus({ preventScroll: true });
     updateFindTimeAvailability();
   });
@@ -533,6 +625,7 @@
   findTimeButton.addEventListener("click", function () {
     if (findTimeButton.disabled) return;
     bookingPanel.hidden = false;
+    updateProgress(3, false);
     findTimeButton.disabled = true;
     findTimeButton.textContent = "Availability calendar below";
     calendarMonthDate = new Date(calendarMonthDate.getFullYear(), calendarMonthDate.getMonth(), 1);
@@ -604,6 +697,7 @@
       submitButton.disabled = true;
       findTimeButton.disabled = true;
       bookingPanel.classList.add("booking-complete");
+      updateProgress(3, true);
     } catch (error) {
       result.className = "consultation-result is-error";
       result.textContent = (error.message || "We couldn't book your selected time.") + " Your request number is " + requestNumber + ". Please choose another slot and try again.";

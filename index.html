@@ -51,8 +51,10 @@
         <i class="icofont-phone"></i> <a href="tel:+918296509546">+91 829 650 9546</a>
       </div>
       <div class="social-links">
-        <span>Digital solutions, delivered personally</span>
-        <a href="index_ru.html" style="margin-left: 15px; color: white; font-weight: bold;">RU</a>
+        <nav class="language-switch" aria-label="Language">
+          <a href="index.html" lang="en" hreflang="en" aria-current="page">EN</a>
+          <a href="index_ru.html" lang="ru" hreflang="ru">RU</a>
+        </nav>
       </div>
     </div>
   </div>
@@ -87,7 +89,8 @@
         <div class="consultation-heading">
           <!-- <p class="section-kicker">SIMPLE, PERSONAL CONSULTING</p> -->
           <h1>Tell us what you need. <span>We'll make tech simple.</span></h1>
-          <p>Choose your support, estimate the work, and request a tailored quote.</p>
+          <p>Great ideas start simply. <span>Tell us what you need, and we’ll guide you from first thought to clear next step.</span></p>
+          <!-- <div class="process-promise"><i class="bx bx-sparkles" aria-hidden="true"></i> Your project, made simple in <strong>3 clear steps</strong></div> -->
         </div>
 
         <form action="https://api.web3forms.com/submit" method="POST" class="consultation-form" id="consultation-form" novalidate>
@@ -104,10 +107,11 @@
                 <div class="service-search-wrap">
                   <i class="bx bx-search" aria-hidden="true"></i>
                   <div class="selected-service-chips" id="selected-service-chips" aria-label="Selected services"></div>
-                  <input id="service-search" type="search" placeholder="Search and choose a service" autocomplete="off" aria-expanded="false" aria-controls="service-options" aria-describedby="service-search-status">
+                  <input id="service-search" type="search" placeholder="Try “web design” or “testing”" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="service-options" aria-describedby="service-search-status">
+                  <div class="service-options" id="service-options" role="listbox" aria-label="Matching consulting services" hidden></div>
                 </div>
                 <p class="service-search-status field-help" id="service-search-status" aria-live="polite">Choose one or more services</p>
-                <div class="service-options" id="service-options" role="group" aria-label="Available consulting services" hidden>
+                <div class="service-catalog" id="service-catalog" hidden>
                 <label class="service-option" data-search="ui design user interface ux experience research" data-rate="1800">
                   <input class="service-choice" type="checkbox" value="UI Design">
                   <span class="service-option-icon"><i class="bx bx-pencil" aria-hidden="true"></i></span>
@@ -162,10 +166,26 @@
             <button class="consultation-proceed" id="consultation-proceed" type="button" disabled>Proceed <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
             </div>
 
+            <ol class="consultation-steps" id="consultation-steps" aria-label="Consultation request steps" hidden>
+              <li class="consultation-step is-complete" data-step="1">
+                <span class="consultation-step-number">01</span>
+                <span class="consultation-step-copy"><strong>Your project</strong><small>Services &amp; hours</small></span>
+              </li>
+              <li class="consultation-step-connector" aria-hidden="true"></li>
+              <li class="consultation-step is-current" data-step="2" aria-current="step">
+                <span class="consultation-step-number">02</span>
+                <span class="consultation-step-copy"><strong>Your details</strong><small>Estimate &amp; contact</small></span>
+              </li>
+              <li class="consultation-step-connector" aria-hidden="true"></li>
+              <li class="consultation-step" data-step="3">
+                <span class="consultation-step-number">03</span>
+                <span class="consultation-step-copy"><strong>Choose a time</strong><small>Confirm your request</small></span>
+              </li>
+            </ol>
+
             <div class="consultation-details" id="consultation-details" style="padding-top: 0px; margin-top: 0px;" hidden>
             <div class="form-step-heading contact-step-heading">
-              <span class="step-number">02</span>
-              <div><h2>Let's make it personal</h2><p>Share your details to see an estimate and available meeting times.</p></div>
+              <div><h2>Let’s make it personal</h2><p>Share your details to see an estimate and available meeting times.</p></div>
             </div>
             <div class="consultation-contact-fields">
               <div class="consultation-field">
@@ -215,7 +235,6 @@
 
             <section class="booking-panel" id="booking-panel" aria-labelledby="booking-title" hidden>
               <div class="form-step-heading booking-heading">
-                <span class="step-number">03</span>
                 <div><h2 id="booking-title">Choose your 30-minute consultation</h2><p>Select an available date and time. Your work estimate is separate from the call length.</p></div>
               </div>
               <div class="calendar-toolbar">
@@ -396,91 +415,73 @@
       </div>
     </section><!-- End Our Apps Section -->
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact contact-redesign">
       <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <p class="section-kicker">LET'S TALK</p>
-          <h3><span>Tell us what you need.</span></h3>
-          <p>Have a question, a project, or just an idea? We'd love to hear about it.</p>
+        <div class="contact-heading">
+          <p class="section-kicker">LET’S MAKE IT HAPPEN</p>
+          <h2>Good work starts with <span>a conversation.</span></h2>
+          <p>Tell us what you have in mind. We’ll help you find the right next step.</p>
         </div>
 
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-6">
-            <div class="info-box mb-4 h-100">
-              <i class="bx bx-map"></i>
-              <h3>Our Address</h3>
-              <p>Radhakrishan, HO NO 1-S-18-1265/2, Near Panchalingeshwara Temple, Mangalore, Karnataka, Ladyhill -
-                575006.</p>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="info-box mb-4 h-100">
-              <i class="bx bx-phone-call"></i>
-              <h3>Contact Us</h3>
-              <div class="row w-100">
-                <div class="col-md-6 mb-3 mb-md-0 px-4">
-                  <p><strong>Email Us</strong></p>
-                  <p><a href="mailto:sales@simpleitech.com">sales@simpleitech.com</a></p>
-                </div>
-                <div class="col-md-6 px-4">
-                  <p><strong>Whatsapp / Call Us</strong></p>
-                  <p><a href="tel:+918296509546">+91 829 650 9546</a></p>
-                </div>
+        <div class="contact-showcase">
+          <aside class="contact-copy-panel">
+            <span class="contact-panel-kicker">A REAL PERSON. A CLEAR ANSWER.</span>
+            <h3>Let’s talk about what’s possible.</h3>
+            <p>Whether you have a detailed brief or just the start of an idea, we’re here to help you move forward.</p>
+            <div class="contact-details">
+              <a class="contact-detail" href="mailto:sales@simpleitech.com">
+                <span class="contact-detail-icon"><i class="bx bx-envelope" aria-hidden="true"></i></span>
+                <span><small>EMAIL US</small><strong>sales@simpleitech.com</strong></span>
+                <i class="bx bx-right-arrow-alt contact-detail-arrow" aria-hidden="true"></i>
+              </a>
+              <a class="contact-detail" href="https://wa.me/918296509546">
+                <span class="contact-detail-icon"><i class="bx bxl-whatsapp" aria-hidden="true"></i></span>
+                <span><small>CALL OR WHATSAPP</small><strong>+91 829 650 9546</strong></span>
+                <i class="bx bx-right-arrow-alt contact-detail-arrow" aria-hidden="true"></i>
+              </a>
+              <div class="contact-detail contact-address">
+                <span class="contact-detail-icon"><i class="bx bx-map" aria-hidden="true"></i></span>
+                <span><small>BASED IN</small><strong>Mangalore, Karnataka, India</strong></span>
               </div>
             </div>
-          </div>
+            <div class="contact-accent-note"><i class="bx bx-sun" aria-hidden="true"></i> Simple conversations. Thoughtful solutions.</div>
+          </aside>
 
-        </div>
-
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-
-          <div class="col-lg-6">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d972.314339698258!2d74.832953!3d12.891166!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd7ff7b7b6c9b468f!2sRadhakrishan!5e0!3m2!1sen!2sus!4v1605529780830!5m2!1sen!2sus"
-              class="mb-4 mb-lg-0" aria-hidden="false" tabindex="0" frameborder="0"
-              style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
-          </div>
-
-          <div class="col-lg-6">
+          <div class="contact-form-panel">
+            <div class="contact-form-heading">
+              <span class="contact-form-icon"><i class="bx bx-message-square-detail" aria-hidden="true"></i></span>
+              <div><h3>Send us a note</h3><p>We’ll get back to you as soon as we can.</p></div>
+            </div>
             <form action="https://api.web3forms.com/submit" method="POST" role="form" class="php-email-form" id="sendEmailForm">
               <input type="hidden" name="access_key" value="b33b5051-7662-4638-88a6-dc1ef8bc88df">
               <input type="hidden" name="subject" value="New Contact Form Submission from Simpleitech Website">
               <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-              <div class="form-row">
-                <div class="col form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required
-                    data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+              <div class="contact-form-fields">
+                <div class="form-group">
+                  <label for="name">Your name</label>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="How should we address you?" required minlength="2">
                   <div class="validate"></div>
                 </div>
-                <div class="col form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required
-                    data-rule="email" data-msg="Please enter a valid email" />
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input type="email" class="form-control" name="email" id="email" placeholder="you@company.com" required>
                   <div class="validate"></div>
                 </div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
-                  data-rule="minlen:4" data-msg="Please enter at least 4 chars of subject" />
-                <div class="validate"></div>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" id="message" placeholder="Message" required
-                  data-rule="required" data-msg="Please write something for us"></textarea>
-                <div class="validate"></div>
+                <div class="form-group contact-message-field">
+                  <label for="message">What would you like to discuss?</label>
+                  <textarea class="form-control" name="message" rows="4" id="message" placeholder="Tell us a little about your idea or question." required></textarea>
+                  <div class="validate"></div>
+                </div>
               </div>
               <div class="mb-3">
-                <div class="loading">Loading</div>
+                <div class="loading">Sending your message…</div>
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <button type="submit" class="contact-submit">Send your message <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
             </form>
           </div>
-
         </div>
-
       </div>
     </section><!-- End Contact Section -->
 
