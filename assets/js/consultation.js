@@ -10,6 +10,10 @@
   var CAL_TIME_ZONE = "Asia/Kolkata";
   var CAL_SLOTS_VERSION = "2024-09-04";
   var CAL_BOOKING_VERSION = "2026-02-25";
+  var servicesApiConfig = document.querySelector('meta[name="simpleitech-services-api"]');
+  var SERVICES_API_URL = servicesApiConfig
+    ? servicesApiConfig.content
+    : "https://simpleitech-services-api.sencillatech.workers.dev/search";
 
   var search = document.getElementById("service-search");
   var options = document.getElementById("service-options");
@@ -51,6 +55,10 @@
   var agreementCopy = document.getElementById("price-agreement-copy");
   var estimateDisclaimer = estimateCard.querySelector(".estimate-disclaimer");
   var estimateBadge = estimateCard.querySelector(".estimate-eyebrow span");
+  var catalogSearchTimer = null;
+  var catalogRequestId = 0;
+  var catalogAbortController = null;
+  var apiServiceCards = Object.create(null);
 
   function selectedServices() {
     return serviceChoices.filter(function (choice) {
@@ -177,6 +185,99 @@
 
     renderSuggestions();
     updateSearchStatus();
+
+    window.clearTimeout(catalogSearchTimer);
+    catalogRequestId += 1;
+    if (catalogAbortController) catalogAbortController.abort();
+    if (query.length < 2) return;
+
+    var requestId = catalogRequestId;
+    catalogSearchTimer = window.setTimeout(function () {
+      searchCatalog(query, requestId);
+    }, 250);
+  }
+
+  function addCatalogService(service) {
+    var existing = serviceCards.filter(function (card) {
+      var choice = card.querySelector(".service-choice");
+      return choice && choice.value.toLowerCase() === service.service_name.toLowerCase();
+    })[0];
+    if (existing) return existing;
+
+    var card = document.createElement("label");
+    card.className = "service-option";
+    card.dataset.search = [service.category, service.service_group, service.description, service.best_for].join(" ").toLowerCase();
+    card.dataset.rate = "0";
+    card.dataset.custom = "true";
+    card.dataset.apiServiceId = service.id;
+
+    var choice = document.createElement("input");
+    choice.className = "service-choice";
+    choice.type = "checkbox";
+    choice.value = service.service_name;
+    choice.dataset.apiServiceId = service.id;
+
+    var icon = document.createElement("span");
+    icon.className = "service-option-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = "\u2726";
+
+    var copy = document.createElement("span");
+    copy.className = "service-option-copy";
+    var title = document.createElement("strong");
+    title.textContent = service.service_name;
+    var detail = document.createElement("small");
+    detail.textContent = [service.category, service.service_group].filter(Boolean).join(" \u00b7 ") || "SimpleiTech consulting service";
+    copy.appendChild(title);
+    copy.appendChild(detail);
+
+    card.appendChild(choice);
+    card.appendChild(icon);
+    card.appendChild(copy);
+    document.getElementById("service-catalog").appendChild(card);
+    serviceCards.push(card);
+    serviceChoices.push(choice);
+    apiServiceCards[service.id] = card;
+    attachServiceChoice(choice);
+    return card;
+  }
+
+  async function searchCatalog(query, requestId) {
+    catalogAbortController = new AbortController();
+    try {
+      var response = await fetch(SERVICES_API_URL + "?q=" + encodeURIComponent(query), {
+        signal: catalogAbortController.signal,
+        headers: { Accept: "application/json" }
+      });
+      if (!response.ok) throw new Error("Service search returned HTTP " + response.status);
+      var data = await response.json();
+      if (requestId !== catalogRequestId || !Array.isArray(data.results)) return;
+
+      var resultIds = Object.create(null);
+      matchingServices = data.results.map(function (service) {
+        resultIds[service.id] = true;
+        return addCatalogService(service);
+      }).filter(function (card) {
+        var choice = card.querySelector(".service-choice");
+        return choice && !choice.checked;
+      });
+      Object.keys(apiServiceCards).forEach(function (serviceId) {
+        var staleCard = apiServiceCards[serviceId];
+        var staleChoice = staleCard.querySelector(".service-choice");
+        if (!resultIds[serviceId] && staleChoice && !staleChoice.checked) {
+          staleCard.remove();
+          serviceCards = serviceCards.filter(function (item) { return item !== staleCard; });
+          serviceChoices = serviceChoices.filter(function (item) { return item !== staleChoice; });
+          delete apiServiceCards[serviceId];
+        }
+      });
+      renderSuggestions();
+      updateSearchStatus();
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        // Keep the built-in suggestions usable while the API is unavailable.
+      }
+    }
   }
 
   function setActiveSuggestion(index) {
