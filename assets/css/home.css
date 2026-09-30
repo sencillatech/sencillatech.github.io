@@ -714,22 +714,42 @@ body.home-page h4 {
 }
 
 .home-page #footer {
-  background: #fff;
+  background: #001a3d;
 }
 
 .home-page #footer .footer-top {
-  background: #fff;
+  background: transparent;
+  padding-top: 48px;
 }
 
 .home-page #footer .footer-top h4,
 .home-page #footer .footer-top .footer-contact h3 {
-  color: var(--home-navy);
+  color: #fff;
 }
 
 .home-page #footer .copyright {
-  color: var(--home-muted);
-  border-top: 1px solid #edf1f5;
+  color: rgba(255, 255, 255, .58);
+  border-top: 1px solid rgba(255, 255, 255, .14);
 }
+
+.home-page #footer .footer-contact p,
+.home-page #footer .footer-links p {
+  line-height: 1.75;
+}
+
+.home-page #footer .footer-top .footer-links ul a {
+  line-height: 1.45;
+  color: rgba(255, 255, 255, .68);
+}
+
+.home-page #footer .footer-contact p {
+  color: rgba(255, 255, 255, .68);
+}
+
+.home-page #footer .footer-top .footer-links ul i {
+  color: var(--home-accent);
+}
+
 
 .home-page .back-to-top i {
   background: var(--home-navy);
@@ -990,7 +1010,10 @@ body.home-page h4 {
 
 .home-page .service-option-copy {
   display: block;
+  flex: 1 1 auto;
   min-width: 0;
+  padding-right: 12px;
+  text-align: left;
 }
 
 .home-page .service-option-copy strong {
@@ -998,6 +1021,19 @@ body.home-page h4 {
   color: var(--home-navy);
   font-size: 10px;
   line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.home-page #services .icon-box {
+  width: 100%;
+}
+
+.home-page #services .icon-box h4 {
+  display: flex;
+  min-height: 2.8em;
+  align-items: center;
+  justify-content: center;
+  overflow-wrap: anywhere;
 }
 
 .home-page .service-option-copy small {
@@ -1815,7 +1851,6 @@ body.home-page h4 {
 }
 
 .home-page .consultation-proceed,
-.home-page .find-time-button,
 .home-page .consultation-submit {
   display: inline-flex;
   min-height: 46px;
@@ -1836,14 +1871,12 @@ body.home-page h4 {
 }
 
 .home-page .consultation-proceed:hover:not(:disabled),
-.home-page .find-time-button:hover:not(:disabled),
 .home-page .consultation-submit:hover:not(:disabled) {
   background: var(--home-blue);
   transform: translateY(-1px);
 }
 
 .home-page .consultation-proceed:disabled,
-.home-page .find-time-button:disabled,
 .home-page .consultation-submit:disabled {
   color: #8793a0;
   background: #e6ebf0;
@@ -1852,7 +1885,6 @@ body.home-page h4 {
 }
 
 .home-page .consultation-proceed i,
-.home-page .find-time-button i,
 .home-page .consultation-submit i {
   font-size: 17px;
 }
@@ -2062,10 +2094,6 @@ body.home-page h4 {
 .home-page .payment-option input:focus-visible + span {
   outline: 3px solid rgba(0, 125, 191, .2);
   outline-offset: 2px;
-}
-
-.home-page .find-time-button {
-  width: 100%;
 }
 
 .home-page .booking-panel {
@@ -2597,7 +2625,6 @@ body.home-page h4 {
 }
 
 .home-page .consultation-proceed,
-.home-page .find-time-button,
 .home-page .consultation-submit {
   font-size: 13px;
 }
@@ -2790,8 +2817,11 @@ body.home-page h4 {
   box-shadow: 0 7px 16px rgba(0, 39, 93, .14), inset 0 2px 0 rgba(226, 158, 33, .35);
 }
 
+.home-page .slot-proceed-button {
+  margin-top: 16px;
+}
+
 .home-page .consultation-proceed:hover:not(:disabled),
-.home-page .find-time-button:hover:not(:disabled),
 .home-page .consultation-submit:hover:not(:disabled) {
   background: linear-gradient(115deg, #006da8, var(--home-blue));
 }

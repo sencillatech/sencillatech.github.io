@@ -24,7 +24,7 @@
   var stepProgress = document.getElementById("consultation-steps");
   var proceedButton = document.getElementById("consultation-proceed");
   var agreement = document.getElementById("price-agreement");
-  var findTimeButton = document.getElementById("find-time-button");
+  var continueButton = document.getElementById("consultation-continue-button");
   var bookingPanel = document.getElementById("booking-panel");
   var submitButton = document.getElementById("consultation-submit");
   var serviceSummary = document.getElementById("selected-services");
@@ -429,23 +429,24 @@
       phone.validity.valid &&
       agreement.checked;
 
-    findTimeButton.disabled = !valid || submitting;
+    continueButton.disabled = !selectedSlot || submitting;
+    submitButton.disabled = !valid || !selectedSlot || submitting;
     document.getElementById("agreement-error").textContent = agreement.checked
       ? ""
       : (details.hidden ? "" : "Please acknowledge the " + (estimateCard.classList.contains("has-custom-service") ? "custom quotation terms" : "illustrative estimate") + " to continue.");
   }
 
   function resetBookingForEstimateChange() {
-    if (details.hidden) return;
-
     agreement.checked = false;
     selectedSlot = null;
     selectedDate = null;
     slotPicker.hidden = true;
     slotSummary.hidden = true;
     bookingPanel.hidden = true;
+    details.hidden = true;
+    stepProgress.hidden = true;
+    continueButton.disabled = true;
     submitButton.disabled = true;
-    findTimeButton.innerHTML = 'Find a time that works <i class="bx bx-calendar" aria-hidden="true"></i>';
     updateFindTimeAvailability();
   }
 
@@ -474,6 +475,7 @@
     var slots = availableSlots[dateKey] || [];
     selectedDate = dateKey;
     selectedSlot = null;
+    continueButton.disabled = true;
     submitButton.disabled = true;
     slotOptions.textContent = "";
     slotPickerTitle.textContent = "Available times on " + formatDateKey(dateKey, {
@@ -508,8 +510,9 @@
           year: "numeric"
         }) + " at " + button.textContent + " (India Standard Time)";
         slotSummary.hidden = false;
-        submitButton.disabled = false;
-        submitButton.focus();
+        continueButton.disabled = false;
+        continueButton.focus();
+        updateFindTimeAvailability();
       });
       slotOptions.appendChild(button);
     });
@@ -535,6 +538,7 @@
     selectedSlot = null;
     slotPicker.hidden = true;
     slotSummary.hidden = true;
+    continueButton.disabled = true;
     submitButton.disabled = true;
 
     for (var empty = 0; empty < firstWeekday; empty += 1) {
@@ -678,7 +682,7 @@
   }
 
   async function refreshSelectedSlot() {
-    var dateKey = selectedSlot.start.slice(0, 10);
+    var dateKey = selectedDate;
     var params = new URLSearchParams({
       username: CAL_USER,
       eventTypeSlug: CAL_EVENT,
@@ -799,14 +803,24 @@
 
   proceedButton.addEventListener("click", function () {
     if (!selectedServices().length || !duration.value) return;
-    details.hidden = false;
     stepProgress.hidden = false;
     updateProgress(2, false);
     setSearchExpanded(false);
     updateEstimate();
+    bookingPanel.hidden = false;
+    calendarMonthDate = new Date(calendarMonthDate.getFullYear(), calendarMonthDate.getMonth(), 1);
+    loadAvailability();
+    bookingPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  continueButton.addEventListener("click", function () {
+    if (!selectedSlot) return;
+    details.hidden = false;
+    updateProgress(3, false);
+    updateEstimate();
+    updateFindTimeAvailability();
     stepProgress.scrollIntoView({ behavior: "smooth", block: "start" });
     document.getElementById("consultation-name").focus({ preventScroll: true });
-    updateFindTimeAvailability();
   });
 
   ["consultation-name", "consultation-email", "consultation-phone"].forEach(function (id) {
@@ -815,17 +829,6 @@
     field.addEventListener("change", updateFindTimeAvailability);
   });
   agreement.addEventListener("change", updateFindTimeAvailability);
-
-  findTimeButton.addEventListener("click", function () {
-    if (findTimeButton.disabled) return;
-    bookingPanel.hidden = false;
-    updateProgress(3, false);
-    findTimeButton.disabled = true;
-    findTimeButton.textContent = "Availability calendar below";
-    calendarMonthDate = new Date(calendarMonthDate.getFullYear(), calendarMonthDate.getMonth(), 1);
-    loadAvailability();
-    bookingPanel.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
 
   document.getElementById("calendar-previous").addEventListener("click", function () {
     if (calendarMonthDate.getFullYear() + "-" + String(calendarMonthDate.getMonth() + 1).padStart(2, "0") <= getTodayKey().slice(0, 7)) return;
@@ -878,6 +881,23 @@
     try {
       var currentSlot = await refreshSelectedSlot();
       var booking = await createBooking(requestNumber, currentSlot);
+      var bookedDateKey = selectedDate;
+      availableSlots[bookedDateKey] = (availableSlots[bookedDateKey] || []).filter(function (slot) {
+        return new Date(slot.start).getTime() !== new Date(currentSlot.start).getTime();
+      });
+      renderCalendar();
+      slotSummary.textContent = "Booked: " + new Intl.DateTimeFormat("en-IN", {
+        dateStyle: "full",
+        timeStyle: "short",
+        timeZone: CAL_TIME_ZONE
+      }).format(new Date(currentSlot.start));
+      slotSummary.hidden = false;
+      var remainingSlots = Object.keys(availableSlots).reduce(function (total, key) {
+        return total + availableSlots[key].length;
+      }, 0);
+      calendarStatus.textContent = remainingSlots
+        ? remainingSlots + " available times this month. Times shown in India Standard Time."
+        : "No consultation times are available this month. Try another month or email sales@simpleitech.com.";
       try {
         await sendRequestEmail(requestNumber, booking);
         result.className = "consultation-result is-success";
@@ -889,7 +909,6 @@
       }
       submitButton.textContent = "Consultation booked";
       submitButton.disabled = true;
-      findTimeButton.disabled = true;
       bookingPanel.classList.add("booking-complete");
       updateProgress(3, true);
     } catch (error) {

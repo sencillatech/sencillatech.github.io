@@ -75,9 +75,10 @@
         <nav class="nav-menu d-none d-lg-block">
           <ul>
             <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="#services">Services</a></li>
             <li><a href="#our-apps">Our Apps</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact">Contact Us</a></li>
             <li><a href="#consultation">Get a quote</a></li>
           </ul>
         </nav><!-- .nav-menu -->
@@ -165,7 +166,7 @@
                 <option value="4">4 hours</option>
               </select>
             </div>
-            <button class="consultation-proceed" id="consultation-proceed" type="button" disabled>Proceed <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
+            <button class="consultation-proceed" id="consultation-proceed" type="button" disabled>View available times <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
             </div>
 
             <ol class="consultation-steps" id="consultation-steps" aria-label="Consultation request steps" hidden>
@@ -176,18 +177,38 @@
               <li class="consultation-step-connector" aria-hidden="true"></li>
               <li class="consultation-step is-current" data-step="2" aria-current="step">
                 <span class="consultation-step-number">02</span>
-                <span class="consultation-step-copy"><strong>Your details</strong><small>Estimate &amp; contact</small></span>
+                <span class="consultation-step-copy"><strong>Choose a time</strong><small>Pick an open slot</small></span>
               </li>
               <li class="consultation-step-connector" aria-hidden="true"></li>
               <li class="consultation-step" data-step="3">
                 <span class="consultation-step-number">03</span>
-                <span class="consultation-step-copy"><strong>Choose a time</strong><small>Confirm your request</small></span>
+                <span class="consultation-step-copy"><strong>Your details</strong><small>Estimate &amp; contact</small></span>
               </li>
             </ol>
 
+            <section class="booking-panel" id="booking-panel" aria-labelledby="booking-title" hidden>
+              <div class="form-step-heading booking-heading">
+                <div><h2 id="booking-title">Choose your 30-minute consultation</h2><p>Select an available date and time. Your work estimate is separate from the call length.</p></div>
+              </div>
+              <div class="calendar-toolbar">
+                <button type="button" id="calendar-previous" class="calendar-month-button" aria-label="Previous month"><i class="bx bx-chevron-left" aria-hidden="true"></i></button>
+                <h3 id="calendar-month" aria-live="polite"></h3>
+                <button type="button" id="calendar-next" class="calendar-month-button" aria-label="Next month"><i class="bx bx-chevron-right" aria-hidden="true"></i></button>
+              </div>
+              <div class="calendar-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+              <div class="calendar-days" id="calendar-days" role="group" aria-label="Available consultation dates"></div>
+              <div class="slot-picker" id="slot-picker" hidden>
+                <h3 id="slot-picker-title">Available times</h3>
+                <div class="slot-options" id="slot-options" role="group" aria-label="Available appointment times"></div>
+              </div>
+              <p class="calendar-status" id="calendar-status" role="status" aria-live="polite"></p>
+              <div class="selected-slot-summary" id="selected-slot-summary" hidden></div>
+              <button class="consultation-proceed slot-proceed-button" id="consultation-continue-button" type="button" disabled>Proceed to your details <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
+            </section>
+
             <div class="consultation-details" id="consultation-details" style="padding-top: 0px; margin-top: 0px;" hidden>
             <div class="form-step-heading contact-step-heading">
-              <div><h2>Let’s make it personal</h2><p>Share your details to see an estimate and available meeting times.</p></div>
+              <div><h2>Let’s make it personal</h2><p>Your consultation time is selected. Share your details to review the estimate and confirm.</p></div>
             </div>
             <div class="consultation-contact-fields">
               <div class="consultation-field">
@@ -233,29 +254,9 @@
               </div>
               <p class="field-help">Payment is arranged only after you approve the written quotation.</p>
             </fieldset> -->
-            <button class="find-time-button" id="find-time-button" type="button" style="margin-top: 10px;" disabled>Find a time that works <i class="bx bx-calendar" aria-hidden="true"></i></button>
-
-            <section class="booking-panel" id="booking-panel" aria-labelledby="booking-title" hidden>
-              <div class="form-step-heading booking-heading">
-                <div><h2 id="booking-title">Choose your 30-minute consultation</h2><p>Select an available date and time. Your work estimate is separate from the call length.</p></div>
-              </div>
-              <div class="calendar-toolbar">
-                <button type="button" id="calendar-previous" class="calendar-month-button" aria-label="Previous month"><i class="bx bx-chevron-left" aria-hidden="true"></i></button>
-                <h3 id="calendar-month" aria-live="polite"></h3>
-                <button type="button" id="calendar-next" class="calendar-month-button" aria-label="Next month"><i class="bx bx-chevron-right" aria-hidden="true"></i></button>
-              </div>
-              <div class="calendar-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
-              <div class="calendar-days" id="calendar-days" role="group" aria-label="Available consultation dates"></div>
-              <div class="slot-picker" id="slot-picker" hidden>
-                <h3 id="slot-picker-title">Available times</h3>
-                <div class="slot-options" id="slot-options" role="group" aria-label="Available appointment times"></div>
-              </div>
-              <p class="calendar-status" id="calendar-status" role="status" aria-live="polite"></p>
-              <div class="selected-slot-summary" id="selected-slot-summary" hidden></div>
-              <button class="consultation-submit" id="consultation-submit" type="submit" disabled>Confirm time &amp; send request <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
-              <p class="consultation-privacy"><i class="bx bx-lock-alt" aria-hidden="true"></i> Your booking is only created after you confirm above.</p>
-              <p class="payment-after-quote"><span class="payment-lock"><i class="bx bx-lock-alt" aria-hidden="true"></i></span><span><strong>No payment is collected today.</strong><br>Your preferred payment method can be confirmed after you approve the written quotation.</span></p>
-            </section>
+            <button class="consultation-submit" id="consultation-submit" type="submit" disabled>Confirm time &amp; send request <i class="bx bx-right-arrow-alt" aria-hidden="true"></i></button>
+            <p class="consultation-privacy"><i class="bx bx-lock-alt" aria-hidden="true"></i> Your booking is only created after you confirm above.</p>
+            <p class="payment-after-quote"><span class="payment-lock"><i class="bx bx-lock-alt" aria-hidden="true"></i></span><span><strong>No payment is collected today.</strong><br>Your preferred payment method can be confirmed after you approve the written quotation.</span></p>
             </div>
             <p class="consultation-result" id="consultation-result" role="status" aria-live="polite"></p>
           </form>
@@ -334,6 +335,58 @@
     </section>
      -->
     <!-- End Frequently Asked Questions Section -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <p class="section-kicker">HOW WE CAN HELP</p>
+          <h3>Services built around <span>your next step.</span></h3>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-pencil"></i></div>
+              <h4><a href="#consultation">UI Design</a></h4>
+              <p>Clear, accessible interfaces designed around the people who use them.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-window-alt"></i></div>
+              <h4><a href="#consultation">Web Design &amp; Development</a></h4>
+              <p>Responsive websites and custom web applications built for real-world needs.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-check-shield"></i></div>
+              <h4><a href="#consultation">Software Testing</a></h4>
+              <p>Practical quality assurance to find issues early and build confidence.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+            <div class="icon-box service-summary-card">
+              <div class="icon"><i class="bx bx-trending-up"></i></div>
+              <h4><a href="#consultation">Search Engine Setup &amp; Maintenance</a></h4>
+              <p>Technical SEO setup and ongoing website care to keep your site discoverable and healthy.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-microphone"></i></div>
+              <h4><a href="#consultation">Alexa Voice Assistant</a></h4>
+              <p>Useful voice skills and integrations tailored to your service or product.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-message-rounded-dots"></i></div>
+              <h4><a href="#consultation">Google Voice Assistant</a></h4>
+              <p>Conversational experiences that make everyday tasks easier to complete.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- ======= Our Apps Section ======= -->
     <section id="our-apps" class="services">
       <div class="container" data-aos="fade-up">
@@ -443,7 +496,7 @@
               </a>
               <div class="contact-detail contact-address">
                 <span class="contact-detail-icon"><i class="bx bx-map" aria-hidden="true"></i></span>
-                <span><small>BASED IN</small><strong>Mangalore, Karnataka, India</strong></span>
+                <span><small>BASED IN</small><strong>Mangalore, Karnataka &amp; Panvel, Navi Mumbai, India</strong></span>
               </div>
             </div>
             <div class="contact-accent-note"><i class="bx bx-sun" aria-hidden="true"></i> Simple conversations. Thoughtful solutions.</div>
@@ -502,10 +555,9 @@
               <span style="color: #00275D">Simple<span style="color:#E29E21">i</span>Tech</span>
             </h3>
             <p>
-              Radhakrishan, HO NO 1-S-18-1265/2, <br>
-              Near Panchalingeshwara Temple, <br>
-              Mangalore, Karnataka, <br>
-              Ladyhill - 575006 <br><br>
+              Radhakrishan, HO NO 1-S-18-1265/2, Near Panchalingeshwara Temple,<br>
+              Mangalore, Karnataka, Ladyhill - 575006<br>
+              Panvel, Navi Mumbai, India<br><br>
               <strong>Phone:</strong> +91 829 650 9546<br>
               <strong>Email:</strong> sales@simpleitech.com<br>
             </p>
@@ -515,9 +567,10 @@
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="index.html">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="about-us.html">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="about-us.html">About Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#consultation">Request a consultation</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="pricing.html">Pricing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#contact">Contact Us</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="privacy-policy.html">Privacy policy</a></li>
             </ul>
           </div>
@@ -535,11 +588,15 @@
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Talk to our team</h4>
-            <p>Have a question before requesting your quotation?</p>
-            <div class="social-links mt-3">
-              <a href="https://wa.me/918296509546" class="whatsapp" aria-label="Contact SimpleiTech on WhatsApp"><i class="bx bxl-whatsapp"></i></a>
-            </div>
+            <h4>Our Apps</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="fintech-calculator.html">Fintech Calculator</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="pdf-utility.html">PDF Utility</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="financial-health.html">Financial Health</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="retirement-calculator.html">Retirement Calculator</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="money-power.html">Your Money Power</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="abacus-generator.html">Abacus</a></li>
+            </ul>
           </div>
 
         </div>
