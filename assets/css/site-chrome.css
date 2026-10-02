@@ -1,0 +1,49 @@
+/* Shared site header and footer styling used by the homepage and content pages. */
+:root { --home-navy: #00275D; --home-blue: #007DBF; --home-gold: #E29E21; --home-muted: #627187; }
+body.site-shell-page { color: #14243a; font-family: "Open Sans", sans-serif; }
+body.site-shell-page h1, body.site-shell-page h2, body.site-shell-page h3, body.site-shell-page h4 { font-family: "Poppins", sans-serif; }
+.site-shell-page #topbar { z-index: 1001; height: 36px; background: var(--home-navy); font-size: 12px; letter-spacing: .02em; }
+.site-shell-page #topbar .container { justify-content: space-between; }
+.site-shell-page #topbar .contact-info a, .site-shell-page #topbar .social-links { color: rgba(255,255,255,.88); }
+.site-shell-page #topbar .contact-info a.topbar-whatsapp { display: inline-flex; align-items: center; margin-left: 8px; color: #25D366; vertical-align: middle; }
+.site-shell-page #topbar .contact-info a.topbar-whatsapp i { margin: 0; padding: 0; color: inherit; font-size: 17px; }
+.site-shell-page #topbar .social-links { display: flex; align-items: center; align-self: stretch; padding: 0; }
+.site-shell-page #topbar .language-switch { display: inline-flex; height: 100%; align-items: center; justify-content: center; gap: 5px; margin: 0; white-space: nowrap; }
+.site-shell-page #topbar .language-switch a { display: inline-flex; min-width: 38px; height: 26px; align-items: center; justify-content: center; padding: 0 8px; color: rgba(255,255,255,.78); border: 1px solid transparent; border-radius: 5px; font-size: 10px; font-weight: 700; letter-spacing: .06em; line-height: 1; }
+.site-shell-page #topbar .language-switch a:hover, .site-shell-page #topbar .language-switch a[aria-current="page"] { color: #fff; background: rgba(226,158,33,.2); border-color: rgba(226,158,33,.55); }
+.site-shell-page #header { top: 36px; padding: 15px 0; box-shadow: 0 5px 24px rgba(0,39,93,.07); }
+.site-shell-page #header.header-scrolled { top: 0; padding: 11px 0; }
+.site-shell-page #header .container { justify-content: space-between; }
+.site-shell-page #header .col-lg-4 { flex: 0 0 36%; max-width: 36%; }
+.site-shell-page #header .col-lg-8 { flex: 0 0 64%; max-width: 64%; }
+.site-shell-page #header .logo { font-size: 29px; letter-spacing: -.045em; }
+.site-shell-page #header .logo a { color: var(--home-navy) !important; }
+.site-shell-page #header .logo a span { color: var(--home-gold); }
+.site-shell-page .brand-tagline { margin: 5px 0 0; color: var(--home-muted); font-size: 11px; letter-spacing: .025em; }
+.site-shell-page .nav-menu > ul { justify-content: flex-end; align-items: center; gap: 20px; }
+.site-shell-page .nav-menu > ul > li { padding-left: 0; }
+.site-shell-page .nav-menu a { font-size: 13px; font-weight: 600; }
+.site-shell-page .nav-menu > ul > li:last-child > a { padding: 11px 17px; color: #fff; background: var(--home-navy); border-radius: 6px; }
+.site-shell-page .nav-menu > ul > li:last-child > a:before { display: none; }
+.site-shell-page .nav-menu > ul > li:last-child > a:hover { color: #fff; background: var(--home-blue); }
+.site-shell-page #footer, .site-shell-page #footer .footer-top { background: #fff; }
+.site-shell-page #footer .footer-top h4, .site-shell-page #footer .footer-contact h3 { color: var(--home-navy); }
+.site-shell-page #footer .copyright { color: var(--home-muted); border-top: 1px solid #edf1f5; }
+.site-shell-page .back-to-top i { background: var(--home-navy); border-radius: 7px; }
+
+@media (max-width: 991px) {
+  .site-shell-page #topbar, .site-shell-page #topbar.d-none { display: flex !important; height: 36px; padding: 0; }
+  .site-shell-page #topbar .contact-info { display: none; }
+  .site-shell-page #topbar .container { justify-content: flex-end; padding-right: 15px; padding-left: 15px; }
+  .site-shell-page #topbar .social-links { margin-left: auto; }
+  .site-shell-page #topbar .language-switch { gap: 4px; }
+  .site-shell-page #header, .site-shell-page #header.header-scrolled { top: 36px; padding: 12px 0; }
+  .site-shell-page #header .col-lg-4 { flex: 0 0 100%; max-width: 100%; }
+  .site-shell-page #header .col-lg-8 { display: none; }
+}
+@media (max-width: 767px) {
+  .site-shell-page #topbar, .site-shell-page #topbar.d-none { height: 32px; }
+  .site-shell-page #header, .site-shell-page #header.header-scrolled { top: 32px; }
+  .site-shell-page #header .logo { font-size: 26px; }
+  .site-shell-page .brand-tagline { font-size: 10px; }
+}

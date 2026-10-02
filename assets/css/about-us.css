@@ -1,0 +1,65 @@
+/* About page: SimpleiTech brand colors and typography */
+.about-page { padding-top: 130px; background: #fff; }
+.about-hero { position: relative; overflow: hidden; padding: 61px 0 67px; color: #fff; background: linear-gradient(115deg, #00275d 0%, #064b88 100%); }
+.about-hero:after { position: absolute; right: -100px; bottom: -270px; width: 510px; height: 510px; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; content: ""; box-shadow: 0 0 0 58px rgba(255,255,255,.035), 0 0 0 116px rgba(255,255,255,.025); }
+.about-hero .container { position: relative; z-index: 1; }
+.about-hero-content { max-width: 680px; }
+.about-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px; color: #f3bd54; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.about-eyebrow i { font-size: 19px; }
+.about-hero h2 { margin: 0 0 13px; color: #fff; font-family: "Poppins", sans-serif; font-size: 42px; font-weight: 700; }
+.about-hero p { max-width: 620px; margin: 0; color: rgba(255,255,255,.83); font-size: 17px; line-height: 1.75; }
+.about-hero-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 22px; color: #fff; font-size: 14px; font-weight: 600; }
+.about-hero-link:hover { color: #f3bd54; }
+.about-hero-link i { font-size: 19px; }
+.about-hero-mark { position: absolute; top: 50%; right: 9%; transform: translateY(-50%); color: rgba(255,255,255,.13); font-size: 150px; }
+
+.about-story { padding: 75px 0 78px; }
+.about-story-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
+.about-kicker { display: block; margin-bottom: 11px; color: #d29521; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.about-story-heading h2, .about-purpose-intro h2 { margin: 0; color: #00275d; font-family: "Poppins", sans-serif; font-size: 30px; font-weight: 600; line-height: 1.35; }
+.about-heading-rule { display: block; width: 54px; height: 3px; margin-top: 21px; border-radius: 3px; background: #e29e21; }
+.about-story-copy p { margin: 0 0 17px; color: #596779; font-size: 15px; line-height: 1.85; }
+.about-story-copy p:last-child { margin-bottom: 0; }
+
+.about-purpose { padding: 67px 0 72px; background: #f5f8fc; }
+.about-purpose-intro { margin-bottom: 27px; text-align: center; }
+.about-purpose-intro h2 { font-size: 29px; }
+.about-purpose-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.about-purpose-card { min-height: 250px; padding: 32px 34px; border: 1px solid #e5ebf2; border-radius: 9px; background: #fff; box-shadow: 0 8px 28px rgba(0,39,93,.05); }
+.about-purpose-icon { display: flex; width: 48px; height: 48px; align-items: center; justify-content: center; margin-bottom: 21px; border-radius: 8px; background: #eaf3fc; color: #006cae; font-size: 25px; }
+.about-purpose-label { color: #d29521; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.about-purpose-card h3 { margin: 7px 0 10px; color: #00275d; font-size: 21px; font-weight: 600; }
+.about-purpose-card p { max-width: 530px; margin: 0; color: #596779; font-size: 14px; line-height: 1.8; }
+.about-purpose-card-featured { border-top: 3px solid #e29e21; }
+.about-purpose-card-featured .about-purpose-icon { background: #fff5df; color: #bd8010; }
+.about-contact-cta { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 32px; text-align: center; }
+.about-contact-cta p { margin: 0; color: #596779; font-size: 14px; }
+.about-contact-cta a { display: inline-flex; align-items: center; gap: 4px; color: #106eea; font-size: 14px; font-weight: 700; }
+.about-contact-cta a:hover { color: #00275d; }
+.about-contact-cta i { font-size: 18px; }
+
+@media (max-width: 991px) {
+  .about-page { padding-top: 115px; }
+  .about-story-grid { grid-template-columns: 1fr 1.4fr; gap: 38px; }
+}
+@media (max-width: 767px) {
+  .about-page { padding-top: 100px; }
+  .about-hero { padding: 45px 0 50px; }
+  .about-hero h2 { font-size: 35px; }
+  .about-hero p { font-size: 15px; }
+  .about-hero-mark { right: -18px; top: auto; bottom: 0; transform: none; font-size: 100px; }
+  .about-story { padding: 48px 0; }
+  .about-story-grid { grid-template-columns: 1fr; gap: 22px; }
+  .about-story-heading h2 { max-width: 430px; font-size: 27px; }
+  .about-purpose { padding: 47px 0 52px; }
+  .about-purpose-grid { grid-template-columns: 1fr; gap: 16px; }
+  .about-purpose-card { min-height: auto; padding: 26px 25px; }
+  .about-purpose-intro h2 { font-size: 26px; }
+}
+@media (max-width: 480px) {
+  .about-contact-cta { flex-direction: column; gap: 7px; }
+  .about-purpose-card h3 { font-size: 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-hero-link, .about-contact-cta a { transition: none; }
+}
