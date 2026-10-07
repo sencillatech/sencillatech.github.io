@@ -41,6 +41,7 @@ const btnRemoveFile = document.getElementById('btnRemoveFile');
 
 const configSection = document.getElementById('configSection');
 const numSplitsInput = document.getElementById('numSplitsInput');
+const totalPagesInput = document.getElementById('totalPagesInput');
 const btnResetRanges = document.getElementById('btnResetRanges');
 const rangesContainer = document.getElementById('rangesContainer');
 const btnAddRangeRow = document.getElementById('btnAddRangeRow');
@@ -107,8 +108,10 @@ numSplitsInput.addEventListener('change', () => {
 });
 
 btnResetRanges.addEventListener('click', () => {
-    let value = parseInt(numSplitsInput.value);
-    rebuildDefaultRanges(value);
+    rangesContainer.querySelectorAll('.start-page-input, .end-page-input').forEach(input => {
+        input.value = '';
+    });
+    validateRanges();
 });
 
 btnAddRangeRow.addEventListener('click', addRangeRow);
@@ -193,6 +196,7 @@ function handleFileSelection(file) {
             const loadingTask = pdfjsLib.getDocument({ data: fileData.arrayBuffer.slice(0) });
             const pdfDoc = await loadingTask.promise;
             fileData.totalPages = pdfDoc.numPages;
+            totalPagesInput.value = fileData.totalPages;
 
             // Update UI with file details
             pdfFileName.textContent = file.name;
@@ -244,6 +248,7 @@ function resetState() {
     splitResults = [];
     
     fileInput.value = '';
+    totalPagesInput.value = '';
     uploadZone.style.display = 'block';
     loadingProgressWrapper.style.display = 'none';
     fileDetails.style.display = 'none';
