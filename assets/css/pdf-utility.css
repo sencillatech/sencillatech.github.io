@@ -186,10 +186,45 @@
     margin-bottom: 20px;
 }
 
+.pdf-config-controls-left {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
 .pdf-split-type {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 12px;
+    text-align: left;
+}
+
+.pdf-split-type label {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #333;
+    text-align: left;
+}
+
+.pdf-total-pages-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pdf-total-pages-badge {
+    background: rgba(0, 39, 93, 0.08);
+    color: #00275D;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 4px 12px;
+    border-radius: 6px;
+    display: inline-block;
 }
 
 .pdf-input-number {

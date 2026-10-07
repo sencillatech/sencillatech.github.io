@@ -127,13 +127,14 @@
         </div>
 
         <div class="pdf-config-header">
-          <div class="pdf-split-type">
-            <label for="numSplitsInput">Number of split files:</label>
-            <input type="number" id="numSplitsInput" class="pdf-input-number" value="2" min="1" max="100">
-          </div>
-          <div class="pdf-split-type">
-            <label for="totalPagesInput">Total pages:</label>
-            <input type="number" id="totalPagesInput" class="pdf-input-number" value="" readonly aria-label="Total pages in uploaded PDF">
+          <div class="pdf-config-controls-left">
+            <div class="pdf-split-type">
+              <span class="pdf-total-pages-label">Total pages: <strong id="totalPagesDisplay" class="pdf-total-pages-badge">0</strong></span>
+            </div>
+            <div class="pdf-split-type">
+              <label for="numSplitsInput">Number of split files:</label>
+              <input type="number" id="numSplitsInput" class="pdf-input-number" value="2" min="1" max="100">
+            </div>
           </div>
           <button class="pdf-btn-secondary" id="btnResetRanges">
             <i class="bx bx-reset"></i> Reset Ranges
