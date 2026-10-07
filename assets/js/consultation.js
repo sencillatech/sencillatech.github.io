@@ -207,8 +207,14 @@
     var card = document.createElement("label");
     card.className = "service-option";
     card.dataset.search = [service.category, service.service_group, service.description, service.best_for].join(" ").toLowerCase();
-    card.dataset.rate = "0";
-    card.dataset.custom = "true";
+    var baseMin = service.india_price_from != null ? Number(service.india_price_from) : Number(service.website_price || 0);
+    var baseMax = service.india_price_to != null ? Number(service.india_price_to) : Number(service.website_price || baseMin);
+    var discount = Math.min(100, Math.max(0, Number(service.discount_percentage || 0)));
+    card.dataset.rate = String(Math.round(baseMin * (1 - discount / 100)));
+    card.dataset.rateMin = String(Math.round(baseMin * (1 - discount / 100)));
+    card.dataset.rateMax = String(Math.round(baseMax * (1 - discount / 100)));
+    card.dataset.hourly = /hour/i.test(service.pricing_unit || "");
+    card.dataset.custom = String(!baseMin && !baseMax);
     card.dataset.apiServiceId = service.id;
 
     var choice = document.createElement("input");
@@ -375,22 +381,22 @@
 
   function updateEstimate() {
     var selected = selectedServices();
-    var hours = Number(duration.value);
-    if (!selected.length || !hours) {
+    var durationValue = duration.value;
+    var notSure = durationValue === "not-sure";
+    var hours = Number(durationValue);
+    if (!selected.length || (!notSure && !hours)) {
       estimateCard.hidden = true;
       estimateValue.value = "";
       return;
     }
 
-    var rates = selected.map(function (choice) {
-      return Number(choice.closest(".service-option").dataset.rate);
-    });
+    var cards = selected.map(function (choice) { return choice.closest(".service-option"); });
     var hasCustomService = selected.some(function (choice) {
       return choice.closest(".service-option").dataset.custom === "true";
     });
     if (hasCustomService) {
       estimateTitle.textContent = "Custom quote after we review your request";
-      estimateValue.value = "Custom quotation required for " + hours + (hours === 1 ? " work hour" : " work hours") + "; no sample price shown.";
+      estimateValue.value = "Custom quotation required" + (notSure ? "; estimated work duration not sure yet" : " for " + hours + (hours === 1 ? " work hour" : " work hours")) + "; no sample price shown.";
       agreementCopy.textContent = "I understand this custom service needs a tailored quotation and the final price will be confirmed in writing. ";
       estimateTerms.value = "Accepted: custom service requires a tailored written quotation; no sample rate shown.";
       estimateCard.classList.add("has-custom-service");
@@ -400,18 +406,27 @@
       return;
     }
 
-    var minimum = Math.min.apply(Math, rates) * hours;
-    var maximum = Math.max.apply(Math, rates) * hours;
+    var minimum = 0;
+    var maximum = 0;
+    cards.forEach(function (card) {
+      var low = Number(card.dataset.rateMin || card.dataset.rate || 0);
+      var high = Number(card.dataset.rateMax || card.dataset.rate || low);
+      var multiplier = card.dataset.hourly === "false" ? 1 : (notSure ? 1 : hours);
+      minimum += low * multiplier;
+      maximum += high * multiplier;
+    });
     var formatINR = new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
       maximumFractionDigits: 0
     });
 
-    estimateTitle.textContent = minimum === maximum
-      ? formatINR.format(minimum) + " for " + hours + (hours === 1 ? " work hour" : " work hours")
-      : formatINR.format(minimum) + "–" + formatINR.format(maximum) + " for " + hours + (hours === 1 ? " work hour" : " work hours");
-    estimateValue.value = estimateTitle.textContent + " (illustrative only)";
+    var hourlyUnspecified = notSure && cards.some(function (card) { return card.dataset.hourly !== "false"; });
+    var amount = minimum === maximum ? formatINR.format(minimum) : formatINR.format(minimum) + "–" + formatINR.format(maximum);
+    estimateTitle.textContent = hourlyUnspecified
+      ? amount + " per hour; hours to be confirmed"
+      : amount + (notSure ? " estimated service price" : " for " + hours + (hours === 1 ? " work hour" : " work hours"));
+    estimateValue.value = estimateTitle.textContent + " (illustrative only; service discounts included where available)";
     agreementCopy.textContent = "I have reviewed this illustrative estimate and understand the final price will be confirmed in a written quotation. ";
     estimateTerms.value = "Accepted as a non-binding illustrative estimate";
     estimateCard.classList.remove("has-custom-service");
@@ -640,10 +655,11 @@
   }
 
   function buildBookingNotes(reference) {
+    var workEstimate = duration.value === "not-sure" ? "Not sure yet" : duration.value + (duration.value === "1" ? " hour" : " hours");
     var notes = [
       "SimpleiTech consultation request: " + reference,
       "Requested services: " + serviceSummary.value,
-      "Estimated follow-on work: " + duration.value + " hour(s)",
+      "Estimated follow-on work: " + workEstimate,
       "Illustrative planning estimate: " + estimateValue.value,
       "Final quotation and scope to be confirmed by SimpleiTech."
     ];
@@ -653,6 +669,7 @@
   }
 
   function buildEmailMessage(reference, booking) {
+    var workEstimate = duration.value === "not-sure" ? "Not sure yet" : duration.value + (duration.value === "1" ? " hour" : " hours");
     return [
       "SIMPLEITECH | NEW CONSULTATION REQUEST",
       "----------------------------------------",
@@ -661,7 +678,7 @@
       "Email: " + document.getElementById("consultation-email").value.trim(),
       "Mobile: " + document.getElementById("consultation-phone").value.trim(),
       "Services: " + serviceSummary.value,
-      "Estimated work: " + duration.value + " hour(s)",
+      "Estimated work: " + workEstimate,
       "Illustrative estimate: " + estimateValue.value,
       "Estimate acknowledgement: accepted",
       "Preferred payment method: " + selectedPaymentMethod(),
