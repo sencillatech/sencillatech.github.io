@@ -26,9 +26,6 @@ http.createServer((req, res) => {
     let reqUrl = req.url.split('?')[0];
     if (reqUrl === '/') {
         reqUrl = '/index.html';
-    } else if (reqUrl === '/ru' || reqUrl === '/ru/') {
-        // If the user requests /ru or /ru/, serve the Russian index page.
-        reqUrl = '/index_ru.html';
     }
     let filePath = path.join(PUBLIC_DIR, reqUrl);
     const extname = String(path.extname(filePath)).toLowerCase();

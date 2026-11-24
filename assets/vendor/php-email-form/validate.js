@@ -136,18 +136,25 @@
 
       fetch(targetAction, {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
       })
       .then(function(response) {
-        return response.json();
+        return response.json().then(function(json) {
+          return { ok: response.ok, json: json };
+        }).catch(function() {
+          return { ok: response.ok, json: { message: 'Unexpected response from server (' + response.status + ')' } };
+        });
       })
-      .then(function(json) {
+      .then(function(result) {
         this_form.find('.loading').slideUp();
-        if (json.success) {
+        if (result.ok && result.json && result.json.success) {
           this_form.find('.sent-message').slideDown();
           this_form.find("input:not(input[type=submit]):not(input[type=hidden]), textarea").val('');
         } else {
-          var msg = json.message || 'Form submission failed. Please try again.';
+          var msg = (result.json && result.json.message) || 'Form submission failed. Please try again.';
           this_form.find('.error-message').slideDown().html(msg);
         }
       })

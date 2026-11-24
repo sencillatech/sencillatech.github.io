@@ -53,10 +53,6 @@
         <a href="https://wa.me/918296509546" class="topbar-whatsapp" aria-label="Message SimpleiTech on WhatsApp"><i class="bx bxl-whatsapp" aria-hidden="true"></i></a>
       </div>
       <div class="social-links">
-        <nav class="language-switch" aria-label="Language">
-          <a href="index.html" lang="en" hreflang="en" aria-current="page">EN</a>
-          <a href="index_ru.html" lang="ru" hreflang="ru">RU</a>
-        </nav>
       </div>
     </div>
   </div>
@@ -426,21 +422,22 @@
             <form action="https://api.web3forms.com/submit" method="POST" role="form" class="php-email-form" id="sendEmailForm">
               <input type="hidden" name="access_key" value="b33b5051-7662-4638-88a6-dc1ef8bc88df">
               <input type="hidden" name="subject" value="New Contact Form Submission from Simpleitech Website">
+              <input type="hidden" name="from_name" value="SimpleiTech Website Contact">
               <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
               <div class="contact-form-fields">
                 <div class="form-group">
                   <label for="name">Your name</label>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="How should we address you?" required minlength="2">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="How should we address you?" required minlength="2" data-rule="minlen:2" data-msg="Please enter at least 2 characters">
                   <div class="validate"></div>
                 </div>
                 <div class="form-group">
                   <label for="email">Email address</label>
-                  <input type="email" class="form-control" name="email" id="email" placeholder="you@company.com" required>
+                  <input type="email" class="form-control" name="email" id="email" placeholder="you@company.com" required data-rule="email" data-msg="Please enter a valid email">
                   <div class="validate"></div>
                 </div>
                 <div class="form-group contact-message-field">
                   <label for="message">What would you like to discuss?</label>
-                  <textarea class="form-control" name="message" rows="4" id="message" placeholder="Tell us a little about your idea or question." required></textarea>
+                  <textarea class="form-control" name="message" rows="4" id="message" placeholder="Tell us a little about your idea or question." required data-rule="required" data-msg="Please write something for us"></textarea>
                   <div class="validate"></div>
                 </div>
               </div>
@@ -556,11 +553,6 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="assets/js/consultation.js" defer></script>
-
-  <!-- add the required scripts for the email js -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-  <!-- <script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script> -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 </body>
 
 </html>
