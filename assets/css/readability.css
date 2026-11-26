@@ -1,0 +1,54 @@
+/* Site wide text sizing and contrast improvements. */
+html {
+  font-size: 17px;
+}
+
+body {
+  color: #26364a;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+body :where(p, li, label, input, select, textarea, button, td, th, small, .field-help, .text-muted, .breadcrumb, .nav-link) {
+  font-size: max(14px, 1em);
+}
+
+body :where(p, li, label, small, .field-help, .text-muted) {
+  color: #46566d;
+}
+
+body :where(input, select, textarea) {
+  color: #26364a;
+}
+
+body :where(input, textarea)::placeholder {
+  color: #64748b;
+  opacity: 1;
+}
+
+body a {
+  color: #075db8;
+}
+
+body a:hover,
+body a:focus-visible {
+  color: #064785;
+}
+
+body :where(button, input, select, textarea, a):focus-visible {
+  outline: 3px solid #1d64c8;
+  outline-offset: 2px;
+}
+
+.home-page #topbar :where(a, i),
+.home-page #header .nav-menu a,
+.home-page .footer :where(a, i) {
+  color: inherit;
+}
+
+@media (max-width: 575px) {
+  html,
+  body {
+    font-size: 16px;
+  }
+}

@@ -9,6 +9,7 @@
   <meta name="description" content="Request a tailored SimpleiTech consulting quotation, choose from web design, development, software testing, SEO and voice assistant services, and check appointment availability.">
   <meta name="keywords" content="web design, software development, UI design, software testing, SEO, voice assistant development">
   <meta name="simpleitech-services-api" content="https://simpleitech-services-api.sencillatech.workers.dev/search">
+  <meta name="simpleitech-services-api-local" content="http://127.0.0.1:8787/search">
 
   <!-- Favicons -->
   <link href="assets/img/favicons/favicon.ico" rel="icon">
@@ -109,56 +110,19 @@
                   <div class="service-options" id="service-options" role="listbox" aria-label="Matching consulting services" hidden></div>
                 </div>
                 <p class="service-search-status field-help" id="service-search-status" aria-live="polite">Choose one or more services</p>
-                <div class="service-catalog" id="service-catalog" hidden>
-                <label class="service-option" data-search="ui design user interface ux experience research" data-rate="1800">
-                  <input class="service-choice" type="checkbox" value="UI Design">
-                  <span class="service-option-icon"><i class="bx bx-pencil" aria-hidden="true"></i></span>
-                  <span class="service-option-copy"><strong>UI Design</strong><small>Clear, intuitive product experiences</small></span>
-                  <i class="bx bx-check service-option-check" aria-hidden="true"></i>
-                </label>
-                <label class="service-option" data-search="web design development website web application" data-rate="2500">
-                  <input class="service-choice" type="checkbox" value="Web Design & Development">
-                  <span class="service-option-icon"><i class="bx bx-window-alt" aria-hidden="true"></i></span>
-                  <span class="service-option-copy"><strong>Web Design &amp; Development</strong><small>Websites and custom web applications</small></span>
-                  <i class="bx bx-check service-option-check" aria-hidden="true"></i>
-                </label>
-                <label class="service-option" data-search="software testing qa quality assurance automation" data-rate="1600">
-                  <input class="service-choice" type="checkbox" value="Software Testing">
-                  <span class="service-option-icon"><i class="bx bx-check-shield" aria-hidden="true"></i></span>
-                  <span class="service-option-copy"><strong>Software Testing</strong><small>Quality assurance and testing support</small></span>
-                  <i class="bx bx-check service-option-check" aria-hidden="true"></i>
-                </label>
-                <label class="service-option" data-search="search engine optimization seo maintenance" data-rate="1500">
-                  <input class="service-choice" type="checkbox" value="Search Engine Setup & Maintenance">
-                  <span class="service-option-icon"><i class="bx bx-trending-up" aria-hidden="true"></i></span>
-                  <span class="service-option-copy"><strong>Search Engine Setup &amp; Maintenance</strong><small>Technical SEO and ongoing site care</small></span>
-                  <i class="bx bx-check service-option-check" aria-hidden="true"></i>
-                </label>
-                <label class="service-option" data-search="alexa voice assistant amazon skill" data-rate="2200">
-                  <input class="service-choice" type="checkbox" value="Alexa Voice Assistant Development">
-                  <span class="service-option-icon"><i class="bx bx-microphone" aria-hidden="true"></i></span>
-                  <span class="service-option-copy"><strong>Alexa Voice Assistant</strong><small>Custom voice skills and integrations</small></span>
-                  <i class="bx bx-check service-option-check" aria-hidden="true"></i>
-                </label>
-                <label class="service-option" data-search="google voice assistant google assistant" data-rate="2200">
-                  <input class="service-choice" type="checkbox" value="Google Voice Assistant Development">
-                  <span class="service-option-icon"><i class="bx bx-message-rounded-dots" aria-hidden="true"></i></span>
-                  <span class="service-option-copy"><strong>Google Voice Assistant</strong><small>Useful conversational experiences</small></span>
-                  <i class="bx bx-check service-option-check" aria-hidden="true"></i>
-                </label>
-                </div>
+                <div class="service-catalog" id="service-catalog" hidden></div>
                 <input type="hidden" id="selected-services" name="Services requested">
                 <p class="field-error" id="service-error" aria-live="polite"></p>
               </div>
 
             <div class="consultation-field duration-field">
               <label for="consultation-duration">Estimated work</label>
-              <select id="consultation-duration" name="Estimated work hours">
-                <option value="">Select hours</option>
-                <option value="1">1 hour</option>
-                <option value="2">2 hours</option>
-                <option value="3">3 hours</option>
-                <option value="4">4 hours</option>
+              <select id="consultation-duration" name="Estimated work days">
+                <option value="">Select duration</option>
+                <option value="1">1 day</option>
+                <option value="2">2 days</option>
+                <option value="3">3 days</option>
+                <option value="4">4 days</option>
                 <option value="not-sure">Not sure yet</option>
               </select>
             </div>
@@ -168,7 +132,7 @@
             <ol class="consultation-steps" id="consultation-steps" aria-label="Consultation request steps" hidden>
               <li class="consultation-step is-complete" data-step="1">
                 <span class="consultation-step-number">01</span>
-                <span class="consultation-step-copy"><strong>Your project</strong><small>Services &amp; hours</small></span>
+                <span class="consultation-step-copy"><strong>Your project</strong><small>Services &amp; duration</small></span>
               </li>
               <li class="consultation-step-connector" aria-hidden="true"></li>
               <li class="consultation-step is-current" data-step="2" aria-current="step">
@@ -210,6 +174,10 @@
               <div>
                 <p class="estimate-eyebrow">YOUR PLANNING ESTIMATE <span>ILLUSTRATIVE SAMPLE RATES</span></p>
                 <h3 id="estimate-title" class="estimate-price">Select a service and work estimate</h3>
+                <div id="estimate-breakdown" class="estimate-breakdown" hidden>
+                  <span class="estimate-discounted-badge" id="estimate-discount-badge"></span>
+                  <span class="estimate-real-price" id="estimate-real-price"></span>
+                </div>
               </div>
               <p class="estimate-disclaimer">Sample INR rates for demonstration only—not SimpleiTech's confirmed price or a binding quotation. Your final written quote will confirm scope and fees.</p>
             </section>
@@ -255,6 +223,21 @@
             </section>
             </div>
             <p class="consultation-result" id="consultation-result" role="status" aria-live="polite"></p>
+
+            <div class="booking-confirmation-card" id="booking-confirmation-card" hidden>
+              <div class="booking-conf-header">
+                <span class="booking-conf-icon"><i class="bx bx-check-shield" aria-hidden="true"></i></span>
+                <div>
+                  <span class="booking-conf-eyebrow">BOOKING CONFIRMED · OFFICIAL REQUEST RECORDED</span>
+                  <h4 class="booking-conf-id-heading">Request Number: <strong id="confirmed-request-number">—</strong></h4>
+                </div>
+                <button type="button" class="btn-copy-req" id="btn-copy-req" title="Copy Request Number"><i class="bx bx-copy" aria-hidden="true"></i> Copy ID</button>
+              </div>
+              <div class="booking-conf-body">
+                <p class="booking-conf-desc" id="booking-conf-desc">A detailed request has been emailed to SimpleiTech; Cal.com will send your calendar invitation.</p>
+                <div class="booking-conf-grid" id="booking-conf-grid"></div>
+              </div>
+            </div>
           </form>
       </div>
     </section>

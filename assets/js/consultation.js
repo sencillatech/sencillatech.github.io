@@ -10,10 +10,48 @@
   var CAL_TIME_ZONE = "Asia/Kolkata";
   var CAL_SLOTS_VERSION = "2024-09-04";
   var CAL_BOOKING_VERSION = "2026-02-25";
-  var servicesApiConfig = document.querySelector('meta[name="simpleitech-services-api"]');
-  var SERVICES_API_URL = servicesApiConfig
-    ? servicesApiConfig.content
-    : "https://simpleitech-services-api.sencillatech.workers.dev/search";
+
+  function resolveServicesApiUrl() {
+    try {
+      if (typeof window !== "undefined" && window.location) {
+        var params = new URLSearchParams(window.location.search);
+        var override = params.get("services_api");
+        if (override) return override;
+
+        var host = (window.location.hostname || "").toLowerCase();
+        var protocol = window.location.protocol;
+        var port = window.location.port;
+        var isLocal = host === "localhost" ||
+                      host === "127.0.0.1" ||
+                      host === "[::1]" ||
+                      host.endsWith(".local") ||
+                      protocol === "file:";
+
+        if (isLocal) {
+          // If served through the local server on port 8080, use reverse-proxy /search
+          if (port === "8080") {
+            return "/search";
+          }
+          var localMeta = document.querySelector('meta[name="simpleitech-services-api-local"]');
+          var localUrl = (localMeta && localMeta.content) ? localMeta.content : "http://127.0.0.1:8787/search";
+          console.info("[SimpleiTech] Running locally: using services API at", localUrl);
+          return localUrl;
+        }
+      }
+    } catch (e) {
+      // Fallback to cloud configuration
+    }
+
+    var cloudMeta = document.querySelector('meta[name="simpleitech-services-api"]');
+    return (cloudMeta && cloudMeta.content)
+      ? cloudMeta.content
+      : "https://simpleitech-services-api.sencillatech.workers.dev/search";
+  }
+
+  var SERVICES_API_URL = resolveServicesApiUrl();
+  function getServicesApiBase() {
+    return SERVICES_API_URL.replace(/\/search\/?$/, "");
+  }
 
   var search = document.getElementById("service-search");
   var options = document.getElementById("service-options");
@@ -32,6 +70,9 @@
   var searchStatus = document.getElementById("service-search-status");
   var estimateCard = document.getElementById("estimate-card");
   var estimateTitle = document.getElementById("estimate-title");
+  var estimateBreakdown = document.getElementById("estimate-breakdown");
+  var estimateDiscountBadge = document.getElementById("estimate-discount-badge");
+  var estimateRealPrice = document.getElementById("estimate-real-price");
   var estimateValue = document.getElementById("estimate-value");
   var estimateTerms = document.getElementById("estimate-terms");
   var result = document.getElementById("consultation-result");
@@ -147,11 +188,30 @@
         copy.appendChild(detail);
       }
 
+      var discRate = Number(card.dataset.rate || 0);
+      var realRate = Number(card.dataset.realRate || card.dataset.rate || 0);
+      var discount = Number(card.dataset.discount || 0);
+      if (discRate > 0) {
+        var priceTag = document.createElement("div");
+        priceTag.className = "suggestion-price";
+        var formatINR = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
+        if (discount > 0 && realRate > discRate) {
+          priceTag.innerHTML = '<strong class="suggestion-disc-price">' + formatINR.format(discRate) + '/day</strong> <del class="suggestion-real-price">' + formatINR.format(realRate) + '</del> <span class="suggestion-discount-badge">' + discount + '% OFF</span>';
+        } else {
+          priceTag.innerHTML = '<strong class="suggestion-disc-price">' + formatINR.format(discRate) + '/day</strong>';
+        }
+        copy.appendChild(priceTag);
+      }
+
       suggestion.appendChild(copy);
       suggestion.addEventListener("click", function () {
         choice.checked = true;
+        search.value = ""; // Clear search input completely so no duplicate words appear after the tile
+        setSearchExpanded(false);
         choice.dispatchEvent(new Event("change", { bubbles: true }));
-        search.focus();
+        if (typeof window.trackSearchSelect === "function") {
+          window.trackSearchSelect(choice.value, choice.value, discRate, discount);
+        }
       });
       options.appendChild(suggestion);
     });
@@ -159,7 +219,7 @@
     if (!matchingServices.length && search.value.trim()) {
       var empty = document.createElement("p");
       empty.className = "service-suggestion-empty";
-      empty.textContent = "No exact match yet. Try a broader term or tell us more in your project details.";
+      empty.textContent = "No matching services found for \"" + search.value.trim() + "\"";
       options.appendChild(empty);
     }
 
@@ -207,13 +267,20 @@
     var card = document.createElement("label");
     card.className = "service-option";
     card.dataset.search = [service.category, service.service_group, service.description, service.best_for].join(" ").toLowerCase();
-    var baseMin = service.india_price_from != null ? Number(service.india_price_from) : Number(service.website_price || 0);
-    var baseMax = service.india_price_to != null ? Number(service.india_price_to) : Number(service.website_price || baseMin);
+    // Base price derived strictly from india_price_from and india_price_to (Do NOT consider website_price)
+    var baseMin = service.india_price_from != null ? Number(service.india_price_from) : (service.real_price != null ? Number(service.real_price) : 0);
+    var baseMax = service.india_price_to != null ? Number(service.india_price_to) : (service.real_price_to != null ? Number(service.real_price_to) : baseMin);
     var discount = Math.min(100, Math.max(0, Number(service.discount_percentage || 0)));
-    card.dataset.rate = String(Math.round(baseMin * (1 - discount / 100)));
-    card.dataset.rateMin = String(Math.round(baseMin * (1 - discount / 100)));
-    card.dataset.rateMax = String(Math.round(baseMax * (1 - discount / 100)));
-    card.dataset.hourly = /hour/i.test(service.pricing_unit || "");
+    var discMin = Math.round(baseMin * (1 - discount / 100));
+    var discMax = Math.round(baseMax * (1 - discount / 100));
+
+    card.dataset.realRate = String(baseMin);
+    card.dataset.realRateMin = String(baseMin);
+    card.dataset.realRateMax = String(baseMax);
+    card.dataset.rate = String(discMin);
+    card.dataset.rateMin = String(discMin);
+    card.dataset.rateMax = String(discMax);
+    card.dataset.discount = String(discount);
     card.dataset.custom = String(!baseMin && !baseMax);
     card.dataset.apiServiceId = service.id;
 
@@ -237,6 +304,18 @@
     copy.appendChild(title);
     copy.appendChild(detail);
 
+    if (discMin > 0) {
+      var pricePill = document.createElement("span");
+      pricePill.className = "service-price-pill";
+      var formatINR = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
+      if (discount > 0 && baseMin > discMin) {
+        pricePill.innerHTML = '<strong class="service-disc-price">' + formatINR.format(discMin) + '/day</strong> <del class="service-real-price">' + formatINR.format(baseMin) + '</del> <span class="service-discount-badge">' + discount + '% OFF</span>';
+      } else {
+        pricePill.innerHTML = '<strong class="service-disc-price">' + formatINR.format(discMin) + '/day</strong>';
+      }
+      copy.appendChild(pricePill);
+    }
+
     card.appendChild(choice);
     card.appendChild(icon);
     card.appendChild(copy);
@@ -258,6 +337,10 @@
       if (!response.ok) throw new Error("Service search returned HTTP " + response.status);
       var data = await response.json();
       if (requestId !== catalogRequestId || !Array.isArray(data.results)) return;
+
+      if (typeof window.trackSiteSearch === "function") {
+        window.trackSiteSearch(query, data.results.length);
+      }
 
       var resultIds = Object.create(null);
       matchingServices = data.results.map(function (service) {
@@ -281,6 +364,7 @@
       updateSearchStatus();
     } catch (error) {
       if (error.name !== "AbortError") {
+        console.warn("[SimpleiTech] Services API search failed:", error);
         // Keep the built-in suggestions usable while the API is unavailable.
       }
     }
@@ -300,7 +384,6 @@
   function attachServiceChoice(choice) {
     choice.addEventListener("change", function () {
       renderSelectedServices();
-      search.value = "";
       filterServices();
       updateEstimate();
       resetBookingForEstimateChange();
@@ -308,16 +391,21 @@
     });
   }
 
-  function addCustomService() {
-    var name = search.value.trim().replace(/\s+/g, " ").slice(0, 80);
+  function addCustomService(customName) {
+    var name = (customName || search.value).trim().replace(/\s+/g, " ").slice(0, 80);
     if (!name) return false;
+
+    // Requirement 1: Capture unavailable completed words or set of words after user clicks Enter
+    if (typeof window.trackUnmatchedSearchEnter === "function") {
+      window.trackUnmatchedSearchEnter(name);
+    }
 
     var duplicate = selectedServices().some(function (choice) {
       return choice.value.toLowerCase() === name.toLowerCase();
     });
     if (duplicate) {
       search.value = "";
-      filterServices();
+      setSearchExpanded(false);
       return true;
     }
 
@@ -355,13 +443,12 @@
     serviceChoices.push(choice);
     attachServiceChoice(choice);
 
-    search.value = "";
+    search.value = ""; // Clear input completely so no duplicate words appear after the tile
     renderSelectedServices();
-    filterServices();
+    setSearchExpanded(false);
     updateEstimate();
     resetBookingForEstimateChange();
     updateFindTimeAvailability();
-    search.focus();
     return true;
   }
 
@@ -383,9 +470,10 @@
     var selected = selectedServices();
     var durationValue = duration.value;
     var notSure = durationValue === "not-sure";
-    var hours = Number(durationValue);
-    if (!selected.length || (!notSure && !hours)) {
+    var days = Number(durationValue);
+    if (!selected.length || (!notSure && !days)) {
       estimateCard.hidden = true;
+      if (estimateBreakdown) estimateBreakdown.hidden = true;
       estimateValue.value = "";
       return;
     }
@@ -396,37 +484,62 @@
     });
     if (hasCustomService) {
       estimateTitle.textContent = "Custom quote after we review your request";
-      estimateValue.value = "Custom quotation required" + (notSure ? "; estimated work duration not sure yet" : " for " + hours + (hours === 1 ? " work hour" : " work hours")) + "; no sample price shown.";
+      estimateValue.value = "Custom quotation required" + (notSure ? "; estimated work duration not sure yet" : " for " + days + (days === 1 ? " work day" : " work days")) + "; no sample price shown.";
       agreementCopy.textContent = "I understand this custom service needs a tailored quotation and the final price will be confirmed in writing. ";
       estimateTerms.value = "Accepted: custom service requires a tailored written quotation; no sample rate shown.";
       estimateCard.classList.add("has-custom-service");
       estimateBadge.textContent = "TAILORED QUOTE";
       estimateDisclaimer.textContent = "We’ll review the scope you describe and confirm the service details and price in a written quotation before any paid work begins.";
+      if (estimateBreakdown) estimateBreakdown.hidden = true;
       estimateCard.hidden = false;
       return;
     }
 
-    var minimum = 0;
-    var maximum = 0;
+    var minimumDiscounted = 0;
+    var maximumDiscounted = 0;
+    var minimumReal = 0;
+    var maximumReal = 0;
+    var multiplier = notSure ? 1 : days;
+
     cards.forEach(function (card) {
       var low = Number(card.dataset.rateMin || card.dataset.rate || 0);
       var high = Number(card.dataset.rateMax || card.dataset.rate || low);
-      var multiplier = card.dataset.hourly === "false" ? 1 : (notSure ? 1 : hours);
-      minimum += low * multiplier;
-      maximum += high * multiplier;
+      var realLow = Number(card.dataset.realRateMin || card.dataset.realRate || low);
+      var realHigh = Number(card.dataset.realRateMax || card.dataset.realRate || high);
+
+      minimumDiscounted += low * multiplier;
+      maximumDiscounted += high * multiplier;
+      minimumReal += realLow * multiplier;
+      maximumReal += realHigh * multiplier;
     });
+
     var formatINR = new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
       maximumFractionDigits: 0
     });
 
-    var hourlyUnspecified = notSure && cards.some(function (card) { return card.dataset.hourly !== "false"; });
-    var amount = minimum === maximum ? formatINR.format(minimum) : formatINR.format(minimum) + "–" + formatINR.format(maximum);
-    estimateTitle.textContent = hourlyUnspecified
-      ? amount + " per hour; hours to be confirmed"
-      : amount + (notSure ? " estimated service price" : " for " + hours + (hours === 1 ? " work hour" : " work hours"));
-    estimateValue.value = estimateTitle.textContent + " (illustrative only; service discounts included where available)";
+    var amountDisc = minimumDiscounted === maximumDiscounted
+      ? formatINR.format(minimumDiscounted)
+      : formatINR.format(minimumDiscounted) + "–" + formatINR.format(maximumDiscounted);
+    var amountReal = minimumReal === maximumReal
+      ? formatINR.format(minimumReal)
+      : formatINR.format(minimumReal) + "–" + formatINR.format(maximumReal);
+
+    estimateTitle.textContent = amountDisc + (notSure ? " per day (duration to be confirmed)" : " for " + days + (days === 1 ? " day" : " days"));
+
+    if (maximumReal > maximumDiscounted && estimateBreakdown && estimateRealPrice && estimateDiscountBadge) {
+      var savings = maximumReal - maximumDiscounted;
+      var pct = Math.round((savings / maximumReal) * 100);
+      estimateRealPrice.textContent = "Real Price: " + amountReal;
+      estimateDiscountBadge.textContent = pct + "% OFF (Save " + formatINR.format(savings) + ")";
+      estimateBreakdown.hidden = false;
+      estimateValue.value = estimateTitle.textContent + " [Real price: " + amountReal + "; " + pct + "% discount applied]";
+    } else {
+      if (estimateBreakdown) estimateBreakdown.hidden = true;
+      estimateValue.value = estimateTitle.textContent + " (illustrative only; service discounts included where available)";
+    }
+
     agreementCopy.textContent = "I have reviewed this illustrative estimate and understand the final price will be confirmed in a written quotation. ";
     estimateTerms.value = "Accepted as a non-binding illustrative estimate";
     estimateCard.classList.remove("has-custom-service");
@@ -524,6 +637,13 @@
         }) + " at " + button.textContent + " (India Standard Time)";
         slotSummary.hidden = false;
         submitButton.disabled = false;
+        if (typeof window.trackJourneyStage === "function") {
+          window.trackJourneyStage("slot_chosen", {
+            slot_time: slot.start,
+            selected_date: dateKey,
+            services: serviceSummary.value
+          });
+        }
         submitButton.focus();
       });
       slotOptions.appendChild(button);
@@ -642,7 +762,7 @@
     }
   }
 
-  function generateRequestNumber() {
+  function generateFallbackRequestNumber() {
     var day = getTodayKey().replace(/-/g, "");
     var random = new Uint32Array(1);
     window.crypto.getRandomValues(random);
@@ -655,7 +775,7 @@
   }
 
   function buildBookingNotes(reference) {
-    var workEstimate = duration.value === "not-sure" ? "Not sure yet" : duration.value + (duration.value === "1" ? " hour" : " hours");
+    var workEstimate = duration.value === "not-sure" ? "Not sure yet" : duration.value + (duration.value === "1" ? " day" : " days");
     var notes = [
       "SimpleiTech consultation request: " + reference,
       "Requested services: " + serviceSummary.value,
@@ -669,7 +789,7 @@
   }
 
   function buildEmailMessage(reference, booking) {
-    var workEstimate = duration.value === "not-sure" ? "Not sure yet" : duration.value + (duration.value === "1" ? " hour" : " hours");
+    var workEstimate = duration.value === "not-sure" ? "Not sure yet" : duration.value + (duration.value === "1" ? " day" : " days");
     return [
       "SIMPLEITECH | NEW CONSULTATION REQUEST",
       "----------------------------------------",
@@ -737,7 +857,7 @@
       metadata: {
         requestNumber: reference,
         services: serviceSummary.value,
-        estimatedWorkHours: duration.value,
+        estimatedWorkDays: duration.value,
         illustrativeEstimate: estimateValue.value,
         estimateAccepted: "true"
       }
@@ -821,6 +941,12 @@
     updateProgress(2, false);
     setSearchExpanded(false);
     updateEstimate();
+    if (typeof window.trackJourneyStage === "function") {
+      window.trackJourneyStage("details_entered", {
+        services: serviceSummary.value,
+        estimated_work_days: duration.value
+      });
+    }
     stepProgress.scrollIntoView({ behavior: "smooth", block: "start" });
     document.getElementById("consultation-name").focus({ preventScroll: true });
     updateFindTimeAvailability();
@@ -839,6 +965,11 @@
     updateProgress(3, false);
     findTimeButton.disabled = true;
     findTimeButton.textContent = "Availability calendar below";
+    if (typeof window.trackJourneyStage === "function") {
+      window.trackJourneyStage("calendar_viewed", {
+        services: serviceSummary.value
+      });
+    }
     calendarMonthDate = new Date(calendarMonthDate.getFullYear(), calendarMonthDate.getMonth(), 1);
     loadAvailability();
     bookingPanel.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -888,13 +1019,67 @@
     submitButton.disabled = true;
     submitButton.innerHTML = 'Confirming your time <span class="submit-spinner" aria-hidden="true"></span>';
     result.className = "consultation-result is-loading";
-    result.textContent = "Verifying live availability and booking your 30-minute consultation…";
-
-    if (!requestNumber) requestNumber = generateRequestNumber();
+    result.textContent = "Verifying live availability and generating your official request number…";
 
     try {
       var currentSlot = await refreshSelectedSlot();
+      var formattedConsultationTime = new Intl.DateTimeFormat("en-IN", {
+        dateStyle: "full",
+        timeStyle: "short",
+        timeZone: CAL_TIME_ZONE
+      }).format(new Date(currentSlot.start));
+
+      var workEstimate = duration.value === "not-sure" ? "Not sure yet" : duration.value + (duration.value === "1" ? " day" : " days");
+
+      // 1. Prepare Consultation Request Payload
+      var requestPayload = {
+        client_name: document.getElementById("consultation-name").value.trim(),
+        email: document.getElementById("consultation-email").value.trim(),
+        phone_number: document.getElementById("consultation-phone").value.trim(),
+        services: serviceSummary.value,
+        estimated_work_days: workEstimate,
+        illustrative_estimate: estimateValue.value,
+        preferred_payment_method: selectedPaymentMethod(),
+        consultation_date_time: formattedConsultationTime,
+        calendar_slot_start: new Date(currentSlot.start).toISOString(),
+        notes: document.getElementById("consultation-notes").value.trim()
+      };
+
+      // 2. Call SimpleiTech Services API to generate official request number and persist to Cloudflare D1
+      try {
+        var apiRes = await fetch(getServicesApiBase() + "/requests", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(requestPayload)
+        });
+        var apiData = await apiRes.json();
+        if (apiRes.ok && apiData.request_number) {
+          requestNumber = apiData.request_number;
+        } else {
+          requestNumber = generateFallbackRequestNumber();
+        }
+      } catch (err) {
+        console.warn("Services API unreachable for request generation, falling back to local ID generator", err);
+        requestNumber = generateFallbackRequestNumber();
+      }
+
+      // 3. Create booking on Cal.com using the official request number
       var booking = await createBooking(requestNumber, currentSlot);
+
+      // 4. Update the request in Cloudflare D1 with Cal.com booking reference UID
+      if (booking && booking.uid) {
+        try {
+          await fetch(getServicesApiBase() + "/requests/" + encodeURIComponent(requestNumber), {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cal_booking_reference: String(booking.uid) })
+          });
+        } catch (patchErr) {
+          console.warn("Could not patch cal_booking_reference on request", patchErr);
+        }
+      }
+
+      // 5. Send quotation request email
       try {
         await sendRequestEmail(requestNumber, booking);
         result.className = "consultation-result is-success";
@@ -904,6 +1089,18 @@
         result.textContent = "Your consultation is booked and your request number is " + requestNumber + ", but the quotation email could not be sent. Please email sales@simpleitech.com and include this request number.";
         console.error("Consultation booking succeeded, but its request email failed.", emailError);
       }
+
+      // 6. Display the confirmed request card at the bottom of the journey
+      renderConfirmationCard(requestNumber, requestPayload, formattedConsultationTime);
+
+      if (typeof window.trackJourneyStage === "function") {
+        window.trackJourneyStage("booked", {
+          request_number: requestNumber,
+          services: requestPayload.services,
+          estimated_work_days: requestPayload.estimated_work_days
+        });
+      }
+
       submitButton.textContent = "Consultation booked";
       submitButton.disabled = true;
       findTimeButton.disabled = true;
@@ -911,7 +1108,7 @@
       updateProgress(3, true);
     } catch (error) {
       result.className = "consultation-result is-error";
-      result.textContent = (error.message || "We couldn't book your selected time.") + " Your request number is " + requestNumber + ". Please choose another slot and try again.";
+      result.textContent = (error.message || "We couldn't book your selected time.") + (requestNumber ? " Your request number is " + requestNumber + "." : "") + " Please choose another slot and try again.";
       submitButton.disabled = !selectedSlot;
       submitButton.innerHTML = 'Try this time again <i class="bx bx-right-arrow-alt" aria-hidden="true"></i>';
       console.error("Consultation booking failed.", error);
@@ -921,4 +1118,45 @@
       updateFindTimeAvailability();
     }
   });
+
+  function renderConfirmationCard(reqNum, payload, formattedTime) {
+    var card = document.getElementById("booking-confirmation-card");
+    var reqNumEl = document.getElementById("confirmed-request-number");
+    var gridEl = document.getElementById("booking-conf-grid");
+    var copyBtn = document.getElementById("btn-copy-req");
+    if (!card || !reqNumEl) return;
+
+    reqNumEl.textContent = reqNum;
+    if (gridEl) {
+      gridEl.innerHTML = [
+        '<div class="booking-conf-item"><small>Client Name</small><strong>' + escapeHtml(payload.client_name) + '</strong></div>',
+        '<div class="booking-conf-item"><small>Email</small><strong>' + escapeHtml(payload.email) + '</strong></div>',
+        '<div class="booking-conf-item"><small>Mobile Number</small><strong>' + escapeHtml(payload.phone_number) + '</strong></div>',
+        '<div class="booking-conf-item"><small>Consultation Time</small><strong>' + escapeHtml(formattedTime) + '</strong></div>',
+        '<div class="booking-conf-item"><small>Requested Services</small><strong>' + escapeHtml(payload.services) + '</strong></div>',
+        '<div class="booking-conf-item"><small>Estimated Work</small><strong>' + escapeHtml(payload.estimated_work_days) + '</strong></div>',
+        '<div class="booking-conf-item"><small>Planning Estimate</small><strong>' + escapeHtml(payload.illustrative_estimate) + '</strong></div>'
+      ].join("");
+    }
+
+    if (copyBtn) {
+      copyBtn.onclick = function () {
+        navigator.clipboard.writeText(reqNum).then(function () {
+          copyBtn.innerHTML = '<i class="bx bx-check"></i> Copied!';
+          setTimeout(function () {
+            copyBtn.innerHTML = '<i class="bx bx-copy"></i> Copy ID';
+          }, 2000);
+        });
+      };
+    }
+
+    card.hidden = false;
+    card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function escapeHtml(text) {
+    var div = document.createElement("div");
+    div.textContent = text || "";
+    return div.innerHTML;
+  }
 })();
